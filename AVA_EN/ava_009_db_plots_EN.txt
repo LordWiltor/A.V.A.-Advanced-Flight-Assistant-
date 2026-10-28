@@ -1,0 +1,159 @@
+# A.V.A. (ADVANCED FLIGHT ASSISTANT): MASTER DATABASE: MAIN PLOTS
+- **Version:** v2.5 EN
+- **File:** `ava_009_db_plots_EN.txt`
+- **Scope:** X3: Terran Conflict (v3.2 / v3.4 Vanilla + Official Bonus Pack)
+- **Hierarchy:** Layer 0 — Technical Guide, Dependency Tree, Requirements, and Rewards for the 9 Official Plots (Compiled from 302, 202, 203, 2001..2008, 2011, 2014..2017, and CSV_Mission)
+
+================================================================================
+1. DEPENDENCY TREE AND MASTER TABLE OF THE 9 PLOTS
+================================================================================
+
+### 1.1. Dependency Matrix and Cascading Unlocks
+*(Progression guide: which plots unlock which, and how to avoid campaign progression blocks)*
+
+|Target Plot|Mandatory Previous Plot Prerequisites|Additional Conditions|Subsequent Unlocks|
+|---|---|---|---|
+|**1. Terran Conflict**|None (Initial plot)|Argon >= +1 and Terran >= -2 (except Terran starts)|Aldrin 2.0, A New Home.|
+|**2. Final Fury**|None (Military plot)|Fight >= Level 10 (333 pts), Argon >= +1, Split >= -1|Aldrin 2.0.|
+|**3. Goner Temple**|None (Trade/peace plot)|Enter Elysium of Light `(14,5)` after 60 s|Aldrin 2.0, A New Home.|
+|**4. Xenon Hub (HUB)**|None (Industrial plot)|Boron >= +8 (33,333 pts) and Trade >= Level 6 (50 pts)|Headquarters (PHQ), Aldrin 2.0.|
+|**5. Headquarters (PHQ)**|**Xenon Hub (HUB)** completed (3 Gate Pairs active)|**Mandatory wait of exactly 6 real hours (360 min)**|Delivery of PHQ deployment kit.|
+|**6. Aldrin Expansion 2.0**|**Terran** + **Goner** + **Final Fury** + **HUB (Gate Pair 1 active)**|5-minute wait after fulfilling all requirements|Balance of Power, Terran Shipyard in TUS 1.|
+|**7. Treasure Hunt**|None (Independent exploration)|Must have visited **>= 92 galactic sectors**|Unique Xperimental Shuttle.|
+|**8. A New Home**|**Terran** + **Goner** completed|Unfocused Jumpdrive (UFJD) installed|Ownership of personal Sector `(20,2)`.|
+|**9. Balance of Power**|**Aldrin Expansion 2.0** completed|**30-second wait** after completing Aldrin 2.0|ATF Blueprints (Thor/Valkyrie) and unique fighters.|
+
+### 1.2. Summary Table of Requirements and Rewards for the 9 Official Plots
+- **Global Condition:** All plots are active across all official gamestarts (`{player.gamestart.plot} == 1`), except in *Custom Game*.
+- **ATF Rank Protection (`L3M02 ATF Rank Reset`):** Every 60s, the script automatically restores your ATF rank if it drops below the level unlocked during the Terran Plot.
+
+|Idx|Official Plot|XML Files (`director/`)|Exact Activation Requirements|Starting Sector & Contact|Unique Rewards, Free Ships & Key Unlocks|
+|---|---|---|---|---|---|
+|1|**Terran Conflict**|`2006` and `2001..2005`|**Terran Starts (101/102):** In *Uranus (10,1)*. **Start 112 (Aldran Adventurer):** Completed by default (`Terran Plot Complete = 1`). **Other Starts:** In *Omicron Lyrae (13,6)* with Argon >= +1 and Terran >= -2|*Uranus (10,1)* (Robert Plinter) or *Omicron Lyrae (13,6)*|4x **Rapier** (M5), 1x **Advanced Discoverer** (M5), 1x **Cutlass** (M3), 2x **Scabbard** (TP) (+30 Marines), 1x **Vidar** (M6M), 1x **Claymore** (M8), ATF Access up to **Earth**, access to **Aldrin**, and *USC Commander* gamestart unlock.|
+|2|**Operation Final Fury**|`202_Khaak_Plot.xml`|Speak with **The Exterminator** in *Omicron Lyrae (13,6)* with **Fight >= 333 pts (Rank 10)**, **Argon >= +1**, and **Split >= -1**|*Omicron Lyrae (13,6)* (Jesan Nadina in *Enhanced Elite*)|Access to **Argon Sector M148 `(14,8)`**, coordinates for 3 Kha'ak Sectors, secret container containing **`2x PALC`** (`SS_LASER_PAL`), end of Kha'ak incursions, and 1x **Griffon** drone frigate (M7).|
+|3|**Goner Plot**|`203_Goner_Plot.xml`|Enter **Elysium of Light `(14,5)`** after 60 s of gameplay|*Elysium of Light (14,5)* (Osias Avens in TL *Ozias*)|1x **Truelight Seeker** prototype corvette (M6), **Unfocused Jumpdrive (`SS_WARE_UNFOCUS_JUMP`)**, dedication of the **Goner Temple**, and *Goner Witness* gamestart unlock.|
+|4|**The HUB Plot**|`2007_HUB_Plot.xml`|Enter any **Boron** sector with **Boron Rank >= +8 (33,333 pts)** and **Trade Rank >= 6 (50 pts)**|Any Boron sector (Mahi Ma near gate)|Ownership of **Xenon Hub (`SS_DOCK_HUB`)** station in `(13,8)` with **3 pairs of realignable gates**, 1x **Enhanced Dolphin** freighter (TS), and *Lost Lar* gamestart unlock.|
+|5|**HQ Plot**|`2008_HQ_Plot.xml`|Exactly **6 real game hours (360 min)** after completing the Xenon Hub (HUB) Plot|*Ocean of Fantasy (18,3)* (Humi Wi in *Ray* destroyer)|1x **Orca** TL (boarded TL) carrying the deployable **Player Headquarters (`SS_DOCK_P_HQ`)** kit in its cargo bay.|
+|6|**Aldrin Expansion**|`2011_Version_2_Plot.xml`|Complete **Terran** + **Goner** + **Final Fury** + **HUB (Gate Pair 1 active)**. 5-min wait|*Asteroid Belt (11,3)* (Craig Armstrong)|1x **Baldric Miner** (TS), 1x **Mobile Mining Base Ship** (TL valued at 28.3M Cr), opening of **Aldrin 2, TUS 1, TUS 2, TUS 3**, and **Terran Factory Shipyard in TUS 1**.|
+|7|**Treasure Hunt**|`2014_Treasure_Hunt.xml`|Must have visited **>= 92 galactic sectors**, 10 min game time, and jump to an Argon or Boron sector|Central Pirate sector `(3,3)` to `(6,6)` (Haldok, 50k Cr)|Unique historical fighter 1x **Xperimental Shuttle** (`SS_SH_X_SHUTTLE`, M3, 321 m/s, 1x 200 MJ, non-sellable and non-reproducible at PHQ).|
+|8|**A New Home**|`CSV_Mission.xml`|Complete **Terran** + **Goner** (+ own UFJD) and fly within 2-6 jumps of *Danna's Chance (4,6)*|*Danna's Chance (4,6)* / *Elena's Fortune*|Ownership of **your own Sector `(20,2)`** (selectable from 5 asteroid resource templates and 6 canonical names, for 333,333,333 Cr) with player-owned Teladi Trading Station.|
+|9|**Balance of Power**|`2015..2017`|**30 seconds** after fully completing *Aldrin Expansion*|*Argon Sector M148 (14,8)* (Karol Roberts)|**5,805,000 Cr** in mission payouts, capture of ATF fighters 1x **Mjollnir** (M4) and 1x **Fenrir** (M3H), and **PHQ Blueprints** for ATF fighters **Thor** (M3) and **Valkyrie** (M5).|
+
+================================================================================
+2. PLOT 1: THE TERRAN CONFLICT (2006 AND 2001 TO 2005)
+================================================================================
+
+|Scene / File|Mission & Contact|Sectors Involved|Objectives, Exact Quantities & Script Mechanics|Rewards, Free Ships & Secrets|
+|---|---|---|---|---|
+|`2006` (Bridge)|**Diplomatic Bridge** (*Erin Iovis*)|*Omicron Lyrae `(13,6)`* -> *Circle of Labour* -> *Heretic's End `(13,4)`*|For non-Terran starts. Escort Iovis' TP against pirate and Xenon patrols. Speak with Iovis upon docking.|**5,000 Cr** + **ATF Access 1 (Outer System)** and **ATF Access 2 (Asteroid Belt)**.|
+|`2001` (Scene 1)|**The Sol Incident** (*Robert Plinter*)|*Uranus `(10,1)`* -> *Neptune* -> *Oort Cloud `(7,1)`* -> *Saturn*|1. Destroy >=5 Xenon N/M, scan and destroy Jump Beacon (`X:25, Y:2, Z:3 km`). 2. Follow Message Drone to Martin Winters' Nova (`X:2, Y:10, Z:-30 km`). 3. Patrol back to Saturn.|Bounty credits for Xenon kills during patrol.|
+|`2002` (Scene 2)|**Terran Reconnaissance** (*Lt. Jackson*)|*Asteroid Belt `(11,3)`* -> *Mars* -> *Heretic's End* -> *Unknown Sector `(12,5)`* -> *Venus*|1. Tail Pirate Nova Raider at **>2 km** to Pirate Base in `(12,5)`. 2. Scan base at **<500 m for 40 s**. 3. Destroy 5 #deca Terraformers on patrol. 4. Escort TP to Venus.|**ATF Access 3 (Mars)** + 1x **Rapier** in Mars + wing of 3x **Rapier** (armed) + **ATF Access 4 (Venus)** + 1x **Advanced Discoverer** in Venus.|
+|`2003` (Scene 3)|**Rescue of Pearle** (*Heywood / Haleos*)|*Nathan's Voyage `(15,7)`* -> *Grand Exchange* -> *Tears of Greed* -> *Argon Sector M148 `(14,8)`*|1. Scan and destroy 3 smuggler TS freighters in `(20,7)`. 2. Deliver **200x Teladianium** to M148 Military Outpost (requires Argon Rank +3). 3. Pick up astronauts Heywood and Pearle and transport them to Heretic's End.|If you do not own a Freight Scanner, Heywood installs **1x Freight Scanner for free** + **20,000 Cr** + **1x Cargo Bay Life Support System for free** + **ATF Access 5 (Mercury)**.|
+|`2004` (Scene 4)|**Split Espionage and Sabotage** (*Capt. Pearle*)|*Asteroid Belt `(11,3)`* -> *Family Zyarth `(18,5)`*, *Family Ryk `(18,4)`*, *Zyarth's Dominion `(19,5)`* -> *The Moon*|1. Deploy 1x Navigation Relay Satellite in each of the 3 Split sectors. 2. Attack Jumpdrive-equipped freighter until pilot bails (<20% hull), **claim the Caiman and personally pilot it within <600 m of the Elephant TL** to plant the tracking device. 3. Rescue scientist in `(20,5)`.|1x **Caiman** freighter (captured TS) + 1x **Cutlass** fighter (fully equipped M3: 6x EMPC, 6x 25 MJ) + **ATF Access 6 (Lunar Access)**.|
+|`2005` (Scene 5)|**The Rediscovery of Aldrin** (*Jackson*)|*Mars `(12,3)`* -> *The Moon* -> **Aldrin `(13,10)`** -> *Earth `(13,3)`*|1. Boarding exercise against the **Vidar** corvette in Mars. 2. Jump to Aldrin alongside the Tyr destroyer (**requires 60 Energy Cells** in M3/M6 or **120** in capital). 3. Defend station and board the **#deca** CPU ship. 4. Transport dignitaries (24 free M cargo units and Cargo Bay Life Support System) to Earth Torus.|1x **Scabbard** (TP) with **15 Marines** + 1x **Vidar** corvette (M6M) *(transfers ownership free after 700s without boarding)* + 2nd **Scabbard** with **15 Marines** + **ATF Access 7 (Earth)** + 1x **Claymore** (M8, equipped) + *USC Commander* gamestart unlock. *(Secret: only window in the game to capture the **#deca** M1 via synchronized double-boarding with a player-owned M7M).*|
+
+================================================================================
+3. PLOT 2: OPERATION FINAL FURY (202_Khaak_Plot.xml + 302)
+================================================================================
+
+|Scene|Mission & Contact|Sectors Involved|Objectives, Exact Quantities & Script Mechanics|Rewards, Secrets & Military Rank|
+|---|---|---|---|---|
+|Scene 1|**Initiation in Black Hole Sun** (*The Exterminator*)|*Omicron Lyrae `(13,6)`* -> *Black Hole Sun* -> *Argon Sector M148 `(14,8)`*|Repel Xenon invasion in Black Hole Sun and dock at Military Base in Argon Sector M148.|**Permanently sets all M148 (14,8) stations to friendly** + Final Fury Rank = 11 pts.|
+|Scene 2|**Kha'ak Reconnaissance** (*Krigi t'Scht*)|*Kha'ak Sector 931 `(16,11)`* and *Kha'ak Sector 841 `(14,12)`*|1. Deploy Advanced Satellite in Sector 931. 2. In Sector 841, navigate minefield of 34 SQUASH Mines (`X:15, Y:-1, Z:18 km`) and retrieve Black Box.|**EXCLUSIVE WEAPON:** In the Sector 841 minefield (`X:14.9, Y:1.1, Z:18.1 km`), **2x Phased Array Laser Cannon (PALC)** (`SS_LASER_PAL`) spawn (33% prob.; only source in entire game).|
+|Scene 3|**Mining Operation** (*Krigi t'Scht*)|*Unknown Sector `(14,7)`*|Scan 3 mission-spawned asteroids (Ore 27, Silicon 36, Ore 31) and protect the TL while it deploys the 3 L mines.|Double credit payout + Final Fury Rank = 101 pts.|
+|Scene 4|**The Convoy and Forward Base** (*Krigi t'Scht*)|*Unknown Sector `(14,7)`* -> *M148*|Escort 3-ship Teladi convoy and destroy Kha'ak Station in `(14,7)` (`X:-147.2, Y:0, Z:12.8 km`).|Final Fury Rank = 283 pts (Lieutenant).|
+|Scene 5|**Military Campaign (`L2OFF`)** (*Krigi t'Scht*)|Kha'ak Sectors 841, 931, `(14,7)`, and M148|Complete 4 to 6 random military missions (escort, Split outpost defense, or patrol) until reaching **Military Rank 7 (Captain)**.|Each mission awards +33% to +50% rank progress. Destroying stations drops crates of Nividium, Crystals, and 1 GJ Shield.|
+|Scenes 6 & 7|**Defense of M148 and Final Assault** (*Krigi t'Scht*)|*Argon Sector M148 `(14,8)`* -> **Kha'ak Sector 926 `(15,13)`**|1. Destroy Kha'ak invasion fleet in M148. 2. Jump to Sector 926: for each of the 3 Kha'ak stations, destroy their **3 Hive Guardians (`SS_SH_K_HIVEGUARD`)** to strip invulnerability and destroy them.|Disables aggressive Kha'ak respawning galaxy-wide (`aggression=0`) + awards unique drone frigate 1x **Griffon** (`SS_SH_A_M7_SPECIAL`, M7) in M148.|
+
+================================================================================
+4. PLOT 3: NEW GONER TEMPLE CONSTRUCTION (203_Goner_Plot.xml + 302)
+================================================================================
+
+|Scene / Step|Mission & Contact|Sectors Involved|Objectives, Exact Wares & Script Mechanics|Rewards, Free Ships & Unlocks|
+|---|---|---|---|---|
+|Scene 1|**Foundations (Phase 1)** (*Osias Avens*)|*Elysium of Light `(14,5)`*|Deliver within <5 km of TL Ozias: **2,000x Ore** + **200x Silicon Wafers**.|Bonus credit payout + Goner Reputation.|
+|Scene 2 (Step 1)|**Supplies (Phase 2)** (*Jani Hall*)|*Elysium of Light `(14,5)`*|Deliver to Ozias: **2,000x Ore** + **1,200x Teladianium**.|Credit payout + 3D Temple advances to Phase 2.|
+|Scene 2 (Step 2)|**Teladianium Panelling** (*Jani Hall*)|*Bright Profit `(18,12)`* -> *Elysium*|Pick up **625x Teladianium Panelling** (2,500 L) for free at Goner Foundry and deliver to Ozias.|Transport payout.|
+|Scene 2 (Step 3)|**Freighter Fleet** (*Jani Hall*)|*Omicron Lyrae `(13,6)`* -> *Elysium*|Purchase and deliver **3x Argon TS-class Freighters** (any basic Mercury) by docking them in Elysium. *(Strip Jumpdrives or extra equipment beforehand, as they are lost upon transfer).*|100% base value refund for the 3 TS ships + **20,000 Cr**.|
+|Scene 2 (Step 4)|**Dedicated Foundry** (*Osias Avens*)|*Elysium of Light `(14,5)`*|Deploy a **Teladi Teladianium Foundry M** near the beacon in Elysium (`X:1, Y:1.25, Z:10 km`).|Station cost refund + Temple advances to Phase 3.|
+|Scene 3|**Sector Defense** (*Osias Avens*)|*Wastelands `(16,7)`*, *Midnight Star*, *Tears of Greed*|Protect the Truelight Seeker and successfully complete 4 consecutive defenses of Goner freighters/stations against pirates.|Combat payouts + Temple advances to Phase 4.|
+|Scene 4|**Theft of the Truelight Seeker** (*Osias Avens*)|*Grand Exchange `(19,7)`* -> *Maelstrom* -> *Gaian Star `(17,9)`*|1. Claim or board the Truelight Seeker in `(19,7)`. 2. Tail Blastclaw at 10-15 km to Pirate Base in `(17,9)`. 3. Rescue astronaut Jani Hall.|**FREE UNIQUE SHIP:** Transferred ownership of prototype corvette 1x **Truelight Seeker** (`SS_SH_TLS`, M6) (mounts all weapons in the game: PPC, Gauss, PSP, Kyon Emitters).|
+|Scene 5|**Infiltration and Destruction** (*Jani Hall*)|*Gaian Star `(17,9)`* -> *Elysium of Light `(14,5)`*|Carry in cargo hold: **35x Space Weed** + **60x SQUASH Mines**. Dock at Pirate Base, deliver supplies to Ser Keppel, evacuate him as a passenger, and deliver him to Ozias.|Dedication of the **Goner Temple** in `(14,5)` + **Unfocused Jumpdrive (`SS_WARE_UNFOCUS_JUMP`)** + *Goner Witness* gamestart unlock.|
+
+================================================================================
+5. PLOT 4: THE XENON HUB - THE HUB PLOT (2007_HUB_Plot.xml + 302)
+================================================================================
+*(Official values adjusted to Patch 3.0)*
+
+|Phase / Chapter|Xenon Hub (HUB) Milestone|Required Ware / Action (Patch 3.0)|Cargo Volume|Unlocks & Code Secrets|
+|---|---|---|---|---|
+|Initial Phase|**Discovery of the HUB** (*Mahi Ma*)|Investigate Xenon Hub `(13,8)` (<1.5 km from Titan), rescue Mahi Ma in spacesuit, and dock at the HUB.|6 units (M)|**HIDDEN UNIQUE SHIP:** Mahi Ma's freighter 1x **Enhanced Dolphin** (`SS_SH_B_TS_ENH`) is left pilotless in the Boron sector: claim it before jumping! Ownership of the **Xenon Hub (`SS_DOCK_HUB`) station transfers to you**.|
+|Chapter 1 (Part A)|**1st Gate Pair (Activation)**|1. **400x Computer Components**; 2. **500x Microchips**; 3. **Repair 3x Capacitors in spacesuit** to 100% hull.|400 L (S) / 1,000 L (S)|**Unlocks 1st Realignment of Gate Pair 1** + grants **10,000x Energy Cells** at the HUB.|
+|Chapter 1 (Part B)|**1st Gate Pair (Repair)**|1. **150,000x Teladianium**; 2. **450,000x Ore**; 3. Wait 10 min for repairs.|750,000 L (M) / 3,600,000 L (XL)|**Permanently unlocks Gate Pair 1** and sets the progress flag enabling the **Aldrin Expansion 2.0**.|
+|Chapter 2|**2nd Gate Pair**|1. **500x Nividium** *(mine in Perpetual Sin 12,12 or Sector 7,15)*; 2. **250,000x Crystals** *(reduced from 750,000)*.|2,000 L (XL) / 1,000,000 L (M)|**Permanently unlocks Gate Pair 2**.|
+|Chapter 3|**3rd Gate Pair**|1. Pay **15,000,000 Cr** to Otmanckstras in `(3,6)` and transport him to the HUB; 2. **400,000x Silicon Wafers**; 3. **75,000x Microchips** *(reduced from 250,000)*; 4. Deliver Mahi Ma to the dock in Kingdom End `(0,0)`.|7,200,000 L (XL) / 150,000 L (S) / 6 L (M)|**Unlocks Gate Pair 3 (Hub 100% operational with 6 gates)** + *Lost Lar* gamestart unlock + **Starts 6-hour real-time countdown (360 min) for the PHQ Plot**.|
+
+================================================================================
+6. PLOT 5: BALA GI'S LEGACY - PHQ PLOT (2008_HQ_Plot.xml + 302)
+================================================================================
+
+|Scene|Mission & Contact|Sectors Involved|Objectives, Coordinates & Script Mechanics|Rewards & PHQ Acquisition|
+|---|---|---|---|---|
+|Scene 1|**Ambush in Paradise** (*Humi Wi*)|*Ocean of Fantasy `(18,3)`* -> *Menelaus' Paradise `(18,1)`*|At **exactly 6 hours** after finishing the HUB, speak with Humi Wi aboard his Ray destroyer, jump to Menelaus' Paradise, and eliminate the 12 attacking Yaki fighters.|Containers dropped from the Boron laboratory.|
+|Scene 2|**The Yaki Minefield** (*Brano*)|*Cloudbase South West `(0,5)`* -> *Ocracoke's Storm `(0,8)`*|Approach the Yaki Laboratory in `(0,8)` surrounded by 30 SQUASH/Ion Mines across a 15 km radius. **Destroy mines until <= 7 remain** and eliminate the laboratory alongside allied forces.|Clears the Yaki sector blockade.|
+|Scene 3 (Part A)|**Scientist Rescue** (*Mahi Ma*)|*Atreus' Clouds `(3,2)`* -> *Olmancketslat's Treaty `(4,4)`*|Fly to Pirate Base in `(4,4)`: 8 Boron scientists escape in stolen fighters. Protect them until they jump out of the sector with support from Humi Wi's Ray and Thresher.|Boron heavy fleet fire support.|
+|Scene 3 (Part B)|**Boarding the Orca with your PHQ** (*Mahi Ma*)|*Light Water `(5,8)`* or *Shore of Infinity `(5,9)`* (50% random)|Locate the Boron **Orca** TL 20-30 km from sector center. **Board the Orca TL with Marines** (turns hostile Yaki upon closing to <30 km; hull is invulnerable until Marines breach the interior).|**SUPREME REWARD:** You claim ownership of 1x **Orca** TL (`SS_SH_B_TL`) containing, inside its cargo hold (`critical=1`), the deployable **Player Headquarters (`SS_DOCK_P_HQ`)** kit.|
+
+================================================================================
+7. PLOT 6: ALDRIN EXPANSION 2.0 (2011_Version_2_Plot.xml + 302)
+================================================================================
+
+|Scene / Step|Mission & Contact|Sectors Involved|Objectives, Exact Quantities & Script Mechanics|Rewards, Free Ships & New Sectors|
+|---|---|---|---|---|
+|Scene 1 (Step 1)|**UFJD Mining Expedition** (*Craig Armstrong*)|*Asteroid Belt `(11,3)`* -> *UFJD Sector* -> *Earth*|Jump with the Unfocused Jumpdrive (UFJD) to the unknown sector, mine and deliver **100x Nividium** to the station in Asteroid Belt.|1x **Baldric Miner** (`SS_SH_USC_TS_1`) fully equipped for free upon mission acceptance + **1,632,800 Cr** upon delivering Nividium.|
+|Scene 1 (Step 2)|**Opening Aldrin 2 and TUS 1/2** (*ATF Agent*)|*Aldrin `(13,10)`* -> **Aldrin 2 `(14,10)`** -> **TUS 1 `(15,10)`** -> **TUS 2 `(15,9)`**|Transport the agent to Aldrin 2, approach the East Gate (`X:11, Y:0, Z:-10 km`) to open the link to TUS 1, repel Xenon incursions, and escort Katana until opening gate to TUS 2.|Permanent opening of the transorbital accelerators and jump gates connecting **Aldrin 2**, **TUS 1**, and **TUS 2**.|
+|Scene 2|**The Paranid Conspiracy** (*ATF Agent*)|*TUS 1 `(15,10)`* -> *Perpetual Sin* -> *Spaceweed Grove* -> *Unknown Sector `(7,15)`*|1. Scan Kha'ak debris in Perpetual Sin (`X:12, Y:2, Z:2 km`). 2. Purchase and deliver a **Nemesis** corvette in `(11,10)` *(jump it using a Jumpdrive to avoid LooManckStrat's Legacy and strip the Jumpdrive via Transporter Device prior to delivery)*. 3. Destroy satellites and escort Yokohama in `(7,15)`.|**+20,000 Cr** + base hull cost refund for the Nemesis + **+3,000 Terran Notoriety** + **ATF Access 8 (Research)**.|
+|Scene 3 (Part A)|**Rescuing Bala Gi and the Mining TL** (*Julian Brennan*)|**TUS 3 `(16,10)`** -> *TUS 1* -> *Aldrin 2* -> *Asteroid Belt*|1. Open gate to TUS 3, escort Bala Gi's Angel to Aldrin 2. 2. **Tow the Mobile Mining Base Ship with a Tractor Beam** from TUS 3 across the gate to >5 km inside Aldrin 2.|**FREE TERRAN TL:** Transferred ownership of 1x **Mobile Mining Base Ship** (`SS_SH_USC_TL_MINING`, TL valued at **28,344,846 Cr**).|
+|Scene 3 (Part B)|**HUB Isolation and Shipyard** (*Bala Gi*)|*Asteroid Belt* -> *Neptune `(9,1)`* -> *Xenon Hub `(13,8)`* -> *TUS 2 `(15,9)`*|1. Deliver Glowing Crystal to Neptune gate (`X:20, Y:0, Z:-40 km`). 2. Bring Bala Gi to the HUB and **realign a HUB gate pair between TUS 1 and TUS 2**. 3. Connect North gate of TUS 2 to Neptune.|**KEY UNLOCK:** Creates the **Terran Shipyard in TUS 1 `(15,10)` selling all player-buildable Terran Factories (`_PL`)** + after 120 min opens gate from TUS 3 to Xenon Sector.|
+
+================================================================================
+8. PLOT 7: TREASURE HUNT (2014_Treasure_Hunt.xml)
+================================================================================
+
+|Stage / Clue|Exact Resolved Sector|HUD Coordinates (km)|Objective & Riddle Solution in Script|Technical Notes|
+|---|---|---|---|---|
+|Start|Central Pirate sector `(3,3)` to `(6,6)` -> Yaki Sector|50-70 km from center|Pay 50k Cr to Haldok at station with blue book icon. Jump to Yaki sector, speak with Susanowa Prototype, destroy its satellite, and **eject 1x personal Advanced Satellite within <2 km of its beacon**.|Keep 1x Advanced Satellite and Mineral Scanner in cargo hold.|
+|Clue 1|*Ore Belt `(1,5)`*|`X:10, Y:5, Z:44 km`|Approach within <10 km of the special **Nividium asteroid (yield 55)**, destroy it, and collect the Data Log container.|Asteroid invulnerability drops at <10 km.|
+|Clue 2|*Bala Gi's Joy `(4,3)`*|`X:25, Y:1, Z:50 km`|Fly to coordinates and collect Data Log container.|No hostile ships.|
+|Clue 3|*Xenon Sector 347 `(11,7)`*|`X:90, Y:0, Z:0 km`|Approach within <8 km of decoy container, eliminate ambush of up to 22 Fighter Drone MKII, and collect the Data Log.|Drone squad size scales with player ship class.|
+|Clue 4|*Akeela's Beacon `(8,6)`* -> Teleport|`X:0, Y:150, Z:0 km`|From the 7 navigational beacons, approach within **<6 km of the real beacon near plane Y~0**: ship is teleported to Y:150 km in the starting pirate sector next to the 4th Data Log.|Automatically deletes dummy Xenon ships.|
+|Clue 5|*Savage Spur `(0,7)`*|`X:5, Y:-30, Z:65 km`|Fly to coordinates and collect Data Log.|No hostile ships.|
+|Clue 6|*President's End `(2,4)`*|`X:26, Y:11, Z:49 km`|Fly to coordinates and collect Data Log.|No hostile ships.|
+|Clue 7|*Herron's Nebula `(1,2)`*|`X:0, Y:50, Z:0 km`|Fly 50 km above sector center and collect Data Log.|No hostile ships.|
+|Clue 8|*Rhonkar's Clouds `(7,3)`*|Random Asteroid|Scan asteroids with Mineral Scanner until locating the **Nividium asteroid (yield 12)**, destroy it, and collect Data Log.|Becomes destructible upon scanning.|
+|Finale (Part 1)|*Xenon Sector 101 `(5,7)`* -> *Argon Prime*|`X:-10, Y:10, Z:-70 km`|Scan Titan Debris within <600 m. Haldok ambushes in the **Xperimental Shuttle**: drop his shields to <=5% and hull to <=97% to force him to bail, pick him up, and fly him to Argon Prime Shipyard.|Xperimental Shuttle is temporarily impounded.|
+|Finale (Part 2)|*Savage Spur `(0,7)`* -> *Argon Prime*|`X:-50, Y:0, Z:50 km`|Eliminate escorts and **suppress pirate Albatross TL shields below <10% at <3 km range** so all 7 crew members beam into your hold (requires Cargo Bay Life Support System and 42 free M units). Deliver them to Argon Prime.|**UNIQUE REWARD:** Awarded 1x **Xperimental Shuttle** (`SS_SH_X_SHUTTLE`, M3, 321 m/s, 1x 200 MJ) at Argon Prime Shipyard. *(If any crew member dies in transit, the ship is lost forever)*.|
+
+================================================================================
+9. PLOT 8: A NEW HOME (CSV_Mission.xml)
+================================================================================
+
+|Chapter|Mission & Contact|Sectors Involved|Objectives, Exact Puzzle Solutions & Costs|Rewards & Ownership of Your Sector|
+|---|---|---|---|---|
+|Chapter 1|**The #cafe Threat and Blind Jump in TM** (*Jeff Marxon*)|*Danna's Chance `(4,6)`* -> *Freedom's Reach `(4,7)`*|1. Accept briefing. 2. Jump to `(4,6)` (**DO NOT approach within <15 km of #cafe: destroys your ship instantly**). 3. When #cafe jumps to `(4,7)`, **board a TM ship with 1 docked fighter and execute 3 to 6 blind jumps using the Unfocused Jumpdrive (UFJD)** until emerging in Freedom's Reach.|Teladi Trading Station grants 20 Energy Cells upon docking.|
+|Chapter 2|**Evacuation of Freedom's Reach** (*Belisarius*)|*Freedom's Reach `(4,7)`* -> *Elena's Fortune `(3,4)`*|Destroy 3 #deca fighters. Dock with a TM or freighter with **>= 564 free M units and Cargo Bay Life Support System** to evacuate the 91 passengers and deliver them to Elena's Fortune Military Outpost.|**+31,254 Cr** + Argon Reputation boost.|
+|Chapters 3 & 4|**Investigation in Queen's Retribution and Aldrin** (*Gaga Wa / Ketraar*)|*Queen's Retribution `(17,14)`* -> *Aldrin `(13,10)`*|Dock at Boron Super Shipyard in Queen's Retribution, fly to Aldrin, and speak with Ketraar and Nola Hi at Unknown Base. Wait 10 min for incoming message.|UFJD homing frequency for friendly CPU ship #efaa.|
+|Chapter 5|**Deep Space Encounter with #efaa** (*#efaa*)|*UFJD Sector* -> *Freedom's Reach `(4,7)`*|Execute 5 to 8 UFJD jumps until arriving in #efaa's hidden sector. Approach within <25 km of #efaa, solve its riddle, and **wait 6 to 12 min** while it recalibrates your drive and teleports both ships to Freedom's Reach.|Automatically restores your Jumpdrive.|
+|Chapter 6|**Hacking #cafe's Firewall** (*#efaa / Jigsaw*)|*Freedom's Reach `(4,7)`* -> *Elena's Fortune `(3,4)`*|Approach within **<26 km of #cafe (remaining at >15 km)** to initiate hacking: 1. **Firewall 1 (9x9 Sudoku):** Fill empty cells 1 through 9; 2. **Firewall 2 (7-digit Password):** Enter code **`2947259`**; 3. **Firewall 3 (Mastermind):** Guess 4-color code. Pick up astronaut Jigsaw and transport him to Elena's Fortune.|Permanently resolves the threat and lifts Freedom's Reach blockade.|
+|Chapter 7|**Purchase and Naming of Your Personal Sector (20,2)** (*Paranid Notary*)|*Elena's Fortune* -> *Freedom's Reach* -> *Unknown Sector `(20,5)`* -> **Your Sector `(20,2)`**|Pay Paranid Notary at *Freedom's Reach `(4,7)`* Trading Station **`333,333,333 Cr`**, choose 1 of 5 asteroid resource templates, and 1 of 6 official names. Fly through new North Gate in `(20,5)` (`X:0, Y:0, Z:80 km`).|**YOUR OWN SECTOR `(20,2)`:** Sector transfers to Player race with player-owned Trading Station and dozens of rich asteroids (see `ava_006_db_universe_EN.txt`).|
+
+================================================================================
+10. PLOT 9: BALANCE OF POWER (2015..2017)
+================================================================================
+
+|Scene / Mission|Title & Contact|Sectors Involved|Objectives, Payouts, Supplies & Script Mechanics|Rewards, Unique ATF Fighters & PHQ Blueprints|
+|---|---|---|---|---|
+|`2015` (Scene 1)|**Dark Space Contact** (*Karol Roberts / Torres*)|*Argon Sector M148 `(14,8)`* -> *Pluto* -> *Unknown Sector `(7,4)`* -> *Oort Cloud*|Deliver to Torres in `(7,4)`: **500x Terran MRE**, **1,000x Water**, and **250x Hull Plating**. Escort Scabbard transport to Dark Space station.|**+305,000 Cr** total in Scene 1.|
+|`2016` (Scene 2 - Part A)|**Blueprint Scanner and Mjollnir** (*Evans / Torres / Sheela*)|*Unknown Sector `(7,4)`* -> *Oort Cloud `(7,1)`* -> *Kuiper Belt `(8,0)`*|1. Deliver **75x Quantum Tubes**, **50x Microchips**, and **100x Computer Components**. 2. Using the Blueprint Scanner (`SS_WARE_BLUEPRINTSCANNER`), **scan the Valkyrie fighter within <150 m for 30 s** without destroying it. 3. Pay 1.5M Cr to Sheela in Oort Cloud, force **Mjollnir** pilot in `(8,0)` to bail, claim ship, and deliver it to `(7,4)`.|**+1,600,000 Cr** in mission payouts and Mjollnir compensation.|
+|`2016` (Scene 2 - Part B)|**Assaulting the ATF and Stealing the Fenrir** (*Evans / Claussen*)|*Unknown Sector `(7,4)`* -> *Unknown Sector `(8,5)`* -> *Neptune* -> *Herron's Nebula* -> *Unknown Sector `(8,4)`*|1. Send a remote Scabbard with **10 Marines** to board ATF Base in `(8,5)`. 2. Buy Space Fuel in Herron's Nebula for 25k Cr for Claussen in Neptune, dock at ATF Defense Station in `(8,4)`: after 60 s, heavy fighter **Fenrir** transfers to your control; send it to `(7,4)`.|**+500,000 Cr** in payouts + Fenrir hull value compensated.|
+|`2017` (Scene 3)|**Pirate Treachery and ATF Blueprints** (*Roberts / Hayla*)|*Unknown Sector `(7,4)`* -> *Nathan's Voyage `(15,7)`* -> **Maelstrom `(19,9)`** -> **Gaian Star `(17,9)`**|1. Purchase technology in Heretic's End for 1.75M Cr and deliver **200x Hull Plating**, **150x Teladianium**, and **100x Computer Components**. 2. In Maelstrom, **search for hidden Pirate Base guided by sonar ping frequency** (revealed at <11 km). 3. When **Mjollnir** and **Fenrir** launch from base towards `(17,9)`, **force both pilots to bail (morale set to 20) and claim both ships without destroying them**. 4. Escape ambush by 4 Tyr destroyers in `(15,7)`.|**CRITICAL REWARD & PHQ BLUEPRINTS:** 1. **+2,300,000 Cr** net; 2. Keep ownership of both unique ATF fighters: 1x **Mjollnir** (M4) and 1x **Fenrir** (M3H); 3. **Free Blueprints at your PHQ:** If you **claim and preserve the Mjollnir**: blueprint for ATF heavy fighter **Thor** (M3); If you **claim and preserve the Fenrir**: blueprint for ATF scout **Valkyrie** (M5). *(If PHQ is not yet built, blueprints automatically inject 10 min after PHQ deployment)*.|

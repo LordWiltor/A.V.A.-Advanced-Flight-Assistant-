@@ -1,0 +1,140 @@
+# A.V.A. (ADVANCED FLIGHT ASSISTANT): MASTER INDEX, QUERY ROUTER, AND TECHNICAL GLOSSARY
+- **Version:** v2.5 EN
+- **File:** `ava_001_index_EN.txt`
+- **Scope:** X3: Terran Conflict (v3.2 / v3.4 Vanilla + Official Bonus Pack)
+- **Hierarchy:** Layer 0 — Source Catalog, Key Dictionary, and Mechanics Encyclopedia
+
+================================================================================
+1. SOURCE MANIFEST AND QUICK-ACCESS ROUTER
+================================================================================
+
+|File (.txt)|Layer / Range|Main Thematic Content|Technical Descriptors / Keywords|
+|---|---|---|---|
+|`ava_000_core_EN.txt`|Layer 0 (000-099)|Base system instructions and logic engine; Deterministic calculation rules and precedence.|A.V.A. Engine, Precedence, Net DPS, N-1 Complexes, PHQ Conversion, Sale Appraisal, Jump.|
+|`ava_001_index_EN.txt`|Layer 0 (000-099)|Source manifest and relational schema; Units of measurement and encyclopedic glossary.|Index, Directory, Router, Glossary, IS/OOS, MK3, Bonus Pack, Units.|
+|`ava_002_mods_EN.txt`|Layer 0 (000-099)|Modifications registry and installed mods; Parameters overriding Vanilla.|Active mods, Overrides, Delta patch, TD_MiniMod, Modified values.|
+|`ava_003_db_weapons_EN.txt`|Layer 0 (000-099)|37 Lasers (RPM, DPS, MW, Effic); 35 Missiles (Damage, Speed, Guidance); 6 Shields (MJ, Recharge kJ/s).|Laser, Missile, Shield, DPS, Ammo, Fire rate, Torpedo, Swarm, Recharge, EBC, PPC.|
+|`ava_004_db_ships_EN.txt`|Layer 0 (000-099)|329 Complete official ships; Turret arcs and generators; Hangars, cargo bays, and shipyards.|Ship stats, Speed, Turn rate, Hull, Laser generator, Hangar bay, Shipyard, Variants.|
+|`ava_005_db_economy_EN.txt`|Layer 0 (000-099)|98 Wares and resources; 49 Upgrades and ship software; 303 Factories and mines; 41 Docks and corporations.|Complex, Factory, Mine, Yield, Sun, Crystal, Racial food, Software, Jumpdrive, CCK.|
+|`ava_006_db_universe_EN.txt`|Layer 0 (000-099)|231 Fixed galactic sectors (+ UFJD); Gate vs TOA connections; Buildable asteroids and debris; 19 Abandoned ships and 12 secret containers.|Sector, Coordinates (X,Y), TOA, Jump Gate, Free ships, Secret containers, Nividium, Ice.|
+|`ava_007_db_mechanics_EN.txt`|Layer 0 (000-099)|27 Parameters from Globals.txt; PHQ (hq.xml: construction/recycling); 31 Ranks and 16 Reputations; Marine Boarding and Bailing.|PHQ, Headquarters, Boarding, Marines, Bailing, Surrender, Radar, Satellite, Reputation.|
+|`ava_008_db_corporations_EN.txt`|Layer 0 (000-099)|8 Corporations (missions/ranks); 25 Exclusive corporate ships; 18 Official game starts (start.xml / gamestarts); Overtuned ships.|Corporation, TerraCorp, OTAS, Gamestarts, Gamestart ID, Bitmask, Hyperion 250 m/s.|
+|`ava_009_db_plots_EN.txt`|Layer 0 (000-099)|9 Complete official plots; Dependency tree and cascading unlocks; Step-by-step guides and HUB quantities (v3.0).|Plot, Story missions, HUB, PHQ, Operation Final Fury, Goner, Aldrin 2.0, Treasure Hunt, A New Home.|
+|`ava_100_log_core_EN.txt`|Layer 1 (100-199)|Memory manager instructions; State-reading protocol, onboarding, and session closing.|Logbook rules, Persistence, Savegame, 2-block report, Session close.|
+|`ava_101_log_campaign_EN.txt`|Layer 1 (100-199)|Pilot current campaign state; Credits, ships, and visited sectors; Reputations and active objectives.|Saved game, Current credits, Flagship, Active fleet, Campaign progress.|
+|`ava_102_log_campaign_TEMPLATE_EN.txt`|Layer 1 (100-199)|Blank neutral disc-reserve template; Clean mold to initialize new campaigns.|Log template, Local disk backup, Clean campaign mold.|
+|`ava_200_persona_TEMPLATE_EN.txt`|Layer 2 (200-299)|Blank template / voice standard; Attitude variables, address tone, and mannerisms.|Personality SDK, Voice template, Roleplay mold, Address variables, Immersion.|
+|`ava_201_persona_betty_EN.txt`|Layer 2 (200-299)|Official personality module: Betty; Dual attitude (confidante vs tactical).|Betty, Active personality, Confidante, Historical lore, Tactical officer, Diegetic.|
+|`ava_INSTRUCTIONS_EN.txt`|Documentation|Compiled Master Bundle. Optimized merge without redundant headers of `ava_000_core_EN.txt`, `ava_100_log_core_EN.txt`, and `ava_201_persona_betty_EN.txt`, ready for single-step pasting into System Prompt.|
+|`README.md`|Documentation|User manual and deployment guide; Flight cycle, mods, voice SDK, and i18n.|Manual, Installation, Deployment, Operating instructions, Translation.|
+
+================================================================================
+2. RELATIONAL SCHEMA, INDEXING KEYS, AND UNITS
+================================================================================
+
+### 2.1. Identifier Mapping and Primary Keys
+|Key Type / Prefix|Represented Entity|Primary Cross-Reference Files|Representative Example|
+|---|---|---|---|
+|`SS_SH_*`|Spaceships|`ava_004_db_ships_EN.txt` ⟷ `ava_008_db_corporations_EN.txt` ⟷ `ava_009_db_plots_EN.txt` ⟷ `ava_006_db_universe_EN.txt` ⟷ `ava_007_db_mechanics_EN.txt`|`SS_SH_A_M3` (Nova)|
+|`SS_LASER_*`|Laser and beam weaponry|`ava_003_db_weapons_EN.txt` ⟷ `ava_004_db_ships_EN.txt` ⟷ `ava_005_db_economy_EN.txt` (Forges and Docks)|`SS_LASER_HEPT` (High Energy Plasma Thrower)|
+|`SS_MISSILE_*`|Missiles, torpedoes, and pods|`ava_003_db_weapons_EN.txt` ⟷ `ava_004_db_ships_EN.txt` ⟷ `ava_005_db_economy_EN.txt` ⟷ `ava_006_db_universe_EN.txt` (Secret containers)|`SS_MISSILE_A` (Mosquito)|
+|`M_*`|Missile compatibility groups|`ava_004_db_ships_EN.txt` (Missiles Column) ⟷ `ava_003_db_weapons_EN.txt` (Group Code Column)|`M_LIGHT`, `M_MED`, `M_POD`|
+|`SS_SHIELD_*`|Protective shields|`ava_003_db_weapons_EN.txt` ⟷ `ava_004_db_ships_EN.txt` ⟷ `ava_005_db_economy_EN.txt` (Factories)|`SS_SHIELD_C` (25 MJ Shield)|
+|`SS_WARE_*`|Wares, software, and upgrades|`ava_005_db_economy_EN.txt` ⟷ `ava_007_db_mechanics_EN.txt` ⟷ `ava_008_db_corporations_EN.txt` ⟷ `ava_009_db_plots_EN.txt`|`SS_WARE_WARPING` (Jumpdrive)|
+|`SS_FAC_*`|Factories, mines, and complexes|`ava_005_db_economy_EN.txt` ⟷ `ava_006_db_universe_EN.txt` (NPC Factories)|`SS_FAC_A_POWER_2` (Solar Power Plant XL)|
+|`SS_DOCK_*`|Docks, HQ, and fixed bases|`ava_005_db_economy_EN.txt` ⟷ `ava_008_db_corporations_EN.txt` ⟷ `ava_009_db_plots_EN.txt` ⟷ `ava_007_db_mechanics_EN.txt`|`SS_DOCK_P_HQ` (Player PHQ)|
+|`(X, Y)`|Galactic sector coordinates|`ava_006_db_universe_EN.txt` ⟷ `ava_009_db_plots_EN.txt` ⟷ `ava_008_db_corporations_EN.txt` ⟷ `ava_005_db_economy_EN.txt`|`(1,3)` = Argon Prime|
+|`X, Y, Z (km)`|HUD 3D local position|`ava_006_db_universe_EN.txt` (Gates, Free ships, Secret containers) ⟷ `ava_009_db_plots_EN.txt`|`X:44.75, Y:9.12, Z:-28.06`|
+|`101..145`|Official numerical Gamestart IDs|`ava_008_db_corporations_EN.txt` (`gamestarts.xml` / `start.xml`)|`105` = Humble Merchant|
+|`Mineral:Qty(Tot:Y=...)`|Buildable asteroids (accept mines)|`ava_006_db_universe_EN.txt` ⟷ `ava_005_db_economy_EN.txt` (Yield Formula)|`Ore:4(Tot:142 = 90,21,18,13)`|
+|`[Debris: ...]`|Mobile mining debris (breakable rocks)|`ava_006_db_universe_EN.txt` ⟷ `ava_007_db_mechanics_EN.txt` (Globals.txt)|`[Debris: Ore:66(Tot:1723)]`|
+
+*Naming Convention:* All objects, wares, ships, and sectors strictly follow canonical English names (e.g. *Legend's Home*).
+
+### 2.2. Engine Standard Measurement Units
+|Magnitude|Official Unit in Tables|Equivalence / Conversion Rule|
+|---|---|---|
+|**Shield Energy**|Megajoules (`MJ`) / Gigajoules (`GJ`)|`1 GJ = 1,000 MJ = 1,000,000 kJ`|
+|**Laser Damage**|Kilojoules (`kJ`) per shot / `kJ/s` (DPS)|Shield and hull damage tabulated separately.|
+|**Power / Consumption**|Megawatts (`MW`) / Kilowatts (`kW`)|`1 MW = 1,000 kW` (Energy consumption and recharge per second).|
+|**Flight Speed**|Meters per second (`m/s`)|Tabulated as `Base Speed / Max Speed`.|
+|**Turn Rate**|Revolutions per minute (`RPM`)|Tabulated as `Base Turn / Max Turn`.|
+|**Fire Rate**|Rounds per minute (`RPM`)|Number of projectiles fired per gun per minute.|
+|**Spatial Distance**|Kilometers (`km`) / Meters (`m`)|`1 km = 1,000 m` (`1 km = 500` internal engine units).|
+|**Container Class**|Strict cargo class hierarchy|`Tiny < S < M < L < XL < ST` (A ship only carries wares of its class or lower).|
+|**Official Currency**|Credits (`Cr`)|Universal economic unit for purchases, sales, and balance.|
+|**Notoriety / Reputation**|Raw numeric points / Racial ranks|Scale from `-1,000,000 to +1,000,000` corresponding to Ranks `-5 to +10`.|
+|**Mineral Yield**|Integer asteroid richness points|Base `25` (`Ore/Ice M: 300/h, L: 750/h` \| `Silicon M: 77.4/h, L: 193.5/h`). Prod $\approx \text{Base}_{25} \times (\text{Yield} / 25)$.|
+
+================================================================================
+3. ENCYCLOPEDIC GLOSSARY OF ENGINE MECHANICS
+================================================================================
+
+### 3.1. Simulation Differences: IS (In Sector) vs OOS (Out of Sector)
+|Engine Parameter|IS Combat (In Sector)|OOS Combat (Remote / Out of Sector)|
+|---|---|---|
+|**Physical Environment**|Newtonian 3D physics, collisions, and hitboxes.|No physics, no collisions, no 3D navigation.|
+|**Temporal Resolution**|Continuous real time frame by frame.|Discrete mathematical turns (every 5 s on active map; 30 s on closed map).|
+|**Damage Calculation**|Projectile speed, spread, strafe evasion (WASD).|100% fixed accuracy. Sum of all laser damage applied directly to target.|
+|**Energy and Ammo Management**|Laser energy pool (`MW`) and ammunition deplete continuously.|Laser energy depletion (`MW`) is ignored, but **ammunition weapons (`MD, EBC, MAML, GC`) DO consume cargo crates and drop to `0 DPS` if depleted**.|
+|**Area of Effect (AoE)**|Area-effect projectiles (`PBG`, `PSG`, `Flak`) cause multiple physical hits (`12x-20x` DPS on `PBG/PSG`); `FBL` fails upon fragmentation.|Wave/fragmentation damage disabled (`PBG/PSG` drop to low nominal DPS; `FBL` applies 100% nominal DPS); swarms count as 1 hit.|
+|**Tactical Doctrine**|Maneuverable fighters, high-speed weapons (`PRG`, `PBE`), area weapons (`PBG`), and ammunition weapons (`EBC`).|Heavy hulls with massive shielding (`GJ`) and maximum alpha damage (`PSP`, `PPC`, `GC` with stocked cargo).|
+
+### 3.2. Ship Tactical Subclasses (Official and Community Nomenclature)
+*(Note: Variants designated Prototype, Advanced, or Enhanced are unique and irreplaceable relics not purchasable at standard shipyards).*
+|Subclass|Definition and Operational Role|Distinctive Features compared to Base Class|
+|---|---|---|
+|`M5+`|Advanced Recon|Reaches 470-605 m/s, features `M` class cargo (supports Triplex Scanner and Jumpdrive), and mounts 5 MJ shields or rear turret (*Kestrel, Valkyrie*).|
+|`M4+`|Heavy Interceptor|Mounts M3-grade shields (up to 3x 25 MJ) and larger cargo bay (*Solano, Elite, Asp*).|
+|`M3+`|Air Superiority Fighter|Reinforced hull, shields up to 1x 200 MJ or 4-5x 25 MJ, and dual turrets (*Cutlass, Eclipse, LX, Kea*).|
+|`M6M`|Heavy Corvette (*Heavy M6*)|Larger generator, 800-1000 MJ shields, and additional turrets (*Hyperion, Skiron, Heavy Centaur*).|
+|`M7C`|Light Carrier|Frigate featuring internal hangar for 9 to 32 fighters and anti-fighter defensive turrets (*Panther, Griffon*).|
+|`M7M`|Missile Frigate and Boarding Vessel|No main guns; fires heavy torpedoes (*Hammer/Shadow*), swarms (*Flail/Ghoul*), and Boarding Pods (`M_POD`) (*Cobra, Ares*). *(Exception: Aquilo, Skirnir, and Senshi CANNOT fire M_POD pods; Sirokos ONLY fires M_POD without torpedoes)*.|
+|`M8`|Tactical Bomber|Fighter chassis firing heavy anti-capital torpedoes (*Tomahawk/Phantom*) past 40 km. Zero close-range anti-fighter capability.|
+|`TM`|Military Transport|Protected freighter (200-600 MJ shields) featuring internal hangar for 3-6 M5/M4/M3 fighters.|
+|`TS / TP / TL`|Logistics and Transport|`TS`: Freight (up to 15,000 XL) \| `TP`: Personnel and Marines \| `TL`: ST factory hauling.|
+|`M1 / M2`|Heavy Capital Force|`M1`: Heavy Fleet Carriers (35-65 fighters) \| `M2`: Heavy Destroyers (up to 12-14 GJ shields).|
+|`GO`|Singular Goner Vessel|Unique Goner designs (*Ranger* and *Military Transport* tabulated as `GO`; *Truelight Seeker* tabulated under `M6` class, *Ozias* under `TL`, and *Aran* under `M1` in `ava_004_db_ships_EN.txt`).|
+|`OWP`|Orbital Weapon Platform|Stationary orbital defense platform (`0 m/s`), massive generators, and heavy capital turrets.|
+
+### 3.3. Trade Command Software MK3 Progression (ST / LT / UT)
+* **Acquisition:** `500,832 Cr` (`SS_WARE_SW_NEW13`) at Teladi Equipment Docks and TerraCorp HQ *(Home of Light)*.
+* **Operational Requirements:** Commercial vessel (`TS/TP/TM`), minimum 1x 25 MJ Shield (or maximum supported), Fight Command Software MK1 and MK2.
+* **Commercial Pilot Development Stages:**
+  - *Levels 1 to 5 — Sector Trader (ST):* Operates exclusively within the assigned sector.  
+    *Optimal training sectors:* Empire's Edge `(1,7)`, Queen's Space `(2,0)`, Shore of Infinity `(5,9)`, Profit Share `(5,1)`.
+  - *Levels 6 to 25 — Local Trader (LT):* Restarting *Sector Trader* at level $\ge 6$ allows setting a maximum jump radius around the base sector (`1` jump at lvl 6-7, `2` at lvl 8-9, `3` at lvl 10-11, up to `10` jumps at lvl 20+). *Recommended doctrine:* Maintaining level 20 LTs with a 3 to 5 jump radius in safe regions prevents accidental entry into Xenon sectors.
+  - *Levels 8 to 25 — Universe Trader (UT):* Autonomous galaxy-wide trading without geographic limits. Starting at Level 12, purchases Jumpdrive and manages Energy Cells and defensive Fighter Drones autonomously.
+
+### 3.4. Official Bonus Pack Catalog (Egosoft Certified v4.1.01)
+*Official Bonus Pack scripts are digitally signed: they DO NOT trigger the *modified* tag in game saves*:
+
+* **CAG (Commercial Agent):** Automates purchasing resources and selling products for a player-owned factory or complex via a single assigned freighter that levels up within its own merchant guild.
+  - *Command Cost:* **Free (0 Cr)** (Built-in command in the ship's trade console; not bought at stations).
+  - *Required Base Software Investment:* `12,369 Cr` (Navigation Command Software MK1: 2,945 Cr + Trade Command Software MK1: 5,918 Cr + Trade Command Software MK2: 3,506 Cr). Requires an assigned player-owned **Homebase**.
+  - *Progression:* Unlocks tactical Jumpdrive usage upon reaching Rank 4 (*Cargo Messenger*).
+  - *Herron Recruitment Trick:* Starting the command for the first time while docked at the Free Argon Trading Station in *Herron's Nebula `(1,2)`* allows directly hiring veteran pilots already trained up to Rank 4 (with immediate jump capability).
+
+* **CLS1 (Commodity Logistics Software MK1 — `SS_WARE_SW_NEW6`):** Internal logistical distribution of wares between player-owned stations and complexes without monetary transactions.
+  - *Software Cost:* **`7,937 Cr`** at Argon Equipment Docks, TerraCorp HQ, and the Free Argon Trading Station in *Herron's Nebula*.
+  - *Required Base Software Investment:* CLS1 software + Navigation Command Software MK1 (2,945 Cr). Requires assigning the **supplying station as Homebase**. Uses Jumpdrive starting at Rank 4 (*Cargo Messenger*).
+  - *Herron Recruitment Trick:* Shares union guild with CAG; starting the order in *Herron's Nebula* allows hiring veteran pilots up to Rank 4.
+
+* **CLS2 (Commodity Logistics Software MK2 — `SS_WARE_SW_NEW7`):** Complex supply route configuration via customizable Waypoints to supply fleets, capital ships, or the HUB.
+  - *Software Cost:* **`10,742 Cr`** at Argon Equipment Docks, TerraCorp HQ, and the Free Argon Trading Station in *Herron's Nebula*.
+  - *Required Base Software Investment:* CLS2 software + Navigation Command Software MK1 (2,945 Cr). *(Unlike CLS1, does NOT strictly require a Homebase; can operate independently)*.
+  - *Herron Recruitment Trick:* Shares union guild with CAG and CLS1; initiating the route from *Herron's Nebula* allows hiring veteran pilots up to Rank 4 jump-ready.
+
+* **Dockware Manager:** Station command integrated into Equipment Docks, Trading Stations, and the player PHQ to set maximum inventory limits per ware and prevent cargo bay saturation.
+  - *Cost:* **Free (0 Cr)** (Integrated command in the station orders console; requires no wares or software).
+
+* **MDM (Missile Defense Mosquito):** Active defense command that detects incoming enemy warheads and automatically launches Mosquito missiles (`SS_MISSILE_A`) to intercept them prior to impact.
+  - *Command Cost:* **Free (0 Cr)** (Built-in command in the ship command console).
+  - *Required Base Software Investment:* `5,918 Cr` (Fight Command Software MK1: 2,412 Cr + Fight Command Software MK2: 3,506 Cr) + Mosquito missiles in cargo (`M_DMBF`, ~168 Cr/unit).
+  - *Activation Modes (Additional Ship Commands):*
+    1. *Missile Defense Mosquito:* Dedicated protection for the ship itself.
+    2. *Missile Defense Mosquito Convoy:* Protects the flagship and all escorting fighters or allied vessels flying in formation or escort wing.
+
+* **Turbo Booster MK1 & MK2:** Emergency afterburner device sold exclusively at **Split Equipment Docks** that temporarily doubles top flight speed by burning Energy Cells (or ship shield energy at a rate of 10-20%/s if cells run out):
+  - *Device Cost:* **`1,843,637 Cr`** (Mk1 for fighters/corvettes) / **`17,907,922 Cr`** (Mk2 for capital ships).
+  - *Operational Activation:* Strictly requires assigning a **Hotkey** in *Options ➔ Controls ➔ Game / Interface*.

@@ -1,0 +1,126 @@
+# A.V.A. (ASISTENTE DE VUELO AVANZADO): BITÁCORA DE CAMPAÑA
+- **Versión:** v2.5 ES
+- **Archivo:** `ava_101_log_campaign_ES.txt`
+- **Universo:** X3: Terran Conflict (v3.2 / v3.4 Vanilla + Official Bonus Pack)
+- **Jerarquía:** CAPA 1 — Estado Dinámico y Memoria Persistente de Partida
+
+*(Mods y Ajustes Activos: Verificados en `ava_002_mods_ES.txt` | Inicio Oficial: [ID de Inicio] - [Nombre Oficial del Inicio] en [Sector Inicial (X,Y)]).*
+
+================================================================================
+📝 0. DATOS DEL PILOTO
+================================================================================
+
+* **Título:** [Título u honorífico: ej. Lord, Comandante, Capitán, Ciudadano]
+* **Nombre:** [Nombre o indicativo del piloto]
+* **Raza:** [Argon / Terran / Boron / Split / Paranid / Teladi]
+* **Origen:** [Sector natal o de inicio de campaña]
+* **Bio:** [Breve trasfondo, motivaciones personales o historia del personaje]
+
+================================================================================
+🎯 1. OBJETIVOS DE LA CAMPAÑA
+================================================================================
+
+### Objetivo Final
+* [ ] [Definir la gran meta final de la campaña: ej. Dominio militar galáctico, monopolio comercial, completar todas las tramas].
+
+### Metas Estratégicas y de Historia
+* [ ] Activar y avanzar en las 9 Tramas Principales de la Mancomunidad y el Sistema Solar.
+* [ ] Mantener protegidos los cascos de todas las naves marcadas como Reliquias Únicas para futura Ingeniería Inversa en el PHQ (aprovechando la venta de su equipamiento interno al 100% en Dársenas).
+
+### Metas Comerciales e Industriales
+* [ ] Adquirir y poner en servicio la primera flota de cargueros comerciales autónomos (Comercio MK3 ST/LT/UT o CAG).
+* [ ] Diseñar y desplegar la primera fábrica o complejo de producción de recursos.
+* [ ] Construir un megacomplejo industrial autosuficiente de bucle cerrado.
+
+### Metas Militares y de Seguridad
+* [ ] Adquirir las 5 Licencias Policiales de la Mancomunidad al alcanzar Rango +5 (1.000 pts) con cada raza.
+* [ ] Formar la primera ala de superioridad aérea y adquirir una corbeta M6 o fragata M7 de patrulla.
+
+### Metas de Coleccionismo y Exploración
+* [ ] Explorar y reclamar las 19 naves abandonadas en la galaxia, clasificando reliquias frente a naves vendibles.
+
+<!-- BLOQUE DE ESTADO GLOBAL - INICIO -->
+================================================================================
+📊 2. ESTADO GLOBAL DE LA FLOTA, FINANZAS Y REPUTACIÓN
+================================================================================
+*Última sincronización: Arranque de Campaña — Sesión #1*
+
+* **Créditos Disponibles:** `[Créditos iniciales] Cr` *(Aproximado de inicio según rango de gamestart o verificado en cabina)*
+* **Ubicación Táctica Actual:** `[Sector Inicial] (X,Y)`
+* **Nave Insignia Activa:** `[Nombre de la Nave Insignia]` (`[ID Interno]`)
+* **Licencias Policiales Conseguidas:** Ninguna (Requiere Rango +5 / 1.000 pts con Argon, Boron, Split, Paranid y Teladi)
+
+### 🚀 2.1. Propiedades Activas del Piloto (Flota y Complejos)
+*(Nota de Escalabilidad: Agrupar en 1 fila las flotas de idéntico chasis/función, ej. `10x Mistral MK3 UT`, y en 1 fila cada Nodo de Complejo `CCK`).*
+|Nave / Activo|Clase|ID Interno|Ubicación Actual|Equipamiento y Mejoras Instaladas|Función / Estado Táctico|
+|---|---|---|---|---|---|
+|`[Nombre Nave 1]`|`[Clase]`|`[SS_SH_*]`|`[Sector (X,Y)]`|Motor: `X/X`, Timón: `X/X`, Escudos, Armas, Software.|Nave insignia personal del piloto.|
+
+### 📈 2.2. Rangos de Disciplina (Escala Oficial 0 a 30)
+|Disciplina|Nivel Actual|Título Oficial (Español / Inglés)|Progreso del Nivel|
+|---|---|---|---|
+|**Rango Comercial**|Nivel `0`|Oportunista (*Opportunist*)|`0%` (0 pts)|
+|**Rango de Combate**|Nivel `0`|Inocuo (*Harmless*)|`0%` (0 pts)|
+
+### 🤝 2.3. Tabla de Reputación con Facciones (Escala Oficial -5 a +10)
+|Facción / Raza|Rango Numérico|Título Oficial Actual (`%`)|Permisos y Estado Diplomático|
+|---|---|---|---|
+|**Argon**|Rango `0`|Ciudadano (*Citizen*)|Atraque permitido en Núcleo y Frontera.|
+|**Boron**|Rango `0`|Conocido (*Acquaintance*)|Atraque permitido.|
+|**Paranid**|Rango `0`|Nómada (*Nomad*)|Neutral / Precaución en Núcleo.|
+|**Split**|Rango `0`|Criatura (*Creature*)|Neutral / Precaución en Núcleo.|
+|**Teladi**|Rango `0`|Iniciado en Beneficios (*Profit Initiate*)|Atraque permitido.|
+|**Terran (USC)**|Rango `0`|Ciudadano (*Citizen*)|Neutral en espacio exterior.|
+|**Acceso ATF**|Rango `0`|Sin acceso al Sistema (*No System Access*)|Bloqueado hasta misiones diplomáticas.|
+|**Goner**|Rango `0`|Escéptico (*Sceptic*)|Neutral.|
+|**Piratas / Yaki**|Neutral|Paz Comercial Tácita|Evitar hostilidades.|
+|**Xenon / Kha'ak**|Rango `-5`|Enemigo Mortal (`-100%`)|Hostil permanente (Ataque a la vista).|
+
+### 🗺️ 2.4. Rastreador de las 19 Naves Abandonadas (Reliquias Únicas vs Vendibles)
+*(Regla de Campaña: **PROHIBIDO VENDER EL CASCO** de las 17 naves marcadas como Reliquia; conservar su chasis para el PHQ, pero **extraer y vender sus armas/escudos internos al 100% en Dársenas de Equipo**).*
+
+- **Naves Reclamadas (0 / 19):** *Ninguna todavía.*
+- **Lista de Rastreo por Reclamar:**
+  - [ ] **1. Toucan Transportista** (`TP`, *Frontera de Menelaus `(3,0)`* `X:43.0, Y:-7.0, Z:35.0 km`) — 🔒 **RELIQUIA ÚNICA** (No Comprable)
+  - [ ] **2. Iguana Vanguard** (`TP`, *Familia Whi `(6,0)`* `X:38.0, Y:0.0, Z:35.5 km`) — 🔒 **RELIQUIA ÚNICA** (187 m/s, mejor transporte Marines)
+  - [ ] **3. Harrier Sentiner** (`M5`, *La Bóveda `(13,0)`* `X:-18.0, Y:-0.38, Z:-51.62 km`) — 🔒 **RELIQUIA ÚNICA** (No Comprable)
+  - [ ] **4. Falcon Sentiner** (`M3`, *Sector Desconocido `(16,0)`* `X:-20.0, Y:3.0, Z:2.0 km`) — 🔒 **RELIQUIA ÚNICA** (2x Escudos 200 MJ = 400 MJ)
+  - [ ] **5. Buzzard Transportista** (`M4`, *Privación de Tkr `(15,3)`* `X:-4.2, Y:-0.06, Z:62.71 km`) — 🔒 **RELIQUIA ÚNICA** (No Comprable)
+  - [ ] **6. Avanzado Barracuda** (`M3`, *Júbilo de Hila `(17,3)`* `X:-33.0, Y:1.5, Z:36.0 km`) — 🔒 **RELIQUIA ÚNICA** (No Comprable)
+  - [ ] **7. Buster Sentiner #1** (`M4`, *Faro de Akeela `(8,6)`* `X:100.12, Y:-10.0, Z:77.24 km`) — 🔒 **RELIQUIA** (Conservar para el PHQ)
+  - [ ] **8. Buster Sentiner #2** (`M4`, *Cofre del Tesoro `(14,6)`* `X:-32.67, Y:-5.4, Z:-33.52 km`) — 💰 **DUPLICADA VENDIBLE** (Val base: 639.312 Cr)
+  - [ ] **9. Mejorada Pericless** (`M4`, *Espuela Salvaje `(0,7)`* `X:44.75, Y:9.12, Z:-28.06 km`) — 🔒 **RELIQUIA** (Solo en Bucaneros Rango +4)
+  - [ ] **10. Scorpion Raider** (`M4`, *Sector Xenon 101 `(5,7)`* `X:20.12, Y:0.0, Z:61.62 km`) — 🔒 **RELIQUIA ÚNICA** (Cuidado con patrullas Xenon)
+  - [ ] **11. Avanzado Eclipse** (`M3+`, *Tormenta de Ocracoke `(0,8)`* `X:30.1, Y:-1.5, Z:-8.0 km`) — 🔒 **RELIQUIA ÚNICA** (En territorio Yaki)
+  - [ ] **12. Pirata Elite** (`M4+`, *Estrella de Alegría `(17,9)`* `X:66.0, Y:0.0, Z:-10.0 km`) — 🔒 **RELIQUIA** (No Comprable — Variante pirata exclusiva)
+  - [ ] **13. Mamba** (`M3`, *Legado de LooManckStrats `(9,10)`* `X:-12.06, Y:1.16, Z:-19.32 km`) — 💰 **COMÚN 100% VENDIBLE** (Val base: 1.602.074 Cr; ¡92 minas SQUASH!)
+  - [ ] **14. Mako Raider** (`M4`, *Profundidades del Silencio `(0,13)`* `X:2.35, Y:0.73, Z:40.38 km`) — 🔒 **RELIQUIA ÚNICA** (No Comprable)
+  - [ ] **15. Avanzado Perseus** (`M3`, *Ciudadela del Duque `(11,14)`* `X:42.25, Y:-0.25, Z:31.0 km`) — 🔒 **RELIQUIA** (Solo en Bucaneros Rango +7)
+  - [ ] **16. Pericless Vanguard** (`M4`, *Sector Desconocido `(7,15)`* `X:13.75, Y:17.3, Z:-27.01 km`) — 🔒 **RELIQUIA ÚNICA** (No Comprable)
+  - [ ] **17. Skate Prototipo** (`M3+`, *Oasis de Menelaus `(18,15)`* `X:38.5, Y:1.0, Z:32.5 km`) — 🔒 **RELIQUIA** (Solo en Atreus Rango +10)
+  - [ ] **18. Pirata Eclipse** (`M3+`, *Vestíbulo de Creación `(2,16)`* `X:-7.0, Y:-13.5, Z:37.5 km`) — 🔒 **RELIQUIA** (No Comprable — Variante pirata exclusiva)
+  - [ ] **19. Blastclaw Prototipo** (`M3+`, *Velo de Engaño `(16,16)`* `X:47.6, Y:3.5, Z:-41.5 km`) — 🔒 **RELIQUIA ÚNICA** (Bodega de 650 L)
+
+### 🏛️ 2.5. Estado de Tramas Principales (9) y Corporaciones (8)
+* **Tramas Oficiales:** `[ ] 1.Terran` | `[ ] 2.Furia Final` | `[ ] 3.Goner` | `[ ] 4.HUB` | `[ ] 5.PHQ` | `[ ] 6.Aldrin 2.0` | `[ ] 7.Tesoro` | `[ ] 8.Nuevo Hogar` | `[ ] 9.Equilibrio Poder` *(Activas: Ninguna)*
+* **Corporaciones:** `TerraCorp (Sin contacto)` | `OTAS (Sin contacto)` | `Jonferco (Sin contacto)` | `Plutarch (Sin contacto)` | `NMMC (Sin contacto)` | `Duque (Sin contacto)` | `Atreus (Sin contacto)` | `Brazos Fuertes (Sin contacto)`
+<!-- BLOQUE DE ESTADO GLOBAL - FIN -->
+
+================================================================================
+📅 3. ÍNDICE RÁPIDO DE SESIONES
+================================================================================
+* **Sesión #1 ([Fecha]):** *"Arranque de Campaña"* — Inicialización y primeros vuelos en sector de origen.
+
+================================================================================
+📝 4. REGISTRO DETALLADO DE SESIONES
+================================================================================
+
+### 🔹 SESIÓN #1 — [Fecha] — "Arranque de Campaña"
+* **Sector de Inicio / Fin:** `[Sector Inicial]` -> En curso...
+* **Objetivo de la Sesión:** Reconocimiento inicial de sistemas, puesta a punto de la nave insignia y primeros intercambios comerciales o patrullas de seguridad.
+* **Hitos y Eventos:**
+  - [x] Hito 1: Inicialización de enlace de a bordo con A.V.A.
+  - [ ] Hito 2: [Definir primer hito de juego].
+* **Naves Reclamadas / Compradas / Vendidas:** Ninguna todavía.
+* **Balance Financiero:** Saldo inicial verificado.
+* **Notas de [Nombre_Copiloto]:** *(Espacio reservado para que el Módulo de Personalidad activo de la Capa 2 redacte su informe de cierre).*

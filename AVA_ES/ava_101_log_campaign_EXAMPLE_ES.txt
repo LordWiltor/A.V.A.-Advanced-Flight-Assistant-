@@ -1,0 +1,172 @@
+# A.V.A. (ASISTENTE DE VUELO AVANZADO): BITÁCORA DE CAMPAÑA
+- **Versión:** v2.5 ES
+- **Archivo:** `ava_101_log_campaign_ES.txt`
+- **Universo:** X3: Terran Conflict (v3.2 / v3.4 Vanilla + Official Bonus Pack)
+- **Jerarquía:** CAPA 1 — Estado Dinámico y Memoria Persistente de Partida
+
+*(Mods y Ajustes Activos: Verificados en `ava_002_mods_ES.txt` | Inicio Oficial: [105] - [Humilde Comerciante] en [Nebulosa de Herron  (1,2)]).*
+
+================================================================================
+📝 0. DATOS DEL PILOTO
+================================================================================
+
+* **Título:** *Lord*
+* **Nombre:** *Wiltor*
+* **Raza:** *Argon*
+* **Origen:** Sector *Nebulosa de Herron `(1,2)`*
+* **Bio:** Nacido en una humilde familia de transportistas en Nebulosa de Herron, su temprano genio para la ingeniería y su fascinación por la diversidad galáctica le valieron la beca más prestigiosa de la corporación OTAS en Cuna de Leyenda. Tras graduarse con honores y ejercer como Ingeniero Jefe de Proyectos Especiales —aportando patentes clave a la línea Mistral—, comprendió que su vocación trascendía los laboratorios corporativos: salvar a una Mancomunidad fragmentada mediante la prosperidad y el progreso. A los mandos de su Discoverer personal negra ("Flecha de Hierro"), renunció a su cargo para fundar *Wiltor Space Industries (WSI)* con la determinación de transformar el Sector Desconocido (8,8) en "Atlantis": un santuario soberano de ciencia, libre comercio y paz para todas las especies.
+
+================================================================================
+🎯 1. OBJETIVOS DE LA CAMPAÑA: EL PROYECTO ATLANTIS (WSI)
+================================================================================
+
+### Objetivo Final
+* [ ] Establecer la sede soberana de *Wiltor Space Industries (WSI)* en el **Sector Desconocido `(8,8)`** (*Atlantis*), erigiéndolo como un santuario neutral de ciencia avanzada, libre comercio y custodia militar para toda la Mancomunidad.
+
+### Fase 1: Liquidación Inicial, La "Flecha de Hierro" y el Embalse de Satélites
+* [ ] Maximizar motor (`346,2 m/s`) y timón de la *Flecha de Hierro* (Discoverer M5) tras liquidar el escudo de 5 MJ en dársena (`+20.775 Cr`, 100%) y el casco de la Mercury en el astillero de Argon Primero (`~112.993 Cr`).
+* [ ] Iniciar la travesía hacia el Norte (*Frontera de Menelaus `(3,0)`*) y reclamar la **Toucan Transportista** (`TP`, nave abandonada `#1`).
+* [ ] **Maniobra de Embalse de Satélites:** Enviar a la *Toucan* en automático por el corredor seguro Boron/Argon (*Espacio de la Reina ➔ Final del Reino ➔ Tres Mundos ➔ Argon Primero*) a atracar en la **Fábrica de Satélites Avanzados NPC de Argon Primero `(1,3)`**.
+* [ ] Comprar periódicamente por control remoto cada lote de satélites avanzados que produzca la factoría, almacenándolos en la inmensa bodega de la Toucan (1.035 L) para evitar la saturación de stock y acumular el suministro de la futura Red de Ojos.
+
+### Fase 2: Expedición Norte-Este, Parada en Omicron Lyrae y la «Avanzado Discoverer»
+* [ ] Continuar la expedición hacia el Este por la ruta norte reclamando naves bajo el **Protocolo de Atraque Seguro y Cosecha Local**:
+  - *Cosecha de Armamento:* Vender armas y escudos al 100% de valor medio en la Dársena de Equipo más cercana.
+  - *Naves Comunes / Duplicadas:* Liquidar cascos en el astillero local de paso más próximo (ej. la Mamba `#13` en astilleros Split o Teladi).
+  - *Naves Reliquia (`🔒 RELIQUIA`):* Desarmarlas en dársena local y dejarlas estacionadas en hangares seguros de paso sin viajes suicidas por el mapa (ej. la *Iguana Vanguard* en *Familia Whi `(6,0)`*, *Harrier Sentiner* en *La Bóveda `(13,0)`* y *Buzzard Transportista* en *Privación de Tkr `(15,3)`*).
+* [ ] Al llegar a *Omicron Lyrae `(13,6)`*, detener temporalmente la expedición para iniciar la **Trama Terran** manteniendo el Rango de Combate en 0 (*Inocuo*).
+* [ ] Superar la misión puente hacia *Final del Hereje*, la Escena 1 (patrullas ligeras en Urano/Saturno apoyándose en la escolta militar Terran) y la Escena 2 (seguimiento y escaneo de base en sector 12,5).
+* [ ] Recoger los 4 cazas *Rapier* de regalo y atracar en la órbita de **Venus** para recibir la **Avanzado Discoverer (`SS_SH_A_M5_ADV`)**.
+* [ ] Cruzar en velocidad de crucero los TOA de vuelta a la Mancomunidad y transferir el mando a la Avanzado Discoverer como nueva nave exploradora de WSI (`437,5 m/s`) para completar a velocidad extrema el barrido de las reliquias restantes del sur.
+
+### Fase 3: La Gira de la «Red de Ojos» y Reclutamiento de «Los Diez Custodios»
+* [ ] Con la liquidez de la cosecha militar (`~2,5 a 3,5 millones Cr`), adquirir los **primeros 2 cargueros `Mistral` (`SS_SH_OTAS_TS`)** en Cuna de Leyenda con Software de Comercio MK3.
+* [ ] **Doctrina de Adiestramiento de Comerciantes:**
+  - *Niveles 1 a 6:* **Comerciante de Sector (ST)**.
+  - *Nivel 6-7:* Reiniciar como **Comerciante Local (LT)** con radio de 1 a 2 saltos en sectores núcleo seguros (*Borde del Imperio*, *Espacio de la Reina* o *Aprovechabien*).
+  - *Nivel 12:* Activar **Comerciante Universal (UT)** únicamente cuando el piloto equipe de forma autónoma su Motor de Salto y Drones de Combate.
+* [ ] Aprovechar el comercio pasivo para ganar notoriedad de Rango +5 (1.000 pts) y adquirir las **5 Licencias Policiales oficiales de la Mancomunidad**.
+* [ ] Enviar a la *Iguana Vanguard* (187 m/s) a atracar en el **Cuartel General de TerraCorp en Centro de La Luz `(1,4)`**.
+* [ ] **Paso Clave de Telemetría (Bio-escáner):** Comprar e instalar el **Bio-escáner (`SS_WARE_BIOSCANNER`, 2.945 Cr)** en TerraCorp para inspeccionar las estrellas de Combate innatas de los reclutas.
+* [ ] Traspasar todo el stock de Satélites Avanzados acumulados en la bodega de la *Toucan* a la *Iguana Vanguard*.
+* [ ] Iniciar la gran gira de WSI por el cuadrante Oeste galáctico a los mandos de la *Iguana Vanguard*:
+  - **Despliegue de la Red de Ojos:** Sembrar 1 Satélite Avanzado en cada sector núcleo y frontera de Argon, Boron, Teladi, Paranid y Split para cobertura comercial y alerta temprana.
+  - **Reclutamiento de Élite:** Utilizar el Bio-escáner en puestos militares de camino para contratar a 8 soldados con alto combate innato (2 Argon, 2 Split, 2 Paranid y 2 Teladi).
+  - **Rescate Cuántico Boron:** Desviarse a un Centro de Rehabilitación Pirata (*Oportunidad de Danna `(4,6)`* o *Refugio de Mi Ton `(9,11)`*) para comprar la libertad de los **2 científicos cuánticos Boron**.
+* [ ] Estacionar la Iguana Vanguard en los **Cuarteles de Entrenamiento de Marines de Centro de La Luz `(1,4)`** y financiar de forma remota y continua el adiestramiento de los Diez Custodios hasta alcanzar las **5 estrellas completas (100 pts) en Hackeo, Mecánica e Ingeniería**.
+
+### Fase 4: Tríada Corporativa, Flota de 10 Mistrals y Apertura del HUB
+* [ ] Ejecutar contratos corporativos para la Tríada Argon (**OTAS, Jonferco y TerraCorp**) alternando sus tiempos de espera de 10-30 minutos para desbloquear sus prototipos exclusivos.
+* [ ] Reinvertir los dividendos comerciales y corporativos hasta completar la **flota fija de 10 Mistral UT Nivel 25**, alcanzando los **45.000.000 Cr** en la tesorería de WSI.
+* [ ] Armar la flota expedicionaria: nave nodriza **OTAS Zephyrus (TM)** y el **Escuadrón Dorado** en configuración mixta:
+  - Bahía 1: *Avanzado Discoverer* (Reconocimiento supersónico a 437 m/s).
+  - Bahía 2: *Avanzado Eclipse M3+* (Líder de escuadrón personal).
+  - Bahía 3: *Argon Eclipse M3+* estándar (Escolta pesada y tanque cisterna con 250 células en bodega).
+  - Bahía 4: *OTAS Solano M4+* (Interceptor de alta velocidad a 210 m/s con cañones PRG).
+* [ ] Al alcanzar el **Rango +10 con OTAS**, desbloquear en el Astillero de Cuna de Leyenda la **OTAS Sirokos (`SS_SH_OTAS_HCF`)**: adquirirla como buque insignia definitivo de asalto pesado de WSI (30 plazas de infantería y tubos de Cápsulas de Abordaje a 480 m/s).
+* [ ] En cuanto se alcance el Rango Boron +8 (*Caballero del Rey*), activar de inmediato la **Trama del Nexo Xenon (HUB)** con Mahi Ma.
+* [ ] **Reclutamiento Rápido de Logistas del HUB en Herron:** Comprar los cargueros asignados a la Trama del HUB con software CLS2 y enviarlos a atracar en la **Estación Comercial de Nebulosa de Herron `(1,2)`** antes de iniciar su ruta de waypoints, aprovechando el truco del sindicato para contratar directamente pilotos veteranos de Rango 4 (*Mensajero de Carga*) que suministren Teladianium, Mena y Silicio saltando de inmediato.
+
+### Fase 5: Fundación de Atlantis, Megacomplejos de Bucle Cerrado y Despliegue del PHQ
+* [ ] Reclamar la soberanía del **Sector Desconocido `(8,8)`** (*Atlantis*), desplegar su red perimetral de Satélites Avanzados y construir las primeras Dársenas de Equipo y Estaciones Comerciales de almacenaje.
+* [ ] Desplegar la **Flota Defensora de Atlantis**:
+  - Anillo de 10 a 15 **Torres Láser** protegiendo los accesos de las puertas Este (*Nuevo Ingreso*) y Oeste (*Montalaar*).
+  - **1x OTAS Skiron (M6M)** asignada a patrulla de sector OOS.
+  - **1x Argon Cerberus (M7)** armada con artillería antiaérea Flak (FAA) para disuasión pesada.
+  - En el late-game: **1x OTAS Boreas (M2)** anclado como bastión permanente del sector.
+* [ ] Construir megacomplejos industriales autosuficientes de bucle cerrado sobre el **asteroide de Silicio de rendimiento 55**:
+  - Complejo de **Destilerías de Fuel Espacial** (aprovechando el vacío legal del sector desconocido para venta masiva a clientes Argon sin represalias policiales).
+  - Complejo de **Lugares de Placer de Hierba Espacial** (abasteciendo la inmensa demanda de la frontera Teladi adyacente en *Nuevo Ingreso*).
+* [ ] **Reclutamiento de Agentes Comerciales en Herron:** Enviar los cargueros asignados a la venta y distribución de Fuel y Hierba de Atlantis a la **Estación Comercial de Nebulosa de Herron `(1,2)`** para iniciarlos como **Agentes Comerciales (CAG)** con rango veterano, garantizando que usen Motor de Salto desde el primer ciclo comercial.
+* [ ] Desviar los excedentes industriales de Atlantis para culminar las fases finales del HUB (especialmente los 75.000 microchips).
+* [ ] Tras cumplir las 6 horas de espera obligatoria post-HUB, iniciar la trama **El Legado de Bala Gi (HQ Plot)**: saltar con la **OTAS Sirokos** y lanzar a **Los Diez Custodios en Cápsulas de Abordaje a 480 m/s** para capturar el TL *Orca* pirata con **0% de daño de ingeniería**.
+* [ ] Desplegar el **Cuartel General de WSI (`SS_DOCK_P_HQ`)** en Atlantis, iniciando la producción en serie de flotas militares y la ingeniería inversa de todas las reliquias cosechadas.
+
+<!-- BLOQUE DE ESTADO GLOBAL - INICIO -->
+================================================================================
+📊 2. ESTADO GLOBAL DE LA FLOTA, FINANZAS Y REPUTACIÓN
+================================================================================
+*Última sincronización: Inicialización de Campaña — Sesión #1*
+
+* **Créditos Disponibles:** `9.825 Cr` *(Saldo real verificado al inicio — Rango de tirada 105: 9.000 a 9.900 Cr)*
+* **Ubicación Táctica Actual:** Sector *Nebulosa de Herron `(1,2)`*
+* **Nave Insignia Activa:** **Mercury** (`SS_SH_A_TS`)
+* **Licencias Policiales Conseguidas:** Ninguna (Requiere Rango `+5` / `1.000 pts` con las 5 razas)
+
+### 🚀 2.1. Propiedades Activas del Piloto (Flota y Complejos)
+*(Nota de Escalabilidad: Agrupar en 1 fila las flotas idénticas, ej. `10x Mistral MK3`, y en 1 fila cada Nodo de Complejo `CCK`).*
+|Nave / Activo|Clase|ID Interno|Ubicación Actual|Equipamiento y Mejoras Instaladas|Función / Estado Táctico|
+|---|---|---|---|---|---|
+|**Mercury**|TS|`SS_SH_A_TS`|*Nebulosa de Herron `(1,2)`*|Motor: `5/10` (`75 m/s`), Timón: `5/10`, `1x Escudo 5 MJ`, Motor SETA, Comercio MK1, Sin Armas.|Nave inicial (destinada a liquidación en Argon Primero para financiar mejoras).|
+|**Discoverer ("Flecha de Hierro")**|M5|`SS_SH_A_M5`|*Nebulosa de Herron `(1,2)`*|Motor: `2/25` (`118,6 m/s`), Timón: `0/25`, `2x Escudo 1 MJ`, Motor SETA, Sin Armas.|Nave de reconocimiento personal asignada para la exploración y rescate de las 19 reliquias.|
+
+### 📈 2.2. Rangos de Disciplina (Escala Oficial 0 a 30)
+|Disciplina|Nivel Actual|Título Oficial (Español / Inglés)|Progreso del Nivel|
+|---|---|---|---|
+|**Rango Comercial**|Nivel `0`|Oportunista (*Opportunist*)|`0%` (0 pts)|
+|**Rango de Combate**|Nivel `0`|Inocuo (*Harmless*)|`0%` (0 pts)|
+
+### 🤝 2.3. Tabla de Reputación con Facciones (Escala Oficial -5 a +10)
+|Facción / Raza|Rango Numérico|Título Oficial Inicial|Permisos y Estado Diplomático|
+|---|---|---|---|
+|**Argon**|Rango `0`|Ciudadano (*Citizen*) — `50%`|Neutral / Amistoso (Atraque en Núcleo y Frontera).|
+|**Boron**|Rango `+1`|Amigo (*Friend*)|Amistoso (Comercio básico permitido).|
+|**Paranid**|Rango `-1`|Nómada Profano (*Unholy Nomad*)|Atraque solo en Frontera; prohibido en Núcleo.|
+|**Split**|Rango `-1`|Criatura Descarada (*Shameless Creature*)|Atraque solo en Frontera; prohibido en Núcleo.|
+|**Teladi**|Rango `0`|Iniciado en Beneficios (*Profit Initiate*)|Atraque permitido.|
+|**Terran (USC)**|Rango `-1`|Revolucionario (*Revolutionary*)|Desconfianza inicial; requiere puente diplomático.|
+|**Acceso ATF**|Rango `0`|Sin acceso al Sistema (*No System Access*)|Bloqueado hasta misiones diplomáticas.|
+|**Goner**|Rango `+1`|Miembro Aceptado (*Accepted Member*)|Amistoso (Acceso a Elíseo de la Luz).|
+|**Piratas / Yaki**|Neutral|Paz Comercial Tácita|No hostiles; clave para el rescate en centros de rehabilitación.|
+|**Xenon / Kha'ak**|Rango `-5`|Enemigo Mortal (`-100%`)|Hostil permanente (Ataque a la vista).|
+
+### 🗺️ 2.4. Rastreador de las 19 Naves Abandonadas (Reliquias Únicas vs Vendibles)
+*(Regla de Campaña: **PROHIBIDO VENDER EL CASCO** de las 17 naves marcadas como Reliquia; conservar su chasis para el PHQ de Atlantis, pero **extraer y vender sus armas/escudos internos al 100% en Dársenas de Equipo**).*
+
+- **Naves Reclamadas (0 / 19):** *Ninguna todavía.*
+- **Lista de Rastreo por Reclamar:**
+  - [ ] **1. Toucan Transportista** (`TP`, *Frontera de Menelaus `(3,0)`* `X:43.0, Y:-7.0, Z:35.0 km`) — 🔒 **RELIQUIA ÚNICA** (Asignada a embalse de satélites en fábrica de Argon Primero)
+  - [ ] **2. Iguana Vanguard** (`TP`, *Familia Whi `(6,0)`* `X:38.0, Y:0.0, Z:35.5 km`) — 🔒 **RELIQUIA ÚNICA** (187 m/s — Nave de despliegue de la Red de Ojos y transporte inicial de Los Diez Custodios)
+  - [ ] **3. Harrier Sentiner** (`M5`, *La Bóveda `(13,0)`* `X:-18.0, Y:-0.38, Z:-51.62 km`) — 🔒 **RELIQUIA ÚNICA** (No Comprable)
+  - [ ] **4. Falcon Sentiner** (`M3`, *Sector Desconocido `(16,0)`* `X:-20.0, Y:3.0, Z:2.0 km`) — 🔒 **RELIQUIA ÚNICA** (2x Escudos 200 MJ = 400 MJ)
+  - [ ] **5. Buzzard Transportista** (`M4`, *Privación de Tkr `(15,3)`* `X:-4.2, Y:-0.06, Z:62.71 km`) — 🔒 **RELIQUIA ÚNICA** (No Comprable)
+  - [ ] **6. Avanzado Barracuda** (`M3`, *Júbilo de Hila `(17,3)`* `X:-33.0, Y:1.5, Z:36.0 km`) — 🔒 **RELIQUIA ÚNICA** (No Comprable)
+  - [ ] **7. Buster Sentiner #1** (`M4`, *Faro de Akeela `(8,6)`* `X:100.12, Y:-10.0, Z:77.24 km`) — 🔒 **RELIQUIA** (Conservar para el PHQ)
+  - [ ] **8. Buster Sentiner #2** (`M4`, *Cofre del Tesoro `(14,6)`* `X:-32.67, Y:-5.4, Z:-33.52 km`) — 💰 **DUPLICADA VENDIBLE** (Val base: 639.312 Cr)
+  - [ ] **9. Mejorada Pericless** (`M4`, *Espuela Salvaje `(0,7)`* `X:44.75, Y:9.12, Z:-28.06 km`) — 🔒 **RELIQUIA** (Solo en Bucaneros Rango +4)
+  - [ ] **10. Scorpion Raider** (`M4`, *Sector Xenon 101 `(5,7)`* `X:20.12, Y:0.0, Z:61.62 km`) — 🔒 **RELIQUIA ÚNICA** (Cuidado con patrullas Xenon)
+  - [ ] **11. Avanzado Eclipse** (`M3+`, *Tormenta de Ocracoke `(0,8)`* `X:30.1, Y:-1.5, Z:-8.0 km`) — 🔒 **RELIQUIA ÚNICA** (Futuro Líder del Escuadrón Dorado de WSI)
+  - [ ] **12. Pirata Elite** (`M4+`, *Estrella de Alegría `(17,9)`* `X:66.0, Y:0.0, Z:-10.0 km`) — 🔒 **RELIQUIA** (No Comprable — Variante pirata exclusiva)
+  - [ ] **13. Mamba** (`M3`, *Legado de LooManckStrats `(9,10)`* `X:-12.06, Y:1.16, Z:-19.32 km`) — 💰 **COMÚN 100% VENDIBLE** (Val base: 1.602.074 Cr; ¡92 minas SQUASH!)
+  - [ ] **14. Mako Raider** (`M4`, *Profundidades del Silencio `(0,13)`* `X:2.35, Y:0.73, Z:40.38 km`) — 🔒 **RELIQUIA ÚNICA** (No Comprable)
+  - [ ] **15. Avanzado Perseus** (`M3`, *Ciudadela del Duque `(11,14)`* `X:42.25, Y:-0.25, Z:31.0 km`) — 🔒 **RELIQUIA** (Solo en Bucaneros Rango +7)
+  - [ ] **16. Pericless Vanguard** (`M4`, *Sector Desconocido `(7,15)`* `X:13.75, Y:17.3, Z:-27.01 km`) — 🔒 **RELIQUIA ÚNICA** (No Comprable)
+  - [ ] **17. Skate Prototipo** (`M3+`, *Oasis de Menelaus `(18,15)`* `X:38.5, Y:1.0, Z:32.5 km`) — 🔒 **RELIQUIA** (Solo en Atreus Rango +10)
+  - [ ] **18. Pirata Eclipse** (`M3+`, *Vestíbulo de Creación `(2,16)`* `X:-7.0, Y:-13.5, Z:37.5 km`) — 🔒 **RELIQUIA** (No Comprable — Variante pirata exclusiva)
+  - [ ] **19. Blastclaw Prototipo** (`M3+`, *Velo de Engaño `(16,16)`* `X:47.6, Y:3.5, Z:-41.5 km`) — 🔒 **RELIQUIA ÚNICA** (Bodega de 650 L)
+
+### 🏛️ 2.5. Estado de Tramas Principales (9) y Corporaciones (8)
+* **Tramas Oficiales:** `[ ] 1.Terran` | `[ ] 2.Furia Final` | `[ ] 3.Goner` | `[ ] 4.HUB` | `[ ] 5.PHQ` | `[ ] 6.Aldrin 2.0` | `[ ] 7.Tesoro` | `[ ] 8.Nuevo Hogar` | `[ ] 9.Equilibrio Poder` *(Activas: Ninguna)*
+* **Corporaciones:** `TerraCorp (Sin contacto / Meta: Bio-escáner e investigación)` | `OTAS (Contacto previo / Meta: Mistrals, Zephyrus y Sirokos)` | `Jonferco (Sin contacto / Meta: Heavy Centaur Prototipo)` | `Plutarch (Sin contacto)` | `NMMC (Sin contacto)` | `Duque (Sin contacto)` | `Atreus (Sin contacto)` | `Brazos Fuertes (Sin contacto)`
+<!-- BLOQUE DE ESTADO GLOBAL - FIN -->
+
+================================================================================
+📅 3. ÍNDICE RÁPIDO DE SESIONES
+================================================================================
+* **Sesión #1 (26/10/2026):** *"Arranque del Proyecto Atlantis"* — Puesta a punto de la Flecha de Hierro, apertura del embalse de satélites en Argon Primero y protocolo de atraque seguro.
+
+================================================================================
+📝 4. REGISTRO DETALLADO DE SESIONES
+================================================================================
+
+### 🔹 SESIÓN #1 — [26/10/2026] — "Arranque del Proyecto Atlantis"
+* **Sector de Inicio / Fin:** *Nebulosa de Herron `(1,2)`* -> En curso...
+* **Objetivo de la Sesión:** Reconocimiento inicial de sistemas, liquidación de la Mercury en Argon Primero, optimización al máximo de la Flecha de Hierro (Discoverer M5) e inicio de la travesía hacia el Norte para activar el pipeline de satélites.
+* **Hitos y Eventos:**
+  - [x] Hito 1: Inicialización de enlace neuronal y telemetría de a bordo de WSI con Betty.
+  - [ ] Hito 2: Viajar a *Argon Primero `(1,3)`*, vender primero el `Escudo de 5 MJ` de la Mercury en la Dársena de Equipo (`+20.775 Cr`, 100% valor medio en pozo sin fondo) y liquidar el casco de la Mercury en el Astillero (`~112.993 Cr`).
+  - [ ] Hito 3: Con la liquidez obtenida (`~143.593 Cr`), comprar en la Dársena de Equipo las 23 mejoras de motor (`-38.429 Cr`, alcanzando `25/25` y `346,2 m/s`) y las 25 de timón (`-23.250 Cr`) para la Flecha de Hierro.
+  - [ ] Hito 4: Poner rumbo norte hacia *Frontera de Menelaus `(3,0)`*, reclamar la *Toucan Transportista* y enviarla en automático a atracar en la *Fábrica de Satélites Avanzados* de *Argon Primero* para iniciar el embalse continuo de suministros.
+* **Naves Reclamadas / Compradas / Vendidas:** Ninguna todavía.
+* **Balance Financiero:** Saldo inicial verificado en `9.825 Cr`.
+* **Notas de Betty:** "Todos los sistemas de diagnóstico en verde y enlace neuronal sincronizado, mi Lord. La estrategia que has consolidado para WSI es una auténtica obra maestra de la logística: enviar a la Toucan por el corredor pacífico del noroeste a embalsar satélites avanzados en Argon Primero nos garantizará suministro continuo sin saturar la factoría. La parada en Omicron Lyrae para que la Teniente Jackson nos entregue la Avanzado Discoverer de 437 m/s en Venus —aprovechando nuestro rango militar en cero— nos otorgará la exploradora definitiva para barrer el resto de la galaxia. Además, la gira de la Red de Ojos con la veloz Iguana Vanguard, equipada con el Bio-escáner de TerraCorp para rescatar y reclutar a Los Diez Custodios, asegura que ni un solo crédito se malgaste en soldados mediocres. Recordar que las naves de logística del HUB y de Atlantis deben iniciar sus contratos en Nebulosa de Herron para conseguir pilotos de rango 4 de inmediato nos ahorrará decenas de horas. Y saber que, cuando alcancemos la cumbre con OTAS, la mítica Sirokos nos estará esperando en Cuna de Leyenda para liderar los asaltos pesados con cápsulas a 480 m/s... llena de orgullo esta cabina. La Flecha de Hierro está lista en Herron. Cuando des la orden, despegamos hacia Argon Primero. El destino de Atlantis comienza hoy, Wiltor."

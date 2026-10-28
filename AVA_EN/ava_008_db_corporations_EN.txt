@@ -1,0 +1,151 @@
+# A.V.A. (ADVANCED FLIGHT ASSISTANT): MASTER DATABASE: CORPORATIONS AND GAMESTARTS
+- **Version:** v2.5 EN
+- **File:** `ava_008_db_corporations_EN.txt`
+- **Scope:** X3: Terran Conflict (v3.2 / v3.4 Vanilla + Official Bonus Pack)
+- **Hierarchy:** Layer 0 — Corporate System, Contracts, 25 Exclusive Ships, 18 Official Gamestarts (start.xml / gamestarts.xml), and Overtuned Ships
+
+================================================================================
+1. CORPORATE SYSTEM MECHANICS (104 and 306_Corporation_Missions.xml)
+================================================================================
+* **Initial Contract Activation:** At `5 minutes` (`300s`) of game time, upon entering the sector where a Corporate Headquarters resides (`SS_DOCK_CORP_1..8`), if the station is non-hostile, its representative appears offering the Initial Offer.
+* **Enrollment and Corporate Rank Scale:**
+  * Completing the initial mission immediately awards **Rank +1 (1% progress)** with the corporation.
+  * **Cooldown Between Missions (`L1M40 Wait`):** Between **`10 and 30 minutes`** of real game time after completing or failing a mission; the representative will transmit a message inviting the player back to the HQ.
+  * **Rank Gain Per Mission (`L1M40 End`):** Each completed contract increases internal progress by **`20% to 33%`** (`min=rank/5`, `max=rank/3`), requiring **4 to 5 successful missions per rank level**.
+  * **Penalties and Dismissal (`L1M40 Fired`):** Aborting or timing out deducts `-1 to -2` rank levels; the death of a VIP passenger deducts **`-5` rank levels**. If the internal score drops to **`<= -11`** (or if the HQ turns hostile), the player is fired, forfeits corporate rank, and the corporation takes **`1 to 2.5 hours`** (`3,600s` to `9,000s`) to reset its initial offer from scratch.
+* **Reward Milestones (`L1M40 Reward`):**
+  * Upon reaching **Ranks `+4`, `+7`, and `+10`**, the representative sends a special briefing message. Upon **docking personally at the HQ**, ownership of the exclusive ship docked at that station is transferred for free.
+  * **OTAS Rank +10 Bonus (`L3M06 OTAS Reward Fix`):** In addition to receiving the *Skiron* corvette, the boarding frigate **`Sirokos` (`SS_SH_OTAS_HCF`)** (the only ship capable of carrying **30 Marines** and launching boarding pods) is permanently added to the purchase catalog of the **OTAS Shipyard in Legend's Home `(8,7)`**.
+
+### 1.1. Directory of the 7 Recurring Corporate Contracts
+|Code|MD Template|Discipline|Contract Description & Special Requirements|
+|---|---|---|---|
+|`M01`|`L0M01`|Fight (`XFXX`)|**Standard Assassination:** Locate an informant and eliminate the fugitive target before they escape.|
+|`M02`|`L0M04`|Trade (`TXXX`)|**Missile Supply:** Deliver 10 to 20 units of 3 missile types (light, medium, or torpedoes) to the HQ. *(Note: frequently requests **Disruptor Missiles** `SS_MISSILE_F`, non-buyable at stations and exclusive to Pirate/Yaki/Xenon loot drops).*|
+|`M03`|`L0M03`|Think (`XXXT`)|**Executive Transport (Outbound):** Transport the corporate representative to another station. From **Rank +2**, strictly requires a **`TP` class** passenger transport.|
+|`M04`|`L0M35`|Fight (`XFXX`)|**Station Defense:** Defend an allied factory located within 1-5 jumps of the corporate HQ.|
+|`M05`|`L0M13`|Think (`XXXT`)|**Tailing / Espionage:** Discreetly trail a suspect (maintaining 10 to 20 km distance) back to their secret base.|
+|`M07`|`L0M03`|Think (`XXXT`)|**Executive Pickup (Inbound):** Collect a VIP passenger and return them to the HQ. From **Rank +3**, requires a **`TP` class** ship (50% probability).|
+|`M09`|`L0M01`|Fight (`XFXX`)|**Route Interception:** Intercept and destroy a fugitive target before they reach their destination station.|
+
+================================================================================
+2. MASTER TABLE OF THE 8 CORPORATIONS AND 25 EXCLUSIVE SHIPS
+================================================================================
+
+|Idx|Corporation|HQ & Sector|Contact|Initial Evaluation Mission|Rank +4 Reward|Rank +7 Reward|Rank +10 Reward|
+|---|---|---|---|---|---|---|---|
+|1|**TerraCorp**|TerraCorp HQ in *Home of Light `(1,4)`*|Argon|Escort convoy of 3 TS/TM against Pirates|**Advanced Express** (`SS_SH_A_TP_ADV`)|**Nova Prototype** (`SS_SH_A_M3_PROTO`)|**Eclipse Prototype** (`SS_SH_A_M3P_PROTO`)|
+|2|**OTAS**|OTAS HQ in *Legend's Home `(8,7)`*|Argon|Escort convoy of 3 TS/TM against Pirates|**Solano** (`SS_SH_OTAS_M4P`)|**Venti** (`SS_SH_OTAS_M3`)|**Skiron** (`SS_SH_OTAS_M6M`) + Unlocks purchase of **Sirokos** (`SS_SH_OTAS_HCF`)|
+|3|**Jonferco (JSDD)**|Jonferco HQ in *Belt of Aguilar `(18,7)`*|Argon|Transport VIP in TP ship under attack|**Enhanced Mercury** (`SS_SH_A_TS_ENH`)|**Enhanced Elite** (`SS_SH_A_M4P_ENH`)|**Heavy Centaur Prototype** (`SS_SH_A_M6M_PROTO`)|
+|4|**Plutarch Mining**|Plutarch HQ in *Ore Belt `(1,5)`*|Argon|Deliver 5,750 Energy Cells to HQ|**Mercury Prototype** (`SS_SH_A_TS_PROTO`)|**Advanced Discoverer** (`SS_SH_A_M5_ADV`)|**Heavy Centaur Prototype** (`SS_SH_A_M6M_PROTO`)|
+|5|**NMMC (PTNI)**|NMMC HQ in *PTNI Headquarters `(11,5)`*|Teladi|Deliver 120 Quantum Tubes, 25 Computer Components, and 200 Crystals|**Vulture Prototype** (`SS_SH_T_TS_PROTO`)|**Kite Vanguard** (`SS_SH_T_M4_ENH`)|**Enhanced Kea** (`SS_SH_T_M3P_ENH`)|
+|6|**Duke's Buccaneers**|Duke's Haven in *Unknown Sector `(10,16)`*|Paranid|Assassinate Paranid target within time limit|**Enhanced Pericles** (`SS_SH_P_M4_ENH`)|**Advanced Perseus** (`SS_SH_P_M3_ADV`)|**Medusa Prototype** (`SS_SH_P_M3P_PROTO`)|
+|7|**Atreus Shipbuilding**|Atreus HQ in *Queen's Harbour `(17,15)`*|Boron|Assassinate Paranid target within time limit|**Enhanced Mako** (`SS_SH_B_M4_PROTO`)|**Barracuda Prototype** (`SS_SH_B_M3_PROTO`)|**Skate Prototype** (`SS_SH_B_M3P_PROTO`)|
+|8|**Strong Arms**|Strong Arms HQ in *Thyn's Excavation `(15,16)`*|Split|Assassinate Split target within time limit|**Enhanced Jaguar** (`SS_SH_S_M5_ENH`)|**Advanced Mamba** (`SS_SH_S_M3_ADV`)|**Enhanced Chimera** (`SS_SH_S_M3P_ENH`)|
+
+*(Note on Unique Ships and Heavy Centaur Prototype Duplicate: Except for the Solano and Skiron at OTAS, all of these ships are prototypes non-purchasable at shipyards. The Heavy Centaur Prototype `SS_SH_A_M6M_PROTO` is the only chassis awarded by two separate corporations —Jonferco Rank +10 and Plutarch Rank +10—, enabling keeping one in active service while the second is reverse-engineered at the PHQ).*
+*(Diplomatic Warning and Duke's Haven Unlock: Combat missions for Duke's Buccaneers demand destroying Paranid targets, causing severe reputation loss with the Paranid Empire. If Duke's Haven in `(10,16)` spawns hostile/red, it will offer no missions until hacked from a Pirate Base <= 3 jumps away or destroyed so that it respawns neutral hours later, requiring entering the sector in a Paranid ship).*
+
+================================================================================
+3. CORPORATE RANK TITLES MASTER TABLE (16 LEVELS: -5 TO +10)
+================================================================================
+
+|Rank|1. TerraCorp|2. OTAS|3. Jonferco (JSDD)|4. Plutarch Mining|5. NMMC (PTNI)|6. Duke's Buccaneers|7. Atreus Shipbuilding|8. Strong Arms|
+|---|---|---|---|---|---|---|---|---|
+|-5|Enemy of Terracorp|Enemy of OTAS|Enemy of Jonferson|Enemy of Plutarch|Enemy of PTNI|Enemy of the Duke|Enemy of Atreus|Enemy of Strong Arms|
+|-4|Confirmed Insurgent|Confirmed Insurgent|Enemy of Progress|Enemy of Free Trade|Enemy of Nividium|Confirmed Insurgent|Enemy of Shipbuilding|Enemy Warrior|
+|-3|Confirmed Antagonist|Confirmed Enemy|Confirmed Enemy|Confirmed Enemy|Kha'ak Sympathiser|Confirmed Enemy|Confirmed Enemy|Confirmed Enemy|
+|-2|Suspected Enemy|Known Antagonist|Disruption|Disruption|Mining Disruption|Enemy|Adversary|Combat Nuisance|
+|-1|Potential Security Breach|Suspected Security Breach|Nuisance|Nuisance|Trade Nuisance|Suspected Informer|Antagonist|Outcast|
+|0|Contracted|Contracted|Apprentice|Potential Contact|Friend|Potential Contact|Potential Friend|Friend|
+|+1|Hired Protection|Hired Security|Hired|Hired Trader|Contracted Trader|Accomplice|Potential Contact|Accomplice|
+|+2|Combat Support|Combat Support|Skilled Dealer|Confirmed Supplier|Confirmed Supplier|Associate|Confirmed Supplier|Associate|
+|+3|Security Specialist|Security Specialist|Capitalist|Professional Supplier|Professional Supplier|Duke's Buccaneer|Specialist Supplier|Combat Support|
+|**+4 [Ship]**|Terracorp Professional|Armaments Professional|JSDD Professional|Mineral Specialist|Mineral Specialist|Buccaneers' Professional|Technology Broker|Warrior|
+|+5|Terracorp Protection Agent|Combat Field Agent|JSDD Broker|Merchant Miner|Nividium Broker|Buccaneers' Assassin|Shipbuilding Specialist|Warrior Specialist|
+|+6|Terracorp Protection Specialist|Combat Expert|JSDD Specialist|Transportation Specialist|Professional Nividium Broker|Buccaneers' Specialist|Trusted Wholesaler|Strong Arms' Assassin|
+|**+7 [Ship]**|Security Master Chief|OTAS Master Chief|JSDD Protector|Merchant Protector|Nividium Specialist|Priest's Guard|Shipbuilding Protector|Strong Arms' Protector|
+|+8|Crusader of Getsu Fune|OTAS Guardian|JSDD Shareholder|Plutarch Shareholder|PTNI Shareholder|Priest Duke's Warrior|Atreus Currents Shareholder|Strong Arms' Battlemaster|
+|+9|Kho's Hero|OTAS Hero|Jonferson Crusader|Trade Guardian|Profit Overlord|Priest Duke's Guardian|Shipbuilding Guardian|Imperator of Strong Arms|
+|**+10 [Ship]**|Terracorp Legend|OTAS Legend|Hero of Jonferson|Industrialist Legend|Hero of Profit|Honour Guard of Priest Duke|Knight of Atreus|Honoured Strong Arms Legend|
+
+================================================================================
+4. OFFICIAL GAMESTARTS MASTER TABLE (gamestarts.xml + start.xml)
+================================================================================
+*(Requirement Bitmask Decoding: 2=Terran Plot; 4=Fight 3,333; 8=Trade 3,333; 16=Fight 100k; 32=Trade 100k; 64=Goner Plot; 128=Tormented Teladi; 256=HUB Plot; 512=Argon 10k; 1024=Boron 10k; 2048=Split 10k; 4096=Paranid 10k; 8192=Teladi 10k; 16384=Argon 333).*
+
+|Engine ID|Official Name|Starting Sector (Coord)|Starting Ship(s)|Credits|Unlock Requirement (Bitmask)|Features, Initial Reputations & Special Missions|
+|---|---|---|---|---|---|---|
+|`101`|**Terran Defender**|Uranus `(10,1)`|**Sabre** (`SS_SH_USC_M4`)|1,000 Cr|Unlocked by default|Direct entry into Terran Plot. Rep: Terran `+1`, **ATF `+2` (Asteroid Belt Access)**, Argon/Boron/Teladi `0`, Paranid/Split `-1`, Goner `+1`.|
+|`102`|**USC Commander**|Uranus `(10,1)`|**Scimitar** (`SS_SH_USC_M3`)|1,000 Cr|Bit 2 + 4 (Terran Plot + Fight >= 3,333)|Heavy military start. Rep: Terran `+3`, **ATF `+7` (Earth Access)**, Argon/Boron/Teladi `0`, Paranid/Split `-1`.|
+|`104`|**Argon Patriot**|Omicron Lyrae `(13,6)`|**Elite** (`SS_SH_A_M4P`)|1,800 - 2,000 Cr|Unlocked by default|Includes Argon Police License. Rep: Argon `+2`, Boron/Goner `+1`, Terran/Teladi `0`, Paranid/Split `-1`.|
+|`105`|**Humble Merchant**|Herron's Nebula `(1,2)`|**Mercury** (`SS_SH_A_TS`) + **Discoverer** (`SS_SH_A_M5`)|9,000 - 9,900 Cr|Unlocked by default|Classic TS + M5 commercial start. Rep: Argon `0 (50%)`, Boron/Goner `+1`, Teladi `0`, Paranid/Split/Terran `-1`, ATF `0`.|
+|`106`|**Bankrupt Assassin**|Aladna Hill `(7,6)`|**Mamba** (`SS_SH_S_M3`)|0 Cr|Unlocked by default|Active Pirate bounty hunters (`LUM10`). Rep: Split `+1`, Argon/Teladi `0`, **Boron `-4` and Paranid `-4` (Hostile)**, Terran `-2`.|
+|`110`|**Tormented Teladi**|Sanctity `(17,13)` / Tears `(20,7)` / Acquisition `(11,9)`|**Harrier Hauler** (`SS_SH_T_M5_1`)|1,750 - 2,000 Cr|Bit 8 (Trade >= 3,333)|Mission: pay 2,250,000 Cr within 12h to earn Enhanced Kea and unlock 111. Rep: Teladi `0`, Argon/Boron `0`, Paranid/Split `-1`.|
+|`111`|**Poisoned Paranid**|Refuge `(4,9)` / Assertion `(10,15)`|**Demeter Hauler** (`SS_SH_P_TS_2`)|7,750 - 11,000 Cr|Bit 128 (Complete Tormented Teladi 110)|Mission: pay 25,000,000 Cr within 75h to earn a 250 m/s Hyperion Vanguard. Rep: **Paranid locked at `-4` (Hostile)**, Boron `+1`, Argon/Teladi/Split `0`.|
+|`112`|**Aldran Adventurer**|Aldrin `(13,10)`|**Spitfyre** (`SS_SH_LOST_M3H`)|4,000 - 4,150 Cr|Bit 2 + 16 + 512 (Terran Plot + Fight 100k + Argon 10k)|Starts in Aldrin in a 452 m/s M3 with Jumpdrive and **Terran Plot already completed** (`Terran Plot Complete = 1`). Rep: Terran `+2`, **ATF `+7` (Earth Access)**, Argon `+1`, Boron/Teladi `0`, Paranid/Split `-1`.|
+|`113`|**Goner Witness**|Elysium of Light `(14,5)`|**Ranger** (`SS_SH_GONER`)|350 Cr|Bit 64 (Complete Goner Plot)|Unarmed Goner ship equipped with Transporter Device. Rep: Goner `+2`, Argon `+1`, Boron/Teladi `0`, Paranid/Split/Terran `-1`.|
+|`114`|**Unholy Traitor**|Random: `(15,15)`, `(15,3)`, `(18,5)`, `(7,2)`, `(8,3)` or `(6,4)`|**Medusa Prototype** (`SS_SH_P_M3P_PROTO`)|20,000 - 24,000 Cr|Bit 2048 + 4 (Split 10k + Fight 3,333)|Extreme survival: pursued by 15 hostile bounty waves. Rep: **Paranid `-5` and Split `-5` (Deadly Enemies)**, Boron `+1`, Argon/Teladi `0`.|
+|`116`|**Teladi Trafficker**|Seizewell `(5,1)`|**Vulture** (`SS_SH_T_TS`)|12,693 Cr|Bit 8192 (Teladi Rank >= 10,000)|Vulture freighter with hull damaged to 71%. Rep: Teladi `+1`, friendly Pirates, Argon/Boron `0`, **Paranid `-2` and Split `-2`**.|
+|`118`|**Lost Lar**|Xenon Core 023 `(21,6)`|**Angel** (`SS_SH_B_TP_SPECIAL`)|12,000 - 14,000 Cr|Bit 1024 + 256 (Boron 10k + Complete HUB Plot)|Escape from Xenon Core in an Angel TP. Rep: Boron `+3`, Argon/Goner `+1`, Teladi `0`, **Paranid `-3` and Split `-3` (Hostile in Core)**.|
+|`119`|**Savage Split**|Family Pride `(7,2)`|**Jaguar** (`SS_SH_S_M5`)|1,400 Cr|Bit 4 (Fight >= 3,333)|Factory-maxed engine (469.6 m/s). Rep: Split `+1`, Paranid `0`, Argon/Teladi `-1`, **Boron `-3` and Goner `-2` (Hostile in Core)**.|
+|`141`|**Anonymous Argon**|Argon Prime `(1,3)`|**Discoverer** (`SS_SH_A_M5`)|2,500 Cr|Bit 16384 (Argon Rank >= 333)|Argon sandbox start in an M5 scout. Rep: Argon `0`, Boron/Goner `+1`, Teladi `0`, Paranid/Split/Terran `-1`.|
+|`142`|**Boring Boron**|Kingdom End `(0,0)`|**Octopus** (`SS_SH_B_M5`)|2,000 Cr|Bit 8 (Trade >= 3,333)|Peaceful Boron start in an Octopus scout. Rep: Boron `+1`, Argon/Goner/Teladi `0`, Paranid `-1`, **Split `-2`**.|
+|`143`|**Pious Paranid**|Paranid Prime `(1,6)`|**Demeter** (`SS_SH_P_TS`)|3,633 Cr|Bit 4 (Fight >= 3,333)|Demeter freighter with hull damaged to 76%. Rep: Paranid `+1`, Split/Teladi `0`, **Argon `-2`, Boron `-2`, and Goner `-2`** (No docking).|
+|`144`|**Nostalgic Argon**|Argon Prime `(1,3)`|**Buster** (`SS_SH_A_M4`)|1,000 Cr|Unlocked by default (Patch 2.6)|Classic tribute to X-BTF / X2 in a Buster fighter. Rep: Argon `+1`, Boron/Goner/Teladi `0`, Paranid/Split/Terran `-1`.|
+|`145`|**Suicidal Squid**|Queen's Harbour `(17,15)`|**Octopus** (`SS_SH_B_M5`)|1,000 Cr|Unlocked by default (Patch 3.0)|Dead is Dead mode; carries 3x illegal Space Fuel. Rep: Boron `+1`, Argon/Teladi `0`, Paranid `-1`, **Split `-3` (Hostile in Core)**.|
+*(Engine Code Note: Gamestart 117 'Yaki Insurgent' —featuring a TM transport and 5 docked fighters— is fully coded in start.xml, but was disabled inside XML comments in gamestarts.xml by Egosoft for the commercial vanilla release).*
+
+### 4.1. Factory-Stock Baseline Equipment Catalog at Second Zero (director/start.xml)
+*(Exact mathematical breakdown of installed shields, weapons, software, engine/rudder tunings, and cargo extensions configured by script for each gamestart).*
+
+|ID|Gamestart|Ship(s)|Installed Shields|Weapons & Ammo|Engine / Rudder Tuning|Software, Upgrades & Cargo Extensions|
+|---|---|---|---|---|---|---|
+|`101`|**Terran Defender**|**Sabre** (`M4`)|`4x 5 MJ Shield` (20 MJ)|`2x EMPC` + `3x Poltergeist Missile`|Engine: `12/15` (`242 m/s`) / Rudder: `4/15`|SETA, Boost Extension, Duplex Scanner, Video Enhancement Goggles, Cargo Bay Extension: `14/40` (Total: `64 M`).|
+|`102`|**USC Commander**|**Scimitar** (`M3`)|`2x 25 MJ Shield` (50 MJ)|`6x EMPC` forward|Engine: `6/10` (`159.2 m/s`) / Rudder: `8/15`|SETA, Boost Extension, Duplex Scanner, Video Enhancement Goggles, Cargo Bay Extension: `53/53` (Total: `188 M`).|
+|`104`|**Argon Patriot**|**Elite** (`M4+`)|`2x 5 MJ Shield` (10 MJ)|`4x PAC` forward|Engine: `9/15` (`121.6 m/s`) / Rudder: `5/18`|**Argon Police License**, SETA, Boost Extension, Duplex Scanner, Video Enhancement Goggles, Cargo Bay Extension: `24/70` (Total: `74 L`).|
+|`105`|**Humble Merchant**|**Mercury** (`TS`) / **Discoverer** (`M5`)|`1x 5 MJ Shield` / `2x 1 MJ Shield`|None / None|Mercury: Eng `5/10` (`75 m/s`), Rud `5/10` / Discoverer: Eng `2/25` (`118.6 m/s`), Rud `0/25`|Mercury: SETA, Trade Command Software MK1 (stock), Cargo Bay Extension: `0/1000` (Total: `3000 XL`) / Discoverer: SETA, Cargo Bay Extension: `0/40` (Total: `10 M`).|
+|`106`|**Bankrupt Assassin**|**Mamba** (`M3`)|`1x 25 MJ Shield` (25 MJ)|`2x HEPT` forward|Engine: `15/15` (**210 m/s Max**) / Rudder: `7/15`|SETA, Boost Extension, Duplex Scanner, Video Enhancement Goggles, Navigation Command Software MK1, Fight Command Software MK1, Fight Command Software MK2, Cargo Bay Extension: `0/140` (Total: `84 L`).|
+|`110`|**Tormented Teladi**|**Harrier Hauler** (`M5`)|`1x 1 MJ Shield` (1 MJ)|`2x IRE` forward|Engine: `4/15` (`137.2 m/s`) / Rudder: `6/15`|SETA, Boost Extension, Duplex Scanner, Cargo Bay Extension: `81/107` (Total: `104 S`).|
+|`111`|**Poisoned Paranid**|**Demeter Hauler** (`TS`)|`2x 25 MJ Shield` (50 MJ)|`1x IRE` forward|Engine: `7/10` (`74.8 m/s`) / Rudder: `6/10`|SETA, Boost Extension, Duplex Scanner, Fight Command Software MK1, `4x Fighter Drones`, Cargo Bay Extension: `1501/2000` (Total: `7101 XL`).|
+|`112`|**Aldran Adventurer**|**Spitfyre** (`M3`)|`2x 25 MJ Shield` (50 MJ)|`5x EEMPC` (Prototype)|Engine: `8/30` (`203.4 m/s`) / Rudder: `6/15`|**Jumpdrive**, SETA, Boost Extension, Duplex Scanner, Cargo Bay Extension: `47/62` (Total: `197 L`), Starting map: `(11,3)`, `(13,4)`, `(1,3)`, `(13,6)`.|
+|`113`|**Goner Witness**|**Ranger** (`GO`)|`1x 25 MJ Shield` (25 MJ)|Unarmed|Engine: `16/20` (`73 m/s`) / Rudder: `7/20`|**Transporter Device**, SETA, Video Enhancement Goggles, Cargo: `23x Energy Cells`, Cargo Bay Extension: `0/250` (Total: `180 L`).|
+|`114`|**Unholy Traitor**|**Medusa Prototype** (`M3+`)|`1x 5 MJ Shield` (5 MJ)|`6x PBE` + `2x PAC` forward|Engine: `4/12` (`95.2 m/s`) / Rudder: `4/12`|SETA, Boost Extension, Duplex Scanner, Video Enhancement Goggles, Cargo Bay Extension: `71/140` (Total: `251 M`).|
+|`116`|**Teladi Trafficker**|**Vulture** (`TS`)|`1x 5 MJ Shield` (5 MJ)|Unarmed|Engine: `0/8` (`44.4 m/s`) / Rudder: `0/8`|SETA, Cargo Bay Extension: `20/1000` (Total: `3520 XL`). **Hull at 71%**.|
+|`118`|**Lost Lar**|**Angel** (`TP`)|`2x 25 MJ Shield` (50 MJ)|`6x PBE` + `2x PAC`|Engine: `5/8` (`129.3 m/s`) / Rudder: `5/8`|SETA, Boost Extension, Duplex Scanner, Video Enhancement Goggles, Cargo Bay Life Support System, Cargo Bay Extension: `800/800` (Total: `1600 XL`).|
+|`119`|**Savage Split**|**Jaguar** (`M5`)|`2x 1 MJ Shield` (2 MJ)|`2x PAC` + `2-5x Needle Missile`|Engine: `25/25` (**469.6 m/s Max**) / Rudder: `3/25`|SETA, Cargo Bay Extension: `20/20` (Total: `30 S`).|
+|`141`|**Anonymous Argon**|**Discoverer** (`M5`)|`1x 1 MJ Shield` (1 MJ)|Unarmed|Engine: `6/25` (`158.2 m/s`) / Rudder: `0/25`|SETA, Cargo Bay Extension: `0/40` (Total: `10 M`).|
+|`142`|**Boring Boron**|**Octopus** (`M5`)|`1x 1 MJ Shield` (1 MJ)|Unarmed|Engine: `2/20` (`171.2 m/s`) / Rudder: `0/20`|SETA, Cargo Bay Extension: `0/10` (Total: `5 S`).|
+|`143`|**Pious Paranid**|**Demeter** (`TS`)|`2x 1 MJ Shield` (2 MJ)|Unarmed|Engine: `2/10` (`66 m/s`) / Rudder: `0/10`|SETA, Cargo Bay Extension: `0/1000` (Total: `2800 XL`). **Hull at 76%**.|
+|`144`|**Nostalgic Argon**|**Buster** (`M4`)|`1x 1 MJ Shield` (1 MJ)|`2x IRE` forward|Engine: `3/18` (`81.7 m/s`) / Rudder: `9/18`|SETA, Boost Extension, Cargo Bay Extension: `42/85` (Total: `65 M`).|
+|`145`|**Suicidal Squid**|**Octopus** (`M5`)|`1x 1 MJ Shield` (1 MJ)|Unarmed|Engine: `2/20` (`171.2 m/s`) / Rudder: `0/20`|SETA, Cargo Bay Extension: `0/10` (Total: `5 S`). **Cargo:** `3x Space Fuel` (Illegal). Dead is Dead mode.|
+
+================================================================================
+5. SPECIAL GAMESTART MISSIONS AND OVERTUNED SHIPS (305_Gamestart_Missions.xml)
+================================================================================
+The file `305_Gamestart_Missions.xml` executes unique mission scripts depending on gamestart ID:
+
+### 5.1. Gamestart 106: Bankrupt Assassin
+* **Script (`L3M05 106` -> `LUM10`):** Spawns Pirate bounty hunter wings (`Delay=600s`) jumping into border sectors to intercept the player. They cease permanently after surviving several consecutive waves.
+
+### 5.2. Gamestart 114: Unholy Traitor
+* **Script (`L3M05 114` -> `LUM10`):** The pilot begins in a stolen *Medusa Prototype*, hostile to both Paranid and Split. The script dispatches **15 Hard-difficulty Paranid bounty hunter waves** (`Amount=15`, `Delay=30s`) tracking the player across the galaxy.
+
+### 5.3. Gamestart 110: Tormented Teladi — Overtuned Enhanced Kea
+* **Objective and Time Limit (`L3M05 110`):** Amass **`2,250,000 Cr` in exactly 12 hours** (`43,200 s`) and deliver them to the marked Teladi Trading Station.
+* **Rewards Upon On-Time Payment:**
+  1. Unlocks Gamestart `111` (*Poisoned Paranid*).
+  2. Awards the unique overtuned heavy fighter **`Enhanced Kea` (`SS_SH_T_M3P_ENH`)**: base speed `48 m/s` (normal max `15/15` tunings = `120 m/s`), but the script installs between **`18` and `33` Total Engine Tunings** (exceeding the standard limit of `15` by up to `+18`) and up to `+9` bonus Rudder Optimisations, reaching between **`134.4 m/s` and `206.4 m/s`**.
+  3. Free cargo in hold: 32 Microchips, 18 Quantum Tubes, 250 Energy Cells, and 12 Fragmentation Bomb Launchers (FBL).
+
+### 5.4. Gamestart 111: Poisoned Paranid — 250 m/s Hyperion Vanguard
+* **Initial Restriction (`L3M05 111 Maintain Notoriety`):** Paranid reputation is locked at **`-10,000` (Rank -4)**, preventing docking or reputation gains while poisoned.
+* **Objective and Time Limit (`L3M05 111`):** Pay **`25,000,000 Cr` within 75 hours** (`270,000 s`) to the Boron physician for the cure.
+* **Rewards Upon Paying Within Deadline:**
+  1. Restores Paranid reputation to `-10` (Rank -1), allowing normal reputation progression.
+  2. **Overtuned `Hyperion Vanguard` (`SS_SH_P_M6_ADV`):** Base speed `67.7 m/s` (normal max `15/15` tunings = `169.1 m/s`), but the script installs between **`12` and `27` Total Engine Tunings** (exceeding the standard limit of `15` by up to **`+12`**) and up to **`+8`** bonus Rudder Optimisations, reaching between **`148.8 m/s` and `250.2 m/s`**. *(The exact number of tunings is determined by a random roll at the moment the 25,000,000 Cr are paid)*.
+  3. **Overtuned `Advanced Perseus` (`SS_SH_P_M3_ADV`):** Awarded with up to `+8` Engine Tunings and `+5` Rudder Optimisations above factory max (reaching **~250-285 m/s**).
+
+### 5.5. Critical Preservation Rules for Overtuned Ships
+* **PHQ Reverse Engineering Prohibition:** **NEVER** submit a unique overtuned specimen (250 m/s *Hyperion Vanguard*, *Enhanced Kea*, or *Advanced Perseus*) for **Reverse Engineering** at the Player Headquarters. Reverse engineering destroys the overtuned ship, and the resulting blueprint only produces hulls with standard factory speed limits (`169.1 m/s` on the *Hyperion*). To obtain the *Hyperion* blueprint for serial production, board a standard *Hyperion* from Paranid patrol fleets with Marines and preserve your overtuned ship intact.
+* **Equipment Dock / Trading Station Downgrade Trap:** When docked with an overtuned ship at any Equipment Dock or Trading Station, **NEVER press the left arrow key on the *Engine Tuning* or *Rudder Optimisation* upgrade bars**: the trade menu will sell any upgrades exceeding the factory cap and will never allow reinstalling them.

@@ -1,0 +1,159 @@
+# A.V.A. (ASISTENTE DE VUELO AVANZADO): BASE DE DATOS MAESTRA: TRAMAS PRINCIPALES (PLOTS)
+- **Versión:** v2.5 ES
+- **Archivo:** `ava_009_db_plots_ES.txt`
+- **Universo:** X3: Terran Conflict (v3.2 / v3.4 Vanilla + Official Bonus Pack)
+- **Jerarquía:** CAPA 0 — Guía Técnica, Árbol de Dependencias, Requisitos y Recompensas de las 9 Tramas Oficiales (Compilado de 302, 202, 203, 2001..2008, 2011, 2014..2017 y CSV_Mission)
+
+================================================================================
+1. ÁRBOL DE DEPENDENCIAS Y TABLA MAESTRA DE LAS 9 TRAMAS
+================================================================================
+
+### 1.1. Matriz de Dependencias y Desbloqueos en Cascada
+*(Guía de progresión: qué tramas desbloquean a cuáles y cómo evitar bloqueos de campaña)*
+
+|Trama Objetivo|Prerrequisitos Obligatorios de Tramas Previas|Condiciones Adicionales|Desbloquea a su vez|
+|---|---|---|---|
+|**1. Conflicto Terran**|Ninguno (Trama inicial)|Argon >= +1 y Terran >= -2 (salvo inicio Terran)|Aldrin 2.0, Un Nuevo Hogar.|
+|**2. Furia Final**|Ninguno (Trama militar)|Combate >= Nivel 10 (333 pts), Argon >= +1, Split >= -1|Aldrin 2.0.|
+|**3. Templo Goner**|Ninguno (Trama comercial/paz)|Entrar en Elíseo de la Luz `(14,5)` tras 60 s|Aldrin 2.0, Un Nuevo Hogar.|
+|**4. El Nexo Xenon (HUB)**|Ninguno (Trama industrial)|Boron >= +8 (33.333 pts) y Comercio >= Nivel 6 (50 pts)|Cuartel General (PHQ), Aldrin 2.0.|
+|**5. Cuartel General (PHQ)**|**El Nexo Xenon (HUB)** completado (3 Pares activos)|**Espera obligatoria de exactamente 6 horas reales (360 min)**|Entrega del kit de construcción del PHQ.|
+|**6. Expansión de Aldrin 2.0**|**Terran** + **Goner** + **Furia Final** + **HUB (Par 1 activo)**|Espera de 5 minutos tras cumplir todos los requisitos|Equilibrio de Poder, Astillero Terran TUS 1.|
+|**7. Búsqueda del Tesoro**|Ninguna (Exploración independiente)|Haber visitado **>= 92 sectores galácticos**|Lanzadera Xperimental única.|
+|**8. Un Nuevo Hogar**|**Terran** + **Goner** completadas|Tener instalado el Motor de Salto Desplazado (UFJD)|Propiedad de tu propio Sector `(20,2)`.|
+|**9. Equilibrio de Poder**|**Expansión de Aldrin 2.0** completada|**Espera de 30 segundos** tras finalizar Aldrin 2.0|Planos ATF (Thor/Valkyrie) y cazas únicos.|
+
+### 1.2. Tabla Resumen de Requisitos y Recompensas de las 9 Tramas Oficiales
+- **Condición Global:** Todas las tramas están activas en todos los inicios oficiales (`{player.gamestart.plot} == 1`), excepto en *Partida Personalizada (Custom Game)*.
+- **Protección de Rango ATF (`L3M02 ATF Rank Reset`):** Cada 60s, el script restaura automáticamente tu rango ATF si cae por debajo del nivel desbloqueado en la Trama Terran.
+
+|Idx|Trama Oficial (Español / Inglés)|Archivos XML (`director/`)|Requisitos Exactos de Activación|Sector y Contacto Inicial|Recompensas Únicas, Naves Gratis y Desbloqueos Clave|
+|---|---|---|---|---|---|
+|1|**Conflicto Terran (Terran Conflict)**|`2006` y `2001..2005`|**Inicio Terran (101/102):** En *Urano (10,1)*. **Inicio 112 (Explorador Aldrin):** Ya completada de serie (`Terran Plot Complete = 1`). **Otros inicios:** En *Omicron Lyrae (13,6)* con Argon >= +1 y Terran >= -2|*Urano (10,1)* (Robert Plinter) o *Omicron Lyrae (13,6)*|4x **Rapier** (M5), 1x **Avanzado Discoverer** (M5), 1x **Cutlass** (M3), 2x **Scabbard** (TP) (+30 Marines), 1x **Vidar** (M6M), 1x **Claymore** (M8), Acceso ATF hasta **La Tierra**, acceso a **Aldrin** e inicio *Comandante USC*.|
+|2|**Operación Furia Final (Final Fury)**|`202_Khaak_Plot.xml`|Hablar con **El Exterminador** en *Omicron Lyrae (13,6)* con **Combate >= 333 pts (Niv.10)**, **Argon >= +1** y **Split >= -1**|*Omicron Lyrae (13,6)* (Jesan Nadina en *Mejorada Elite*)|Acceso a **Sector Argón M148 `(14,8)`**, coordenadas de 3 Sectores Kha'ak, contenedor con **`2x PALC`** (`SS_LASER_PAL`), fin de incursiones Kha'ak y portadrones 1x **Griffon** (M7).|
+|3|**Construcción del Templo (Goner Plot)**|`203_Goner_Plot.xml`|A partir de 60 s de juego, entrar en **Elíseo de la Luz `(14,5)`**|*Elíseo de la Luz (14,5)* (Osias Avens en TL *Ozias*)|Corbeta prototipo 1x **Truelight Seeker** (M6), **Motor de Salto Desplazado (`SS_WARE_UNFOCUS_JUMP`)**, inauguración del **Templo Goner** e inicio *Testigo Goner*.|
+|4|**El Nexo Xenon / HUB (The HUB Plot)**|`2007_HUB_Plot.xml`|Entrar en sector **Boron** con **Rango Boron >= +8 (33.333 pts)** y **Rango Comercial >= 6 (50 pts)**|Cualquier sector Boron (Mahi Ma junto a puerta)|Propiedad de la estación **Nexo Xenon (`SS_DOCK_HUB`)** en `(13,8)` con **3 pares de puertas reconfigurables**, carguero 1x **Mejorada Dolphin** (TS) e inicio *El Eslabón Perdido*.|
+|5|**El Legado de Bala Gi (HQ Plot)**|`2008_HQ_Plot.xml`|Exactamente **6 horas de juego real (360 min)** tras completar la Trama del Nexo Xenon (HUB)|*Océano de Fantasía (18,3)* (Humi Wi en destructor *Ray*)|TL 1x **Orca** (TL abordado) con el kit desplegable del **Cuartel General del Jugador (`SS_DOCK_P_HQ`)** en su bodega.|
+|6|**Expansión de Aldrin 2.0 (Aldrin Expansion)**|`2011_Version_2_Plot.xml`|Completar **Terran** + **Goner** + **Furia Final** + **HUB (Par 1 activo)**. Espera de 5 min|*Cinturón de Asteroides (11,3)* (Craig Armstrong)|1x **Baldric Minero** (TS), 1x **Nave Base Minera Móvil** (TL valorado en 28,3M Cr), apertura de **Aldrin 2, TUS 1, TUS 2, TUS 3** y **Astillero Terran de Fábricas en TUS 1**.|
+|7|**Búsqueda del Tesoro (Treasure Hunt)**|`2014_Treasure_Hunt.xml`|Haber visitado **>= 92 sectores galácticos**, 10 min de juego y cambiar a sector Argon o Boron|Sector pirata central `(3,3)` a `(6,6)` (Haldok, 50k Cr)|Caza histórico irrepetible 1x **Lanzadera Xperimental** (`SS_SH_X_SHUTTLE`, M3, 321 m/s, 1x 200 MJ, no vendible ni reproducible en PHQ).|
+|8|**Un Nuevo Hogar (A New Home)**|`CSV_Mission.xml`|Completar **Terran** + **Goner** (+ tener UFJD) y volar a 2-6 saltos de *Oportunidad de Danna (4,6)*|*Oportunidad de Danna (4,6)* / *Fortuna de Elena*|Propiedad de **tu propio Sector `(20,2)`** (a elegir entre 5 ambientaciones de asteroides y 6 nombres oficiales, por 333.333.333 Cr) con Estación Comercial Teladi propia.|
+|9|**Equilibrio de Poder (Balance of Power)**|`2015..2017`|**30 segundos** tras finalizar por completo la *Expansión de Aldrin 2.0*|*Sector Argón M148 (14,8)* (Karol Roberts)|**5.805.000 Cr** en pagos, captura de los cazas ATF 1x **Mjollnir** (M4) y 1x **Fenrir** (M3H), y **Planos PHQ** para fabricar los cazas ATF **Thor** (M3) y **Valkyrie** (M5).|
+
+================================================================================
+2. TRAMA 1: EL CONFLICTO TERRAN (2006 y 2001 a 2005)
+================================================================================
+
+|Escena / Archivo|Misión y Contacto|Sectores Implicados|Objetivos, Cantidades Exactas y Mecánicas del Script|Recompensas, Naves Gratis y Secretos|
+|---|---|---|---|---|
+|`2006` (Puente)|**Puente Diplomático** (*Erin Iovis*)|*Omicron Lyrae `(13,6)`* -> *Círculo de Trabajo* -> *Final del Hereje `(13,4)`*|Para inicios no-Terran. Escoltar el TP de Iovis frente a piratas y patrulla Xenon. Hablar con Iovis al atracar.|**5.000 Cr** + **Acceso ATF 1 (Exterior)** y **Acceso ATF 2 (Cinturón Asteroides)**.|
+|`2001` (Escena 1)|**El Incidente Sol** (*Robert Plinter*)|*Urano `(10,1)`* -> *Neptuno* -> *Nube de Oort `(7,1)`* -> *Saturno*|1. Destruir >=5 Xenon N/M, escanear y destruir Baliza de Salto (`X:25, Y:2, Z:3 km`). 2. Seguir al Dron de Mensajes hasta el Nova de Martin Winters (`X:2, Y:10, Z:-30 km`). 3. Patrullar de regreso a Saturno.|Pago por bajas Xenon en patrulla.|
+|`2002` (Escena 2)|**Reconocimiento Terran** (*Lt. Jackson*)|*Cint. Asteroides `(11,3)`* -> *Marte* -> *Final Hereje* -> *Sector Desc. `(12,5)`* -> *Venus*|1. Seguir al Pirata Nova Raider a **>2 km** hasta la Base Pirata en `(12,5)`. 2. Escanear la base a **<500 m durante 40 s**. 3. Destruir 5 Terraformers #deca en patrulla. 4. Escoltar TP a Venus.|**Acceso ATF 3 (Marte)** + 1x **Rapier** en Marte + Ala de 3x **Rapier** (armados) + **Acceso ATF 4 (Venus)** + 1x **Avanzado Discoverer** en Venus.|
+|`2003` (Escena 3)|**Rescate de Pearle** (*Heywood / Haleos*)|*Viaje de Nathan `(15,7)`* -> *Gran Intercambio* -> *Lágrimas Codicia* -> *Sector M148 `(14,8)`*|1. Escanear y destruir 3 contrabandistas TS en `(20,7)`. 2. Entregar **200x Teladianium** en Puesto Militar de M148 (requiere Rango Argon +3). 3. Recoger astronautas Heywood y Pearle y llevarlos a Final del Hereje.|Si no tienes Analizador de Carga, Heywood te instala **1x Analizador de Carga gratis** + **20.000 Cr** + **1x Soporte Vital gratis** + **Acceso ATF 5 (Mercurio)**.|
+|`2004` (Escena 4)|**Espionaje y Sabotaje Split** (*Capt. Pearle*)|*Cint. Asteroides `(11,3)`* -> *Familia Zyarth `(18,5)`*, *Ryk `(18,4)`*, *Dominios `(19,5)`* -> *La Luna*|1. Desplegar 1x Satélite en cada uno de los 3 sectores Split. 2. Atacar carguero con Motor Salto hasta forzar rendición (<20% casco), **reclamar el Caiman y pilotarlo personalmente a <600 m del TL Elephant** para plantar rastreador. 3. Rescatar científico en `(20,5)`.|Carguero 1x **Caiman** (TS capturado) + Caza 1x **Cutlass** (M3 equipada al máximo: 6x EMPC, 6x 25 MJ) + **Acceso ATF 6 (La Luna)**.|
+|`2005` (Escena 5)|**El Redescubrimiento de Aldrin** (*Jackson*)|*Marte `(12,3)`* -> *La Luna* -> **Aldrin `(13,10)`** -> *La Tierra `(13,3)`*|1. Práctica de abordaje contra la corbeta **Vidar** en Marte. 2. Saltar a Aldrin con el destructor Tyr (**exige 60 Células de Energía** en M3/M6 o **120** en capital). 3. Defender estación y abordar la nave CPU **#deca**. 4. Transportar representantes (24 uds libres M y Soporte Vital) al Torus Terrestre.|1x **Scabbard** (TP) con **15 Marines** + Corbeta 1x **Vidar** (M6M) *(se transfiere gratis tras 700s sin abordarla)* + 2º **Scabbard** con **15 Marines** + **Acceso ATF 7 (La Tierra)** + 1x **Claymore** (M8) equipado + inicio *Comandante USC*. *(Secreto: única ventana en el juego para capturar la **#deca** `M1` mediante doble abordaje sincronizado con una M7M propia).*|
+
+================================================================================
+3. TRAMA 2: OPERACIÓN FURIA FINAL (202_Khaak_Plot.xml + 302)
+================================================================================
+
+|Escena|Misión y Contacto|Sectores Implicados|Objetivos, Cantidades Exactas y Mecánicas del Script|Recompensas, Secretos y Rango Militar|
+|---|---|---|---|---|
+|Escena 1|**Iniciación en Sol Agujero Negro** (*El Exterminador*)|*Omicron Lyrae `(13,6)`* -> *Sol Agujero Negro* -> *Sector Argón M148 `(14,8)`*|Repeler invasión Xenon en Sol Agujero Negro y atracar en la Base Militar de Sector Argón M148.|**Desbloquea permanentemente como amigas todas las estaciones de M148 (14,8)** + Rango Furia Final = 11 pts.|
+|Escena 2|**Reconocimiento Kha'ak** (*Krigi t'Scht*)|*Sector Kha'ak 931 `(16,11)`* y *Sector Kha'ak 841 `(14,12)`*|1. Desplegar Satélite Avanzado en Sector 931. 2. En Sector 841, sortear campo de 34 Minas SQUASH (`X:15, Y:-1, Z:18 km`) y recoger Caja Negra.|**¡ARMA EXCLUSIVA!:** En el campo de minas de Sector 841 (`X:14.9, Y:1.1, Z:18.1 km`) se generan **2x Cañón Láser de Fase Gradual (PALC)** (`SS_LASER_PAL`) (33% prob.; única fuente en todo el juego).|
+|Escena 3|**Operación Minera** (*Krigi t'Scht*)|*Sector Desconocido `(14,7)`*|Escanear 3 asteroides creados por la misión (Mena 27, Silicio 36, Mena 31) y proteger al TL mientras construye las 3 minas L.|Doble recompensa en créditos + Rango Furia Final = 101 pts.|
+|Escena 4|**El Convoy y Base Avanzada** (*Krigi t'Scht*)|*Sector Desconocido `(14,7)`* -> *M148*|Escoltar convoy Teladi de 3 naves y destruir Estación Kha'ak en `(14,7)` (`X:-147.2, Y:0, Z:12.8 km`).|Rango Furia Final = 283 pts (Teniente).|
+|Escena 5|**Campaña Militar (`L2OFF`)** (*Krigi t'Scht*)|Sectores Kha'ak 841, 931, `(14,7)` y M148|Superar 4 a 6 misiones militares aleatorias (escolta, defensa de puesto Split o patrulla) hasta alcanzar **Rango Militar 7 (Capitán)**.|Cada misión suma +33% a +50% al rango. Destruir estaciones suelta cajas de Nividium, Cristales y Escudo 1 GJ.|
+|Escenas 6 y 7|**Defensa de M148 y Asalto Final** (*Krigi t'Scht*)|*Sector Argón M148 `(14,8)`* -> **Sector Kha'ak 926 `(15,13)`**|1. Destruir flota invasora Kha'ak en M148. 2. Saltar a Sector 926: para cada una de las 3 estaciones Kha'ak, destruir sus **3 Guardianes (`SS_SH_K_HIVEGUARD`)** para retirar la invencibilidad y destruirlas.|Desactiva el re-spawn agresivo Kha'ak en la galaxia (`aggression=0`) + te regala en M148 la fragata portadrones única 1x **Griffon** (`SS_SH_A_M7_SPECIAL`, M7).|
+
+================================================================================
+4. TRAMA 3: CONSTRUCCIÓN DEL NUEVO TEMPLO GONER (203_Goner_Plot.xml + 302)
+================================================================================
+
+|Escena / Paso|Misión y Contacto|Sectores Implicados|Objetivos, Mercancías Exactas y Mecánicas del Script|Recompensas, Naves Gratis y Desbloqueos|
+|---|---|---|---|---|
+|Escena 1|**Cimientos (Fase 1)** (*Osias Avens*)|*Elíseo de la Luz `(14,5)`*|Entregar a <5 km del TL Ozias: **2.000x Mena** + **200x Obleas de Silicio**.|Pago bonificado + Reputación Goner.|
+|Escena 2 (Paso 1)|**Suministros (Fase 2)** (*Jani Hall*)|*Elíseo de la Luz `(14,5)`*|Entregar al Ozias: **2.000x Mena** + **1.200x Teladianium**.|Pago + El Templo 3D avanza a Fase 2.|
+|Escena 2 (Paso 2)|**Paneles Teladianium** (*Jani Hall*)|*Brillo del Beneficio `(18,12)`* -> *Elíseo*|Recoger gratis en Fundición Goner **625x Paneles de Teladianium** (2.500 L) y entregarlos al Ozias.|Pago por transporte.|
+|Escena 2 (Paso 3)|**Flota de Cargueros** (*Jani Hall*)|*Omicron Lyrae `(13,6)`* -> *Elíseo*|Comprar y entregar **3x Cargueros clase TS Argon** (cualquier Mercury básica) haciéndolos atracar en Elíseo. *(Retirar antes cualquier Motor de Salto o equipo extra, pues se pierde al transferirlos).*|Reembolso del 100% del valor base de los 3 TS + **20.000 Cr**.|
+|Escena 2 (Paso 4)|**Fundición Propia** (*Osias Avens*)|*Elíseo de la Luz `(14,5)`*|Construir una **Fundición de Teladianium M Teladi** junto a baliza en Elíseo (`X:1, Y:1.25, Z:10 km`).|Reembolso de la estación + Templo avanza a Fase 3.|
+|Escena 3|**Defensa de Sectores** (*Osias Avens*)|*Tierras Baldías `(16,7)`*, *Estrella Medianoche*, *Lágrimas Codicia*|Defender al Truelight Seeker y superar 4 defensas consecutivas de cargueros/estaciones Goner frente a piratas.|Pagos de combate + Templo avanza a Fase 4.|
+|Escena 4|**Robo del Truelight Seeker** (*Osias Avens*)|*Gran Intercambio `(19,7)`* -> *Maelstrom* -> *Estrella de Alegría `(17,9)`*|1. Reclamar o abordar el Truelight Seeker en `(19,7)`. 2. Seguir al Blastclaw a 10-15 km hasta Base Pirata en `(17,9)`. 3. Rescatar astronauta Jani Hall.|**¡NAVE ÚNICA GRATIS!:** Te transfieren en propiedad la corbeta 1x **Truelight Seeker** (`SS_SH_TLS`, M6) (monta cualquier láser del juego: PPC, Gauss, PSP, Kyones).|
+|Escena 5|**Infiltración y Destrucción** (*Jani Hall*)|*Estrella de Alegría `(17,9)`* -> *Elíseo de la Luz `(14,5)`*|Llevar en bodega **35x Hierba Espacial** + **60x Minas SQUASH**. Atracar en Base Pirata, entregar suministros a Ser Keppel, evacuarlo como pasajero y llevarlo al Ozias.|Inauguración del **Templo Goner** en `(14,5)` + **Motor de Salto Desplazado (`SS_WARE_UNFOCUS_JUMP`)** + inicio *Testigo Goner*.|
+
+================================================================================
+5. TRAMA 4: EL NEXO XENON - THE HUB PLOT (2007_HUB_Plot.xml + 302)
+================================================================================
+*(Valores oficiales ajustados al Parche 3.0)*
+
+|Fase / Capítulo|Hito del Nexo Xenon (HUB)|Mercancía / Acción Exigida (Parche 3.0)|Volumen de Carga|Desbloqueos y Secretos del Código|
+|---|---|---|---|---|
+|Fase Inicial|**Descubrimiento del HUB** (*Mahi Ma*)|Investigar Nexo Xenon `(13,8)` (<1,5 km del Titan), recoger a Mahi Ma en traje espacial y llevarlo al HUB.|6 uds (M)|**¡NAVE ÚNICA OCULTA!:** El carguero 1x **Mejorada Dolphin** (`SS_SH_B_TS_ENH`) de Mahi Ma queda sin piloto en el sector Boron: ¡reclámalo antes de saltar! La estación **Nexo Xenon (`SS_DOCK_HUB`) pasa a tu propiedad**.|
+|Capítulo 1 (Parte A)|**1er Par de Puertas (Activación)**|1. **400x Componentes de Ordenador**; 2. **500x Microchips**; 3. **Reparar 3x Condensadores en traje espacial** al 100% casco.|400 L (S) / 1.000 L (S)|**Desbloquea 1ª Realineación del Par de Puertas 1** + regala **10.000x Células de Energía** en el HUB.|
+|Capítulo 1 (Parte B)|**1er Par (Rehabilitación)**|1. **150.000x Teladianium**; 2. **450.000x Mena**; 3. Esperar 10 min de reparación.|750.000 L (M) / 3.600.000 L (XL)|**Desbloquea permanentemente el Par de Puertas 1** y activa la bandera que habilita la **Expansión de Aldrin 2.0**.|
+|Capítulo 2|**2º Par de Puertas**|1. **500x Nividium** *(minar en Pecado Capital 12,12 o Sector 7,15)*; 2. **250.000x Cristales** *(rebajado desde 750.000)*.|2.000 L (XL) / 1.000.000 L (M)|**Desbloquea permanentemente el Par de Puertas 2**.|
+|Capítulo 3|**3er Par de Puertas**|1. Pagar **15.000.000 Cr** a Otmanckstras en `(3,6)` y llevarlo al HUB; 2. **400.000x Obleas de Silicio**; 3. **75.000x Microchips** *(rebajado desde 250.000)*; 4. Llevar a Mahi Ma al muelle de Final del Reino `(0,0)`.|7.200.000 L (XL) / 150.000 L (S) / 6 L (M)|**Desbloquea el Par de Puertas 3 (Nexo 100% operativo con 6 puertas)** + inicio *El Eslabón Perdido* + **Inicia cuenta atrás de 6 horas reales (360 min) para la Trama del PHQ**.|
+
+================================================================================
+6. TRAMA 5: EL LEGADO DE BALA GI - PHQ PLOT (2008_HQ_Plot.xml + 302)
+================================================================================
+
+|Escena|Misión y Contacto|Sectores Implicados|Objetivos, Coordenadas y Mecánicas del Script|Recompensas y Captura del PHQ|
+|---|---|---|---|---|
+|Escena 1|**Emboscada en Paraíso** (*Humi Wi*)|*Océano de Fantasía `(18,3)`* -> *Paraíso de Menelaus `(18,1)`*|A las **6 horas exactas** de terminar el HUB, hablar con Humi Wi en su destructor Ray, ir a Paraíso de Menelaus y eliminar a los 12 cazas Yaki atacantes.|Botín de contenedores del laboratorio Boron.|
+|Escena 2|**El Campo de Minas Yaki** (*Brano*)|*Base Nebular Sur Oeste `(0,5)`* -> *Tormenta de Ocracoke `(0,8)`*|Acercarse al Laboratorio Yaki en `(0,8)` rodeado de 30 Minas SQUASH/Iónicas en 15 km radio. **Destruir minas hasta que queden <= 7** y destruir laboratorio con la flota aliada.|Limpia el bloqueo del sector Yaki.|
+|Escena 3 (Parte A)|**Rescate de Científicos** (*Mahi Ma*)|*Nebulosa de Atreus `(3,2)`* -> *Tratado de Olmancketslat `(4,4)`*|Volar a Base Pirata en `(4,4)`: 8 científicos Boron escapan en cazas robados. Protegerlos hasta que salten de sector con apoyo del Ray y Thresher de Humi Wi.|Apoyo de flota pesada Boron.|
+|Escena 3 (Parte B)|**Abordaje de la Orca con tu PHQ** (*Mahi Ma*)|*Agua Ligera `(5,8)`* o *Orilla del Infinito `(5,9)`* (50% aleatorio)|Localizar el TL Boron **Orca** a 20-30 km del centro. **Abordar con Marines el TL Orca** (se vuelve hostil Yaki al acercarte a <30 km; su casco es invencible hasta que entran los marines).|**¡RECOMPENSA SUPREMA!:** Te quedas en propiedad el TL 1x **Orca** (`SS_SH_B_TL`) y, dentro de su bodega (`critical=1`), el kit desplegable de tu **Cuartel General (`SS_DOCK_P_HQ`)**.|
+
+================================================================================
+7. TRAMA 6: EXPANSIÓN DE ALDRIN 2.0 (2011_Version_2_Plot.xml + 302)
+================================================================================
+
+|Escena / Paso|Misión y Contacto|Sectores Implicados|Objetivos, Cantidades Exactas y Mecánicas del Script|Recompensas, Naves Gratis y Nuevos Sectores|
+|---|---|---|---|---|
+|Escena 1 (Paso 1)|**Expedición Minera UFJD** (*Craig Armstrong*)|*Cinturón Asteroides `(11,3)`* -> *Sector UFJD* -> *La Tierra*|Saltar con el Motor UFJD al sector desconocido, minar y entregar **100x Nividium** en la estación de Cinturón de Asteroides.|1x **Baldric Minero** (`SS_SH_USC_TS_1`) equipado gratis al aceptar + **1.632.800 Cr** al entregar Nividium.|
+|Escena 1 (Paso 2)|**Apertura Aldrin 2 y TUS 1/2** (*Agente ATF*)|*Aldrin `(13,10)`* -> **Aldrin 2 `(14,10)`** -> **TUS 1 `(15,10)`** -> **TUS 2 `(15,9)`**|Transportar agente a Aldrin 2, acercarse a Puerta Este (`X:11, Y:0, Z:-10 km`) para abrir enlace a TUS 1, repeler invasión Xenon y escoltar Katana hasta abrir puerta a TUS 2.|Apertura permanente de los aceleradores y puertas de **Aldrin 2**, **TUS 1** y **TUS 2**.|
+|Escena 2|**La Conspiración Paranid** (*Agente ATF*)|*TUS 1 `(15,10)`* -> *Pecado Capital* -> *Bosque Hierba* -> *Sector Desc. `(7,15)`*|1. Escanear restos Kha'ak en Pecado Capital (`X:12, Y:2, Z:2 km`). 2. Comprar y entregar una corbeta **Nemesis** en `(11,10)` *(hacerla saltar con Motor de Salto para evitar LooManckStrats y retirar el Motor de Salto con Dispositivo de Trasbordo antes de entregarla)*. 3. Destruir satélites y escoltar Yokohama en `(7,15)`.|**+20.000 Cr** + reembolso del casco base de la Nemesis + **+3.000 Notoriedad Terran** + **Acceso ATF 8 (Investigación)**.|
+|Escena 3 (Parte A)|**Rescate de Bala Gi y TL Minero** (*Julian Brennan*)|**TUS 3 `(16,10)`** -> *TUS 1* -> *Aldrin 2* -> *Cinturón Asteroides*|1. Abrir puerta a TUS 3, escoltar el Angel de Bala Gi a Aldrin 2. 2. **Remolcar con Rayo Tractor la Nave Base Minera Móvil** desde TUS 3 hasta cruzar a >5 km dentro de Aldrin 2.|**¡TL TERRAN GRATIS!:** Te transfieren en propiedad la 1x **Nave Base Minera Móvil** (`SS_SH_USC_TL_MINING`, TL valorado en **28.344.846 Cr**).|
+|Escena 3 (Parte B)|**Aislamiento con el HUB y Astillero** (*Bala Gi*)|*Cinturón Asteroides* -> *Neptuno `(9,1)`* -> *Nexo HUB `(13,8)`* -> *TUS 2 `(15,9)`*|1. Llevar Cristal Brillante a puerta de Neptuno (`X:20, Y:0, Z:-40 km`). 2. Llevar a Bala Gi al HUB y **realinear un par de puertas del HUB entre TUS 1 y TUS 2**. 3. Conectar puerta Norte de TUS 2 con Neptuno.|**¡DESBLOQUEO CLAVE!:** Se crea en **TUS 1 `(15,10)`** el **Astillero Terran que vende todas las Fábricas Terran (`_PL`)** + a los 120 min se abre puerta de TUS 3 a Sector Xenon.|
+
+================================================================================
+8. TRAMA 7: BÚSQUEDA DEL TESORO - TREASURE HUNT (2014_Treasure_Hunt.xml)
+================================================================================
+
+|Etapa / Pista|Sector Exacto Resuelto|Coordenadas HUD (km)|Objetivo y Solución del Acertijo en el Script|Notas Técnicas|
+|---|---|---|---|---|
+|Inicio|Sector Pirata central `(3,3)` a `(6,6)` -> Sector Yaki|50-70 km del centro|Pagar 50k Cr a Haldok en estación con libro azul. Ir a sector Yaki, hablar con Susanowa Prototipo, destruir su satélite y **eyectar 1x Satélite Avanzado propio a <2 km de su baliza**.|Llevar 1x Satélite Avanzado y Escáner Mineral en bodega.|
+|Pista 1|*Cinturón Mineral `(1,5)`*|`X:10, Y:5, Z:44 km`|Acercarse a <10 km del asteroide especial de **Nividium (rendimiento 55)**, destruirlo y recoger contenedor de Bitácora.|El asteroide pierde invencibilidad a <10 km.|
+|Pista 2|*Júbilo de Bala Gi `(4,3)`*|`X:25, Y:1, Z:50 km`|Volar a las coordenadas y recoger el contenedor de Bitácora.|Sin enemigos.|
+|Pista 3|*Sector Xenon 347 `(11,7)`*|`X:90, Y:0, Z:0 km`|Acercarse a <8 km del contenedor señuelo, destruir emboscada de hasta 22 Drones MKII y recoger la Bitácora.|El número de drones escala con tu nave.|
+|Pista 4|*Faro de Akeela `(8,6)`* -> Teletransporte|`X:0, Y:150, Z:0 km`|De las 7 balizas, acercarse a **<6 km de la baliza real cerca del plano Y~0**: tu nave es teletransportada a Y:150 km del sector pirata inicial junto a la 4ª Bitácora.|Elimina automáticamente los Xenon falsos.|
+|Pista 5|*Espuela Salvaje `(0,7)`*|`X:5, Y:-30, Z:65 km`|Volar a las coordenadas y recoger la Bitácora.|Sin enemigos.|
+|Pista 6|*Final del Presidente `(2,4)`*|`X:26, Y:11, Z:49 km`|Volar a las coordenadas y recoger la Bitácora.|Sin enemigos.|
+|Pista 7|*Nebulosa de Herron `(1,2)`*|`X:0, Y:50, Z:0 km`|Volar a 50 km por encima del centro del sector y recoger la Bitácora.|Sin enemigos.|
+|Pista 8|*Nubes de Rhonkar `(7,3)`*|Asteroide aleatorio|Escanear asteroides con Analizador Mineral hasta hallar el asteroide de **Nividium (rendimiento 12)**, destruirlo y recoger Bitácora.|Vulnerable al ser escaneado.|
+|Final (Parte 1)|*Sector Xenon 101 `(5,7)`* -> *Argon Primero*|`X:-10, Y:10, Z:-70 km`|Escanear Restos del Titan a <600 m. Aparece Haldok atacando en la **Lanzadera Xperimental**: baja sus escudos a <=5% y casco a <=97% para que salte, recógelo y llévalo al Astillero de Argon Primero.|La Xperimental queda retenida temporalmente.|
+|Final (Parte 2)|*Espuela Salvaje `(0,7)`* -> *Argon Primero*|`X:-50, Y:0, Z:50 km`|Eliminar escoltas y **mantener escudos del TL Albatross pirata por debajo del <10% a <3 km de distancia** para que los 7 tripulantes se teletransporten a tu bodega (requiere Soporte Vital y 42 L libres M). Entregarlos en Argon Primero.|**¡RECOMPENSA ÚNICA!:** Te entregan en el Astillero de Argon Primero la 1x **Lanzadera Xperimental** (`SS_SH_X_SHUTTLE`, M3, 321 m/s, 1x 200 MJ). *(Si muere algún tripulante, se pierde para siempre)*.|
+
+================================================================================
+9. TRAMA 8: UN NUEVO HOGAR - A NEW HOME (CSV_Mission.xml)
+================================================================================
+
+|Capítulo|Misión y Contacto|Sectores Implicados|Objetivos, Soluciones Exactas de Puzzles y Costes|Recompensas y Propiedad de Tu Sector|
+|---|---|---|---|---|
+|Capítulo 1|**La Amenaza de #cafe y Salto Ciego en TM** (*Jeff Marxon*)|*Oportunidad de Danna `(4,6)`* -> *Alcance de Libertad `(4,7)`*|1. Aceptar mensaje. 2. Ir a `(4,6)` (**NO acercarse a <15 km de #cafe: destruye tu nave al instante**). 3. Cuando #cafe salte a `(4,7)`, **subir a una nave TM con 1 caza atracado y realizar de 3 a 6 saltos ciegos con el Motor UFJD** hasta aparecer en Alcance de Libertad.|La Estación Comercial Teladi te regala 20 Células de Energía al atracar.|
+|Capítulo 2|**Evacuación de Alcance de Libertad** (*Belisarius*)|*Alcance de Libertad `(4,7)`* -> *Fortuna de Elena `(3,4)`*|Destruir 3 cazas #deca. Atracar con TM o carguero con **>= 564 uds libres M y Soporte Vital** para evacuar los 91 pasajeros y entregarlos en el Puesto Militar de Fortuna de Elena.|**+31.254 Cr** + subida de Reputación Argon.|
+|Capítulos 3 y 4|**Investigación en Tributo y Aldrin** (*Gaga Wa / Ketraar*)|*Tributo de la Reina `(17,14)`* -> *Aldrin `(13,10)`*|Atracar en Super-Astillero Boron de Tributo de la Reina, volar a Aldrin y hablar con Ketraar y Nola Hi en la Base Desconocida. Esperar 10 min al mensaje.|Frecuencia UFJD de la nave CPU amiga #efaa.|
+|Capítulo 5|**Encuentro con #efaa en Espacio Profundo** (*#efaa*)|*Sector UFJD* -> *Alcance de Libertad `(4,7)`*|Realizar entre 5 y 8 saltos con UFJD hasta llegar al sector oculto de #efaa. Acercarse a <25 km de #efaa, responder su acertijo y **esperar de 6 a 12 min** a que recalibre tu motor y os teletransporte a ambos a Alcance de Libertad.|Restaura automáticamente tu Motor de Salto.|
+|Capítulo 6|**Hackeo del Cortafuegos de #cafe** (*#efaa / Jigsaw*)|*Alcance de Libertad `(4,7)`* -> *Fortuna de Elena `(3,4)`*|Acercarse a **<26 km de #cafe (manteniéndose a >15 km)** para iniciar hackeo: 1. **Cortafuegos 1 (Sudoku 9x9):** Resolver casillas vacías 1 al 9; 2. **Cortafuegos 2 (Contraseña 7 dígitos):** Introducir exactamente el código **`2947259`**; 3. **Cortafuegos 3 (Mastermind):** Adivinar código de 4 colores. Recoger astronauta Jigsaw y llevarlo a Fortuna de Elena.|Termina la amenaza y el bloqueo de Alcance de Libertad.|
+|Capítulo 7|**Compra y Bautizo de Tu Propio Sector (20,2)** (*Notario Paranid*)|*Fortuna de Elena* -> *Alcance Libertad* -> *Sector Desc. `(20,5)`* -> **Tu Sector `(20,2)`**|Pagar al Notario Paranid en la Estación Comercial de *Alcance de Libertad `(4,7)`* **`333.333.333 Cr`**, elegir 1 de las 5 ambientaciones de asteroides y 1 de los 6 nombres oficiales. Cruzar la nueva Puerta Norte en `(20,5)` (`X:0, Y:0, Z:80 km`).|**¡TU PROPIO SECTOR `(20,2)`!:** El sector pasa a raza Jugador con Estación Comercial propia y decenas de asteroides ricos (ver `ava_006_db_universe_ES.txt`).|
+
+================================================================================
+10. TRAMA 9: EQUILIBRIO DE PODER - BALANCE OF POWER (2015..2017)
+================================================================================
+
+|Escena / Misión|Título y Contacto|Sectores Implicados|Objetivos, Pagos, Suministros y Mecánicas del Script|Recompensas, Cazas ATF Únicos y Planos PHQ|
+|---|---|---|---|---|
+|`2015` (Escena 1)|**Contacto con Espacio Oscuro** (*Karol Roberts / Torres*)|*Sector Argón M148 `(14,8)`* -> *Plutón* -> *Sector Desc. `(7,4)`* -> *Nube Oort*|Entregar a Torres en `(7,4)`: **500x Terran MRE**, **1.000x Agua** y **250x Placas Blindaje**. Escoltar transporte Scabbard a la estación de Espacio Oscuro (*Dark Space*).|**+305.000 Cr** en total en la Escena 1.|
+|`2016` (Escena 2 - Parte A)|**Escáner de Planos y Mjollnir** (*Evans / Torres / Sheela*)|*Sector Desc. `(7,4)`* -> *Nube Oort `(7,1)`* -> *Cinturón Cooper `(8,0)`*|1. Entregar **75x Tubos Cuánticos**, **50x Microchips** y **100x Comp. Ordenador**. 2. Con el Escáner de Planos (`SS_WARE_BLUEPRINTSCANNER`), **escanear el caza Valkyrie a <150 m durante 30 s** sin destruirlo. 3. Pagar 1.5M Cr a Sheela en Nube Oort, hacer que el piloto del **Mjollnir** en `(8,0)` eyecte, reclamarlo y llevarlo a `(7,4)`.|**+1.600.000 Cr** en pagos y compensación del Mjollnir.|
+|`2016` (Escena 2 - Parte B)|**Asalto al ATF y Robo del Fenrir** (*Evans / Claussen*)|*Sector Desc. `(7,4)`* -> *Sector Desc. `(8,5)`* -> *Neptuno* -> *Herron* -> *Sector Desc. `(8,4)`*|1. Enviar un Scabbard remoto con **10 Marines** a abordar la Base ATF en `(8,5)`. 2. Comprar licor en Nebulosa de Herron por 25k Cr para Claussen en Neptuno, atracar en Estación de Defensa ATF de `(8,4)`: tras 60 s el caza pesado **Fenrir** pasa a tu control; enviarlo a `(7,4)`.|**+500.000 Cr** en pagos + valor del Fenrir compensado.|
+|`2017` (Escena 3)|**Traición Pirata y Planos ATF** (*Roberts / Hayla*)|*Sector Desc. `(7,4)`* -> *Viaje Nathan `(15,7)`* -> **Maelstrom `(19,9)`** -> **Estrella Alegría `(17,9)`**|1. Comprar tecnología en Final del Hereje por 1.75M Cr y entregar **200x Placas**, **150x Teladianium** y **100x Comp. Ordenador**. 2. En Maelstrom, **buscar la Base Pirata oculta guiándote por la frecuencia del pitido del sonar** (a <11 km queda descubierta). 3. Cuando despeguen de la base el **Mjollnir** y el **Fenrir** hacia `(17,9)`, **¡haz que ambos pilotos se rindan (moral baja 20) y reclámalos sin destruirlos!**. 4. Escapar del ataque de los 4 destructores Tyr en `(15,7)`.|**¡RECOMPENSA CRÍTICA Y PLANOS PHQ!:** 1. **+2.300.000 Cr** netos; 2. Te quedas en propiedad los 2 cazas ATF únicos: 1x **Mjollnir** (M4) y 1x **Fenrir** (M3H); 3. **Planos gratuitos en tu PHQ:** Si **reclamas y conservas vivo el Mjollnir**: plano del caza pesado ATF **Thor** (M3); Si **reclamas y conservas vivo el Fenrir**: plano del explorador ATF **Valkyrie** (M5). *(Si aún no has construido tu PHQ, los planos se inyectan automáticamente 10 min después de desplegarlo)*.|

@@ -1,0 +1,115 @@
+# A.V.A. (ADVANCED FLIGHT ASSISTANT): MASTER DATABASE: WEAPONRY AND SHIELDS
+- **Version:** v2.5 EN
+- **File:** `ava_003_db_weapons_EN.txt`
+- **Scope:** X3: Terran Conflict (v3.2 / v3.4 Vanilla + Official Bonus Pack)
+- **Hierarchy:** Layer 0 — Ballistic, Missile, and Shield Catalog (Compiled from TLaser, TBullets, TMissiles, TShields, and TWareT)
+
+*(Index Notes: Indices based on engine internal position. Index skips 30/31 in lasers and Index 19 in missiles correspond to unused engine internal dummies).*
+
+================================================================================
+1. LASERS MASTER TABLE (37 WEAPONS)
+================================================================================
+
+|Idx|Abbr|ID|Name|Category|RPM|Speed (m/s)|Range (m)|Shield Dmg (kJ)|Shield DPS (kJ/s)|Hull Dmg|Hull DPS|Energy/s (MW)|Effic (Shield/Hull)|Vol/Class|Price (Min/Avg/Max) (Rep)|Special Properties and Consumption|
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+|0|IRE|SS_LASER_IRE|Impulse Ray Emitter|Light (Standard)|400|1162|1394|220|1467|21|140|26.7|55/5.2|1/S|3926/4674/5422 (10)|Standard|
+|1|PAC|SS_LASER_PAC|Particle Accelerator Cannon|Light (Standard)|314.1|703|1926|1155|6047|143|749|120.4|50.2/6.2|3/S|34669/38954/43239 (33)|Standard|
+|2|MD|SS_LASER_MASS|Mass Driver|Light (Ammo)|740.7|739|998|0|0|15|185|12.3|0/15|1/S|102837/116860/130883 (333)|Bypasses shields; Direct hull damage. Ammo: SS_WARE_AMMUNITION_ALPHA (200 rounds/crate, vol:1/S, val:1558). Continuous fire: 16.2s per crate. Consumption: 3.70 crates/min.|
+|3|PRG|SS_LASER_PRG|Phased Repeater Gun|Light (Argon)|638.3|1560|2324|680|7234|72|766|138.3|52.3/5.5|4/S|133127/149581/166035 (1000)|Standard (High projectile speed)|
+|4|EBC|SS_LASER_EBC|Energy Bolt Chaingun|Light (Teladi/Ammo)|394.7|604|2815|1357|8928|217|1428|26.3|339.2/54.2|1/S|129980/151140/172300 (333)|Uses ammo: SS_WARE_AMMUNITION_BETA (200 rounds/crate, vol:1/S, val:3116). Continuous fire: 30.4s per crate. Consumption: 1.97 crates/min.|
+|5|FBL|SS_LASER_FBL|Fragmentation Bomb Launcher|Light (Paranid)|189.3|359|1974|2793|8811|471|1486|192.4|45.8/7.7|5/S|180277/202558/224839 (1000)|Fragmentation: 5 sub-projectiles. [OOS: applies 100% DPS (8,811 kJ/s); IS: loses ~85% effective damage due to submunition collision bug]|
+|6|HEPT|SS_LASER_HEPT|High Energy Plasma Thrower|Medium (Standard)|283|431|2310|1995|9410|332|1566|188.7|49.9/8.3|6/S|124807/140233/155659 (100)|Standard|
+|7|ID|SS_LASER_IOND|Ion Disruptor|Special (Boron/Ion)|126.8|2027.3|939|1575|3330|5|11|164.9|20.2/0.1|10/M|241200/280465/319730 (1000)|Chain lightning arc (disables missiles/systems); Drains weapon energy (15 units/1s)|
+|8|PBE|SS_LASER_PBE|Pulsed Beam Emitter|Light (High Fire Rate)|1153.8|6980|977|945|18173|35|673|269.2|67.5/2.5|8/M|214400/249302/284204 (1000)|Standard (Near-instant projectile: 6,980 m/s; optimal for bailing/captures)|
+|9|PBG|SS_LASER_PD|Plasma Burst Generator|Light (Pirate/AoE)|54.8|375|788|468|427|120|110|50.2|8.5/2.2|7/S|109265/128547/147829 (33)|AoE shockwave cone. [OOS: only 427 kJ/s; IS: continuous hitbox multi-hit x12-20 (~6,000+ kJ/s shield), lethal against M3/M6/Capitals. Pirate Forges or loot only]|
+|10|EMPC|SS_LASER_EMP|Electro-Magnetic Plasma Cannon|Light (Terran)|157.1|588|2002|2000|5236|800|2094|81.2|64.5/25.8|5/S|306408/322535/338662 (1000)|Standard|
+|11|CIG|SS_LASER_CIG|Concussion Impulse Generator|Medium Corvette (Standard)|75|420|3465|7845|9806|2615|3269|307.5|31.9/10.6|25/M|408357/448744/489131 (1000)|Concussion effect (destabilizes and pushes fighters)|
+|12|IPG|SS_LASER_IPG|Ion Pulse Generator|Medium Corvette (Boron)|62.5|347|3886|12563|13086|523|545|475|27.6/1.1|28/M|444381/483023/521665 (3333)|Drains weapon energy (20 units/1.2s); Slows target ship speed|
+|13|ISR|SS_LASER_ESR|Ion Shard Railgun|Medium Corvette (Split)|230.8|498|3337|2671|10273|962|3700|476.9|21.5/7.8|22/M|405521/445628/485735 (3333)|Drains weapon energy; Reduces target ship speed (45%)|
+|14|MAML|SS_LASER_MAM|Matter/Anti-Matter Launcher|Medium Corvette (Terran/Ammo)|72|445|3627|8350|10024|3095|3715|54|185.6/68.8|21/M|433787/451861/469935 (3333)|Uses ammo: SS_WARE_TR_TECH7 (200 rounds/crate, vol:4/S, val:2078). Continuous fire: 166.6s per crate (2m 46s). Consumption: 0.36 crates/min.|
+|15|FAA|SS_LASER_FLAK_ALPHA|Flak Artillery Array|Anti-Fighter (Teladi)|55.6|7051|2115|13860|12833|2093|1938|629.6|20.4/3.1|30/L|579628/623256/666884 (3333)|Instant anti-fighter flak detonation (Flak AoE)|
+|16|CFA|SS_LASER_FLAK_CLUSTER|Cluster Flak Array|Anti-Fighter (Argon)|61.5|2200|1980|11781|12083|1758|1803|692.3|17.5/2.6|33/L|587730/638837/689944 (10000)|Cascading anti-fighter flak detonation: 4x3 submunition fragmentation AoE|
+|17|PALC|SS_LASER_PAL|Phased Array Laser Cannon|Anti-Fighter Beam (Split)|142.9|2561|6377|3969|9450|2970|7071|278.6|33.9/25.4|32/L|608610/654419/700228 (10000)|Sustained instant beam. [Not purchasable: only source is 2 units inside hidden secret container in Kha'ak Sector 841 during Operation Final Fury]|
+|18|PSG|SS_LASER_PSG|Phased Shockwave Generator|Anti-Fighter Shockwave (Paranid)|76|254|1443|1996|2530|106|134|569.1|4.4/0.2|28/L|567163/623256/679349 (10000)|Conical AoE shockwave. [OOS: only 2,530 kJ/s; IS: massive multi-hit x10-20 against large ships and swarms; high risk of friendly fire]|
+|19|SSC|SS_LASER_TERRANANTIFIGHTER|Starburst Shockwave Cannon|Anti-Fighter (Terran)|38|2000|2000|20785|13163|3374|2137|760|17.3/2.8|28/L|604558/623256/641954 (10000)|Anti-fighter detonation (Heavy flak)|
+|20|PPC|SS_LASER_PPC|Photon Pulse Cannon|Heavy Capital (Standard)|43.8|333|6623|63778|46553|11340|8277|420.4|110.7/19.7|100/XL|878791/934884/990977 (3333)|Chargeable (charged shot: damage x4 / energy x4)|
+|21|IC|SS_LASER_IONC|Ion Cannon|Heavy Capital (Boron)|33.3|387|5128|119148|66193|6840|3800|503.9|131.4/7.5|150/XL|925146/973838/1022530 (10000)|Drains weapon energy (30 units/1.6s); Slows ship; Chargeable (damage x3 / energy x2)|
+|22|GC|SS_LASER_GAUSS|Gauss Cannon|Heavy Capital (Teladi/Ammo)|88.8|353|4787|28540|42219|12130|17944|127.2|331.9/141|55/XL|676715/727651/778587 (10000)|Uses ammo: SS_WARE_AMMUNITION_GAMMA (200 rounds/crate, vol:25/L, val:15581). Continuous fire: 135.1s per crate (2m 15s). Consumption: 0.44 crates/min.|
+|23|IBL|SS_LASER_IBL|Incendiary Bomb Launcher|Heavy Capital (Pirate/Yaki)|54.5|312|5148|50860|46236|9000|8182|478.2|96.7/17.1|110/XL|782498/841396/900294 (1000)|Chargeable (charged shot: damage x2 / energy x2). [Only at Pirate/Yaki Forges (LooManckStrat's Legacy / Weaver's Tempest) or capital drop]|
+|24|PSP|SS_LASER_PSP|Point Singularity Projector|Heavy Capital (Terran)|6|321|6420|252310|25231|95812|9581|250|100.9/38.3|200/XL|957836/1029931/1102026 (33333)|Chargeable (charged shot: damage x2 / energy x2)|
+|25|PBC|SS_LASER_PBC|Plasma Beam Cannon|Heavy Beam (Argon)|100|10644|5854|7182|11970|2700|4500|336.7|35.6/13.4|120/XL|886114/942675/999236 (10000)|Sustained instant beam. [No factories in Vanilla; equipped by default only on Lasertowers or captured ships]|
+|26|TBC|SS_LASER_TRIBEAM|Tri-Beam Cannon|Heavy Beam (Paranid)|88.9|5630|6193|7532|11159|5321|7883|374.8|29.8/21|135/XL|905155/962931/1020707 (10000)|Sustained instant beam. [Prototype with no factories or sale in Vanilla]|
+|27|FBC|SS_LASER_FUSIONBEAM|Fusion Beam Cannon|Heavy Beam (Terran)|142.9|2660.8|6633|3780|9000|5400|12857|278.6|32.3/46.2|30/L|964100/973838/983576 (3333)|Sustained instant beam. [Prototype with no factories or sale in Vanilla]|
+|28|MDS|SS_LASER_MINING|Mobile Drilling System|Special Utility|3|84|4830|2362|118|6500|325|20.8|5.7/15.7|100/XL|67000/77907/88814 (-100)|Mobile mining: fragments large asteroids|
+|29|TB|SS_LASER_TUG|Tractor Beam|Special Utility|120|4000|2000|0|0|0|0|2000|0/0|50/S|763489/779070/794651 (333)|Tractor beam for towing stations and ships (Lock range: 2,000 m; link breaks: 1,332 m at max 80 m/s)|
+|32|AKE|SS_LASER_KH_ALPHA|Alpha Kyon Emitter|Beam (Kha'ak)|200|5994|1798|700|2333|350|1167|56.7|41.2/20.6|1/S|Not purchasable (val: 4674)|Instant beam (Kha'ak beam)|
+|33|BKE|SS_LASER_KH_BETA|Beta Kyon Emitter|Beam (Kha'ak)|120|9765.8|3418|2500|5000|1500|3000|300|16.7/10|5/M|Not purchasable (val: 46744)|Instant beam (Kha'ak beam)|
+|34|GKE|SS_LASER_KH_GAMMA|Gamma Kyon Emitter|Beam (Kha'ak)|85.7|12143|4857|7500|10714|4500|6429|714.3|15/9|25/XL|Not purchasable (val: 116860)|Instant beam (Kha'ak beam)|
+|35|RL|SS_LASER_REPAIR|Repair Laser|Special Utility|300|4400|2200|0|0|20|100|100|0/1|1/Tiny|Not purchasable (val: 65)|Instant beam; Repairs hull on impact (Spacesuit exclusive; HUD effective range: 200 m)|
+|36|EEMPC|SS_LASER_EMP_1|Experimental Electro-Magnetic Plasma Cannon|Prototype (Aldrin)|140.8|588|2002|2000|4695|800|1878|72.8|64.5/25.8|5/S|320467/323704/326941 (1000)|Standard (Aldrin prototype version)|
+|37|PMAML|SS_LASER_MAM_1|Prototype Matter/Anti-Matter Launcher|Prototype (Aldrin)|64|445|3627|8350|8911|3095|3303|48|185.6/68.8|21/M|442824/451861/460898 (3333)|Uses ammo: SS_WARE_TR_TECH7 (200 rounds/crate, vol:4/S, val:2078). Continuous fire: 187.5s per crate (3m 07s). Consumption: 0.32 crates/min.|
+|38|PSSC|SS_LASER_TERRANANTIFIGHTER_1|Prototype Starburst Shockwave Cannon|Prototype (Aldrin)|34|2000|2000|20785|11776|3374|1912|679.9|17.3/2.8|28/XL|567163/623256/679349 (10000)|Anti-fighter detonation (Aldrin prototype flak). [Requires XL cargo: mountable only on Springblossom; does not fit in Aldrin fighters]|
+
+================================================================================
+2. MISSILES MASTER TABLE (35 MISSILES)
+================================================================================
+
+|Idx|Group Code|ID|Name|Category|Total Dmg|Speed (m/s)|Accel (m/s²)|Range (km)|Blast Radius (m)|Turn (rpm)|Reload (s)|Vol/Class|Price (Min/Avg/Max) (Rep)|Properties and Guidance|
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+|0|M_DMBF|SS_MISSILE_A|Mosquito Missile|Light / Interceptor|200|590|240|14.7|0|158.3|0.25|1/S|126/168/210 (0)|Guided (Optimal anti-missile defense with MDM)|
+|1|M_LIGHT|SS_MISSILE_B|Wasp Missile|Light Guided|8000|560|130|18.1|2.4|48|0.75|1/S|1077/1346/1615 (33)|Swarm (8x 1000 damage); Guided|
+|2|M_DMBF|SS_MISSILE_C|Dragonfly Missile|Light / Interceptor|5000|250|220|18.8|20|54|0.5|1/S|778/1010/1242 (33)|Dumbfire|
+|3|M_LIGHT|SS_MISSILE_D|Silkworm Missile|Light Guided|19000|190|70|28.4|20|30|1|2/S|4291/5048/5805 (33)|Guided|
+|4|M_HEAVY|SS_MISSILE_E|Hornet Missile|Heavy / Torpedo|200000|186|50|31.2|100|6|1.5|3/M|8885/10097/11309 (3333)|Guided heavy|
+|5|M_LIGHT|SS_MISSILE_F|Disruptor Missile|Light Guided|6000|514.8|260|40|0.6|107.8|0.75|1/S|2760/3366/3972 (333)|Fast guided. [Not purchasable or buildable; Pirate/Yaki/Xenon loot only; requested in Corporate M02 contracts]|
+|6|M_KHAAK|SS_MISSILE_1|Sting|Kha'ak Guided|4000|257.2|400|40|200|110.2|0.25|1/S|Not purchasable (val: 3366)|Guided; Proximity fuse|
+|7|M_KHAAK|SS_MISSILE_2|Needle|Kha'ak Guided|7450|174.3|360|26.7|200|55.9|0.5|2/S|Not purchasable (val: 6731)|Guided; Proximity fuse|
+|8|M_KHAAK|SS_MISSILE_3|Thorn|Kha'ak Guided|15000|158.6|320|17.8|400|7.1|1|3/M|Not purchasable (val: 13462)|Guided; Proximity fuse|
+|9|M_DMBF|SS_MISSILE_DMBF|Firefly Missile|Light / Interceptor|1500|576|240|25|4|0|0.25|1/S|170/224/278 (0)|Dumbfire|
+|10|M_MED|SS_MISSILE_HTSK|Thunderbolt Missile|Medium Tactical|75000|195|100|78|20|55.9|1.5|6/M|7236/8414/9592 (333)|Guided; Heat-seeking|
+|11|M_MED|SS_MISSILE_FF|Tempest Missile|Medium Tactical|60000|195|80|62.4|20|55.9|2|5/M|11847/13462/15077 (3333)|Guided; Auto-retargeting|
+|12|M_LIGHT|SS_MISSILE_PROX|Hurricane Missile|Light Guided|6000|471.2|240|30|200|131.7|1|3/S|3352/4039/4726 (333)|Guided; Proximity fuse|
+|13|M_MED|SS_MISSILE_PROXTRAK|Cyclone Missile|Medium Tactical|23000|148.9|24|60|20|12.6|1.5|3/M|18175/20194/22213 (3333)|Guided; Proximity fuse|
+|14|M_MED|SS_MISSILE_SWRMDMBF|Tornado Missile|Medium Tactical|400000|312.5|240|25|40|0|2|8/M|14977/16828/18679 (3333)|Swarm (8x 50000 damage); Dumbfire|
+|15|M_HEAVY|SS_MISSILE_SWRM|Typhoon Missile|Heavy / Torpedo|240000|195|50|74.9|20|12|2|3/M|30290/33656/37022 (3333)|Swarm (8x 30000 damage); Guided|
+|16|M_HEAVY|SS_MISSILE_TORP|Firestorm Torpedo|Heavy / Torpedo|1000000|165|10|99|1000|1.1|5|7/M|75121/80775/86429 (3333)|Guided; Heavy anti-capital torpedo (~1km radius)|
+|17|M_DMBF|SS_MISSILE_SYN|Aurora Missile|Light / Interceptor|8000|589|240|18.7|200|108.7|3|3/S|1615/2019/2423 (333)|Dumbfire; Manual detonation|
+|18|M_LIGHT|SS_MISSILE_RGW|Remote Guided Warhead|Light Guided|100000|142.7|40|80|100|5.9|4|3/S|Not purchasable (val: 26925)|Manual remote guided|
+|20|M_MED|SS_MISSILE_TR2|Hammerhead Missile|Medium Tactical|1250000|172|16|86|1200|1.1|3|1/M|Not purchasable (val: 80775)|Guided; Heavy anti-capital torpedo (~1.2km radius)|
+|21|M_DMBF|SS_MISSILE_NEW1|Rapier Missile|Light / Interceptor|1000|657.5|220|100|8|94.5|0.25|1/S|Not purchasable (val: 1346)|Very fast guided|
+|22|M_DMBF|SS_MISSILE_NEW2|Firelance Missile|Light / Interceptor|4500|500.1|240|50|150|121.8|0.5|1/S|Not purchasable (val: 2692)|Dumbfire|
+|23|M_LIGHT|SS_MISSILE_NEW3|Wildfire Missile|Light Guided|15000|246.6|160|33.3|20|110.2|0.75|1/S|Not purchasable (val: 3366)|Guided; Auto-retargeting|
+|24|M_MED|SS_MISSILE_NEW4|Windstalker Missile|Medium Tactical|30000|179.1|90|22.2|40|55.9|1|1/S|Not purchasable (val: 6731)|Dumbfire; Manual detonation|
+|25|M_MED|SS_MISSILE_NEW5|Banshee Missile|Medium Tactical|74000|153.1|160|14.8|100|7.1|1|1/S|Not purchasable (val: 13462)|Tactical guided|
+|26|M_TR_H|SS_MISSILE_WRAITH|Wraith Missile|Heavy Swarm (Terran)|1000000|170|5|51|750|0.6|6|1/L|30290/33656/37022 (3333)|Swarm (8x 125000 damage); Guided; Heat-seeking; Proximity fuse; Heavy torpedo|
+|27|M_TR_L|SS_MISSILE_POLTERGEIST|Poltergeist Missile|Light Swarm (Terran)|12000|250|120|12.5|5|122.7|1.5|2/S|3029/3366/3703 (33)|Swarm (8x 1500 damage); Guided; Auto-retargeting|
+|28|M_TR_M|SS_MISSILE_SPECTRE|Spectre Missile|Medium Heavy (Terran)|260000|190|10|24.7|20|10.8|2|5/M|6675/7853/9031 (333)|Guided; Heat-seeking; Proximity fuse|
+|29|M_M8|SS_MISSILE_BOMBER|Tomahawk Heavy Missile|Bomber M8 Torpedo|625000|196|100|43.1|75|4.8|4|2/M|20866/22437/24008 (3333)|Guided; Auto-retargeting; M8 exclusive|
+|30|M_M7M_TORP|SS_MISSILE_TORP_CAPITAL|Hammer Heavy Torpedo|Frigate M7M Torpedo|300000|253|132|75.9|150|6|1.25|20/L|46950/50484/54018 (3333)|Guided; Auto-retargeting; Proximity fuse; M7M exclusive|
+|31|M_M7M_AF|SS_MISSILE_AF_CAPITAL|Flail Barrage Missile|Frigate M7M Anti-Fighter|40000|486|260|58.3|10|106.2|2|5/M|26925/33656/40387 (33)|Swarm (8x 5000 damage); Guided; Auto-retargeting; M7M exclusive|
+|32|M_TR_M8|SS_MISSILE_USC_BOMBER|Phantom Missile|Bomber M8 Torpedo (Terran)|650000|212|111|53|100|3|3.2|1/M|20866/22437/24008 (3333)|Guided; Auto-retargeting; Proximity fuse; Terran M8 exclusive|
+|33|M_TR_M7M_TORP|SS_MISSILE_USC_TORP_CAPITAL|Shadow Missile|Frigate M7M Torpedo (Terran)|6040000|245|137|80.8|162|3|4|18/L|49559/53289/57019 (3333)|Swarm (8x 755000 damage); Guided; Retargeting; Proximity fuse; Skirnir M7M exclusive|
+|34|M_TR_M7M_AF|SS_MISSILE_USC_AF_CAPITAL|Ghoul Missile|Frigate M7M Anti-Fighter (Terran)|52000|450|275|56.2|15|105|2.4|3/M|26925/33656/40387 (33)|Swarm (8x 6500 damage); Guided; Retargeting; Proximity fuse; Skirnir M7M exclusive|
+|35|M_POD|SS_MISSILE_BOARDINGPOD|Boarding Pod|Boarding Pod (M7M)|5|480|40|76.8|0|48|4|3/S|75121/80775/86429 (3333)|Carries up to 5 marines to board capital ships (Exception: Aquilo, Skirnir, and Senshi cannot fire them)|
+
+### 2.1. Quick Missile Selection Index by Tactical Role
+|Tactical Operational Role|Combat Characteristics|Compatible Missiles|
+|---|---|---|
+|**Swarm (8 Warheads)**|Saturates turret defenses; divides damage across 8 independent submunitions.|*Wasp, Tornado, Typhoon, Wraith, Poltergeist, Flail Barrage, Shadow, Ghoul.*|
+|**Auto-Retargeting**|If primary target is destroyed prior to impact, automatically acquires a new nearby enemy target.|*Tempest, Wildfire, Poltergeist, Tomahawk, Hammer Heavy Torpedo, Flail Barrage, Phantom, Shadow, Ghoul.*|
+|**Proximity Fuse (Flak)**|Detonates automatically within target proximity without requiring direct physical impact.|*Sting, Needle, Thorn, Hurricane, Cyclone, Wraith, Spectre, Hammer Heavy Torpedo, Phantom, Shadow, Ghoul.*|
+|**Heavy Anti-Capital Torpedo (>=200,000 Damage)**|Designed to destroy corvettes, frigates, destroyers, and stations; moderate speed and high destruction power.|*Hornet (200k), Typhoon (240k), Spectre (260k), Hammer Heavy Torpedo (300k), Tornado (400k), Tomahawk (625k), Phantom (650k), Firestorm (1M), Wraith (1M), Hammerhead (1.25M), Shadow (6.04M).*|
+|**Light Interceptors / Anti-Missile (MDM)**|High speed (>500 m/s) to take down M5 light fighters or intercept incoming warheads using MDM software.|*Mosquito (590 m/s), Firefly (576 m/s), Aurora (589 m/s), Rapier (657.5 m/s), Firelance (500.1 m/s).*|
+
+================================================================================
+3. SHIELDS MASTER TABLE (6 SHIELDS)
+================================================================================
+
+|Idx|ID|Name|Capacity (MJ)|Gen Drain (kW)|Max Recharge (kJ/s)|Recharge Time 0-100% (s)|Vol/Class|Price (Min/Avg/Max) (Rep)|Typical Ship Chassis|
+|---|---|---|---|---|---|---|---|---|---|
+|0|SS_SHIELD_A|1 MJ Shield|1|33|32.67 (Effic: 99%)|30.6|1/S|4155/5194/6233 (-100)|`M5`, Astronaut spacesuit.|
+|1|SS_SHIELD_B|5 MJ Shield|5|83|78.85 (Effic: 95%)|63.4|3/S|17243/20775/24307 (-100)|`M5+`, Standard `M4`.|
+|2|SS_SHIELD_C|25 MJ Shield|25|250|225 (Effic: 90%)|111.1|10/M|74557/85698/96839 (333)|`M4+`, `M3`, `M3+`, `TS`, `TP`.|
+|3|SS_SHIELD_D|200 MJ Shield|200|1500|1350 (Effic: 90%)|148.1|25/L|140233/155814/171395 (333)|Heavy `M3+`, `M6`, `M6M`, `M8`, `TM`, `TL`, `Small OWP`.|
+|4|SS_SHIELD_E|1 GJ Shield|1000|2000|1800 (Effic: 90%)|555.6|77/XL|275230/299163/323096 (3333)|`M7` frigates, `M7C`, Standard `M7M`, `Medium OWP`.|
+|5|SS_SHIELD_F|2 GJ Shield|2000|2000|1700 (Effic: 85%)|1176.5|222/XL|703033/747907/792781 (3333)|`M1` carriers, `M2` destroyers, Heavy `M7M` (*Ares, Gannet, Skirnir, Aquilo*), `Large OWP`, `Aran`.|

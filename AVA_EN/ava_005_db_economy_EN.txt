@@ -1,0 +1,574 @@
+# A.V.A. (ADVANCED FLIGHT ASSISTANT): MASTER DATABASE: ECONOMY, WARES, AND FACTORIES
+- **Version:** v2.5 EN
+- **File:** `ava_005_db_economy_EN.txt`
+- **Scope:** X3: Terran Conflict (v3.2 / v3.4 Vanilla + Official Bonus Pack)
+- **Hierarchy:** Layer 0 — Catalog of 98 Wares, 49 Upgrades, 303 Factories, and 41 Docks (Compiled from TWareE, TWareB, TWareF, TWareM, TWareN, TWareT, TFactories, TDocks, and WareTemplate)
+
+================================================================================
+1. ECONOMIC RULES, COMPLEXES, AND INDUSTRIAL LOGISTICS
+================================================================================
+
+### 1.1. Production Scales and Capacity Factor
+* `1x`: Standard base scale (Weapon Forges, Missile Factories, Shields, and Tech Fabs).
+* `2x (M)`: Medium scale (Primary Bio, Refined Food, Crystal Fabs, M Mines, SPP M).
+* `5x (L)`: Large scale (Primary Bio, Refined Food, Crystal Fabs, L Mines, SPP L).
+* `10x (XL)`: Massive scale (Solar Power Plants XL).
+* **Consumption Equivalence:** `1 Factory 5x (L)` exactly supplies `2.5 Factories 2x (M)` or `5 Equipment Forges/Factories 1x`.
+
+### 1.2. Cost Rule and Complex Assembly (CCK Kits)
+* **Complex Construction Kit Formula:** Joining $N$ physical stations into a unified complex strictly requires **$N - 1$ Complex Construction Kits (`CCK`)** (`SS_FAC_[A/B/P/S/T]_CCKIT`) at a fixed price of **`322,885 Cr`** each.
+* **Hub Mechanics:** The first CCK joins the first 2 stations and deploys the docking node (*Complex Hub*). Each subsequent CCK connects 1 additional station to the existing complex.
+* **Total Installation Budget:**
+  $$\text{Total Cost} = \sum(\text{Price of the } N \text{ Stations}) + (N - 1) \times 322,885\text{ Cr}$$
+* **Physical Pipe Limit and Chain Merging (>20 km):** Maximum distance of 20 km between any station and the Complex Hub (`SG_MAX_DISTANCE_BUILDCOMPLEX = 20,000 m`). To connect mines or factories located >20 km away without towing, a second intermediate Complex Hub can be deployed and both Hubs merged with 1 CCK (provided the two Hubs are <20 km apart; the first Hub selected takes precedence as the primary docking node).
+
+### 1.3. Self-Sustaining Closed Loop
+* **Universal Commonwealth Flow:** $\text{Silicon (Mine)} + \text{Bio} \longrightarrow \text{Food} \longrightarrow \text{Crystals} \longrightarrow \text{Energy Cells (SPP)} \longrightarrow \text{Powers entire complex}$.
+* **Fixed Ratio (`1 Crystal = 138 Cells`) and Balance for SPP XL (`10x`):**
+  * *At 100% Sun (`118 s` cycle):* Produces `+2,760` Cells and consumes `-20` Crystals every `118 s` (`84,203 Cells/h` and `610.2 Crystals/h`). With **5x Crystal Fabs M** (or `2x L`), **`600 Crystals/h` (`82,800 Cells/h` stable)** are produced, requiring **5x Food Fabs M** + **5x Bio Farms M** + **`375 Silicon Wafers/h`** (cumulative Silicon Yield sum **>= 50** in L Mines, e.g. 2x L Mines on yield 25 asteroids = `387 wafers/h`).
+  * *At 150% Sun (`106 s` cycle, present in 177 sectors):* The SPP XL can produce up to `93,736 Cells/h` (`679.2 Crystals/h`). If maintained with **5x Crystal Fabs M**, the complex **does not collapse** and continues producing **`82,800 Cells/h`** (bottlenecked by the input of `600 Crystals/h`). To extract 100% output from the SPP XL at 150% Sun, install **6x Crystal Fabs M** (`720 Crystals/h`), **6x Food M**, **6x Bio M**, and **`450 Silicon Wafers/h`** (cumulative Silicon Yield **>= 58** in L Mines).
+* **Terran Closed Loop Flow (`_PL` Factories in TUS 1):** $\text{Silicon (Mine)} + \text{Protein Paste} \longrightarrow \text{Terran MRE} \longrightarrow \text{Terran Crystals} \longrightarrow \text{Cells (Terran SPP)}$. Player-owned Terran factories **DO NOT consume Water or C-Rations** (they strictly require Energy Cells, Protein Paste, Terran MRE, and Ore/Silicon).
+* **SPP Cycles by `Sun %` (`TSuns.txt`):** Sun 0% = `176 s` | Sun 100% = `118 s` | Sun 150% = `106 s` | Sun 300% = `90 s` (*Aldrin, Aldrin 2, TUS 1, A New Home*) | Sun 400% = `86 s` (*Akeela's Beacon*) | Sun 450% = `84 s` (*Harmony of Perpetuity*).
+* **Player vs NPC Rule:** Player-owned factories **NEVER consume secondary resources**, nor do they consume Delexian Wheat in Cahoona Bakeries or Silicon in Missile/Torpedo Factories (those inputs are strictly demanded by NPC stations). On player-owned SPPs, Crystals are a **mandatory primary resource**.
+
+### 1.4. Primary Racial Food Consumption (Per 1-minute base cycle at 1x scale)
+* **Argon:** `-10 Meatsteak Cahoonas` (Base bio: `-3 Argnu Beef`).
+* **Boron:** `-2.5 BoFu` (Base bio: `-0.83 BoGas`).
+* **Paranid:** `-2 Soja Husk` (Base bio: `-12 Soya Beans`).
+* **Split:** `-1.5 Rastar Oil` (Base bio: `-3 Chelts Meat`).
+* **Teladi:** `-10 Nostrop Oil` (Base bio: `-15 Sunrise Flowers`).
+* **Terran:** `-2.5 Terran MRE` (Base bio Player: `-10 Protein Paste`) or `-10 C-Rations` (NPC stations only).
+
+### 1.5. TL Freight Logistics and Packaging Volumes (ST Cargo Bay)
+Transporting and deploying stations strictly requires class **`ST`** cargo, exclusive to **`TL`** freighters. Approximate packaged volumes per station:
+* **Complex Construction Kits (`CCK`):** `1,000 ST`.
+* **Forges 1x (Lasers, Missiles, Shields, Tech):** `2,000` to `4,000 ST`.
+* **Bio, Food, and Crystal Fabs M:** `2,000` to `3,500 ST`.
+* **Bio, Food, and Crystal Fabs L:** `4,500` to `7,500 ST`.
+* **Ore and Silicon Mines (M and L):** `10,000 ST`.
+* **Solar Power Plants:** `SPP M` = `10,000 ST` | `SPP L` = `25,000 ST` | `SPP XL` = `40,000` to `50,000 ST`.
+
+### 1.6. Contraband Matrix and Police Jurisdiction
+|Illegal Ware|Internal ID|Jurisdiction Where Illegal (Confiscation & Police Engagement)|Legal Trade Sectors|
+|---|---|---|---|
+|**Space Fuel**|`SS_WARE_F219`|Argon, Boron, Split, Paranid, Teladi, Terran (All official races).|Pirate sectors, Yaki, and Unknown Sectors.|
+|**Space Weed**|`SS_WARE_F258`|Argon, Boron, Split, Paranid, Terran.|**100% Legal in Teladi space**, Pirates, and Yaki.|
+|**Slaves**|`SS_WARE_SLAVE`|All Commonwealth races and Terran.|Pirate Bases, Yaki, and Duke's Haven.|
+|**SQUASH Mine**|`SS_WARE_MINE_1`|Argon, Boron, Terran.|Legal in Teladi, Split, and Paranid.|
+|**Spaceflies**|`SS_WARE_TECH239`|Argon, Boron, Paranid, Teladi, Terran.|**100% Legal in Split space** (Split cultural heritage).|
+
+### 1.7. Player Docks and Trading Stations Logistics
+Equipment Docks and Trading Stations constructed by the player DO NOT produce wares on their own; they operate as logistical redistribution storehouses regulated by the engine parameter `SG_DOCK_STORAGE_FACTOR` (`ava_007_db_mechanics_EN.txt`) and managed via Bonus Pack scripts (`CAG`, `CLS1/2`, `Dockware Manager`).
+
+### 1.8. Quick Acronym Dictionary for Weaponry, Ammunition, and Missiles in Factories
+* **Laser Acronyms in Forges and Docks:** `IRE`, `PAC`, `MD`, `PRG`, `EBC`, `FBL`, `HEPT`, `ID`, `PBE`, `PBG`, `EMPC`, `CIG`, `IPG`, `ISR`, `MAML`, `FAA`, `CFA`, `PSG`, `SSC`, `PPC`, `IC`, `GC`, `IBL`, `PSP`, `MDS`, `TB`, `EEMPC`, `PMAML`, `PSSC`.
+* **Short Ammunition Names:** `Mass Driver Ammunition` (`SS_WARE_AMMUNITION_ALPHA`), `Energy Bolt Chaingun Ammunition` (`SS_WARE_AMMUNITION_BETA`), `Gauss Cannon Ammunition` (`SS_WARE_AMMUNITION_GAMMA`), `Matter/Anti-matter Warhead` (`SS_WARE_TR_TECH7`).
+* **Short Missile and Torpedo Names:** `Mosquito`, `Wasp`, `Dragonfly`, `Silkworm`, `Hornet`, `Firefly`, `Thunderbolt`, `Tempest`, `Hurricane`, `Cyclone`, `Tornado`, `Typhoon`, `Firestorm Torpedo`, `Aurora`, `Tomahawk` (M8), `Hammer Heavy Torpedo` (Hammer M7M), `Flail Barrage` (M7M), `Poltergeist`, `Spectre`, `Wraith`, `Phantom` (Terran M8), `Shadow` (Terran M7M), `Ghoul` (Terran M7M), `Boarding Pod`. *(Ballistic statistics in `ava_003_db_weapons_EN.txt`)*.
+
+## 2. Wares and Resources Master Table (98 Wares)
+|Category|ID|Name|Vol/Class|RelVal (NPC/Player)|Price (Min/Avg/Max)|Rep|
+|---|---|---|---|---|---|---|
+|Energy|SS_WARE_ENERGY|Energy Cells|1/S|4/4|12/16/20|-100|
+|Minerals|SS_WARE_ORE|Ore|8/XL|24/24|50/128/206|-100|
+|Minerals|SS_WARE_SILICON|Silicon Wafers|18/XL|96/96|232/504/776|-100|
+|Minerals|SS_WARE_NIVIDIUM2|Nividium|4/XL|3072/3072|8064/16128/24192|-100|
+|Minerals|SS_WARE_ICE|Ice|8/XL|24/24|50/128/206|-100|
+|Bio / Raw Materials|SS_WARE_R214|Delexian Wheat|2/S|6/6|10/32/54|-100|
+|Bio / Raw Materials|SS_WARE_R215|Argnu Beef|4/S|20/20|42/104/166|-100|
+|Bio / Raw Materials|SS_WARE_R224|Plankton|1/S|4/4|10/20/30|-100|
+|Bio / Raw Materials|SS_WARE_R225|BoGas|6/S|72/72|266/380/494|-100|
+|Bio / Raw Materials|SS_WARE_R234|Scruffin Fruits|2/S|4/4|7/20/33|-100|
+|Bio / Raw Materials|SS_WARE_R235|Chelts Meat|2/S|20/20|50/104/158|-100|
+|Bio / Raw Materials|SS_WARE_R244|Soya Beans|1/S|5/5|14/28/42|-100|
+|Bio / Raw Materials|SS_WARE_R245|Maja Snails|2/S|30/30|90/156/222|-100|
+|Bio / Raw Materials|SS_WARE_R254|Sunrise Flowers|1/S|4/4|5/20/35|-100|
+|Bio / Raw Materials|SS_WARE_R255|Teladianium|5/M|30/30|56/156/256|-100|
+|Bio / Raw Materials|SS_WARE_R256|Swamp Plant|3/S|30/30|36/156/276|-100|
+|Bio / Raw Materials|SS_WARE_TR_R1|Protein Paste|2/S|6/6|10/32/54|-100|
+|Bio / Raw Materials|SS_WARE_TR_R2|Vita Kai|4/S|20/20|42/104/166|-100|
+|Bio / Raw Materials|SS_WARE_TR_R3|Carbo Cake|2/S|6/6|10/32/54|-100|
+|Bio / Raw Materials|SS_WARE_TR_R4|Flavour Pack|4/S|20/20|42/104/166|-100|
+|Bio / Raw Materials|SS_WARE_WATER|Water|2/S|6/3|10/32/54|-100|
+|Food and Drinks|SS_WARE_F217|Cloth Rimes|2/S|24/24|152/292/432|-100|
+|Food and Drinks|SS_WARE_F218|Meatsteak Cahoonas|4/M|6/6|34/72/110|-100|
+|Food and Drinks|SS_WARE_F219|Space Fuel|2/S|60/48|204/728/1252|-100|
+|Food and Drinks|SS_WARE_F227|Stott Spices|1/S|6/6|46/72/98|-100|
+|Food and Drinks|SS_WARE_F228|BoFu|5/M|24/24|190/292/394|-100|
+|Food and Drinks|SS_WARE_F237|Massom Powder|1/S|3/3|16/36/56|-100|
+|Food and Drinks|SS_WARE_F238|Rastar Oil|6/M|40/40|252/484/716|-100|
+|Food and Drinks|SS_WARE_F247|Majaglit|2/S|3/3|9/36/63|-100|
+|Food and Drinks|SS_WARE_F248|Soja Husk|4/S|30/30|204/364/524|-100|
+|Food and Drinks|SS_WARE_F257|Nostrop Oil|3/M|6/6|26/72/118|-100|
+|Food and Drinks|SS_WARE_F258|Space Weed|6/S|240/216|903/2912/4921|-100|
+|Food and Drinks|SS_WARE_TR_F5|Terran MRE|2/S|24/24|152/292/432|-100|
+|Food and Drinks|SS_WARE_TR_F6|C-Ration|4/M|6/6|34/72/110|-100|
+|Technology and Equipment|SS_WARE_TECH204|Warheads|4/L|8/9|168/224/280|0|
+|Technology and Equipment|SS_WARE_TECH205|Crystals|4/M|60/60|1431/1683/1935|-100|
+|Technology and Equipment|SS_WARE_TECH206|Quantum Tubes|5/M|120/100|2558/3366/4174|0|
+|Technology and Equipment|SS_WARE_TECH207|Microchips|2/S|480/360|11712/13462/15212|0|
+|Technology and Equipment|SS_WARE_TECH208|Computer Components|1/S|48/48|996/1346/1696|0|
+|Technology and Equipment|SS_WARE_TECH239|Spaceflies|1/S|110/110|1851/3085/4319|-100|
+|Technology and Equipment|SS_WARE_SLAVE|Slaves|2/S|50/50|701/1402/2103|-100|
+|Technology and Equipment|SS_WARE_SATELLITE|Navigation Relay Satellite|3/M|240/264|5789/6731/7673|-100|
+|Technology and Equipment|SS_WARE_MINE_1|SQUASH Mine|5/L|360/340|7371/10097/12823|33|
+|Technology and Equipment|SS_WARE_ORBITALLASER|Lasertower|100/XL|5400/5640|125706/151453/177200|33|
+|Technology and Equipment|SS_WARE_FIGHTDRONE|Fighter Drone|2/M|144/132|3191/4039/4887|33|
+|Technology and Equipment|SS_WARE_AMMUNITION_ALPHA|Mass Driver Ammunition|1/S|24/21|1246/1558/1870|33|
+|Technology and Equipment|SS_WARE_CAMERADRONE|Camera Drone|1/S|72/72|1999/2019/2039|33|
+|Technology and Equipment|SS_WARE_SATELLITE2|Advanced Satellite|4/M|480/432|11039/13462/15885|0|
+|Technology and Equipment|SS_WARE_FREIGHTDRONE|Freight Drone|3/M|960/960|19655/26925/34195|Not traded|
+|Technology and Equipment|SS_WARE_TR_TECH7|Matter/Anti-matter Warhead|4/S|32/36|1662/2078/2494|0|
+|Technology and Equipment|SS_WARE_TR_TECH8|Hull Plating|10/L|8/9|415/519/623|0|
+|Technology and Equipment|SS_WARE_AMMUNITION_BETA|Energy Bolt Chaingun Ammunition|1/S|48/22|2493/3116/3739|33|
+|Technology and Equipment|SS_WARE_AMMUNITION_GAMMA|Gauss Cannon Ammunition|25/L|240/210|12465/15581/18697|33|
+|Technology and Equipment|SS_WARE_ARMS_1|Low-yield Sidearms|7/S|480/480|9962/13462/16962|0|
+|Technology and Equipment|SS_WARE_ARMS_2|Disintegrator Rifles|8/S|960/960|19924/26925/33926|0|
+|Technology and Equipment|SS_WARE_TR_ARMS|Terran EMP Rifles|7/S|1920/1920|39849/53850/67851|0|
+|Technology and Equipment|SS_WARE_MINE_2|Tracker Mine|6/L|360/340|7371/10097/12823|33|
+|Technology and Equipment|SS_WARE_MINE_3|Ion Mine|6/L|720/680|14742/20194/25646|33|
+|Technology and Equipment|SS_WARE_TR_MINE|Matter/Anti-Matter Mine|5/L|720/680|14742/20194/25646|33|
+|Technology and Equipment|SS_WARE_RECONDRONE|Recon Drone|2/S|1000/1000|20474/28047/35620|Not traded|
+|Technology and Equipment|SS_WARE_SOLDIER_1|Mercenary|8/M|500/500|13883/14023/14163|0|
+|Technology and Equipment|SS_WARE_SOLDIER_2|Marine|8/M|550/550|15272/15426/15580|0|
+|Technology and Equipment|SS_WARE_USC_DRONE|Keris|3/M|288/288|6865/8077/9289|333|
+|Technology and Equipment|SS_WARE_A_MK2DRONE|Fighter Drone MKII|4/M|960/960|21271/26925/32579|333|
+|Special / Mission|SS_WARE_DEBRIS|Debris|3/S|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_ARTEFACTS|Artefacts|4/M|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_AFERTILIZER|Artificial Fertilizer|4/L|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_BIOORGANISMS|Biological Micro-Organisms|2/S|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_CCHIPS|Cartography Chips|1/S|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_CEQUIPMENT|Construction Equipment|5/XL|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_ECOMPONENTS|Engine Components|5/XL|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_FRATIONS|Food Rations|3/S|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_HWEAPONS|Hand Weapons|4/S|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_LFOODSTUFF|Luxury Foodstuffs|2/S|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_MEDEQUIPMENT|Medical Equipment|5/M|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_MINEQUIPMENT|Mining Equipment|5/XL|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_NIVIDIUM|Nividium [Mission Item]|4/XL|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_RWASTE|Radioactive Waste|3/XL|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_TPANNELING|Teladianium Panelling|4/L|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_WICHIPS|Weapon Interface Chips|1/S|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_NARCOTICS|Narcotics|2/S|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_SSLAVECHIPS|Super Slave Chips|1/S|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_SPACEFLYEGGS|Spacefly Eggs|2/S|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_PSIDEARMS|Pirate Sidearms|3/S|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_HCHIPS|Hackerchips|1/S|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_MPERSONNEL|Military Personnel|7/M|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_PASSENGER|Passengers|6/M|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_VIPASSENGER|Very Important Passengers|8/M|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_ECHIPS|Entertainment Chips|1/S|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_REDCRYSTAL|Red Crystal|1/Tiny|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_BLUECRYSTAL|Blue Crystal|1/Tiny|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_GREENCRYSTAL|Green Crystal|1/Tiny|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_YELLOWCRYSTAL|Yellow Crystal|1/Tiny|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_TRANSPCRYSTAL|Transparent Crystal|1/Tiny|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_BLACKCRYSTAL|Black Crystal|1/Tiny|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_GLOWINGCRYSTAL|Glowing Crystal|1/Tiny|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_ESCAPEPOD|Escape Pod|3/S|1/1|49/65/81|-100|
+|Special / Mission|SS_WARE_JD_COMPONENTS|Jumpdrive Components|3/S|1/1|49/65/81|-100|
+
+## 3. Software, Ship Upgrades, and Licenses Master Table (49 Upgrades)
+*(Note: For Cargo Bay Extension, Engine Tuning, and Rudder Optimisation, tabulated price is base cost of the first unit installed; total upgrade cost scales with each additional unit).*
+|ID|Name|Vol/Class|Fixed / Base Price (Cr)|Rep|Sale Locations|
+|---|---|---|---|---|---|
+|SS_WARE_TECH209|Salvage Insurance|0/Tiny|561|-100|Argon Trading Stations, Goner Temple (Elysium of Light), TerraCorp HQ (Home of Light), OTAS HQ (Legend's Home), Terran Military Base, USC Orbital Defense Station, Earth Torus|
+|SS_WARE_TECH275|Mineral Scanner|0/Tiny|37807|-100|Equipment Docks (5 Races), Jonferco HQ (Aquila's Beacon), Plutarch HQ (Ore Belt), NMMC HQ (PTNI Headquarters), Terran Military Base, Earth Torus|
+|SS_WARE_TECH276|Freight Scanner|0/Tiny|26925|1000|Equipment Docks (5 Races), Military Outposts (5 Races), OTAS HQ (Legend's Home), Jonferco HQ (Aquila's Beacon), Duke's Haven, Strong Arms HQ (Thyn's Excavation), Pirate Base, Terran Military Base, USC Orbital Defense Station, Saturn Research Station, Earth Torus, ATF Orbital Defense Station (The Moon), Paranid Trading Stations, Argon Trading Stations|
+|SS_WARE_TECH277|Trading System Extension|0/Tiny|8975|0|Argon Equipment Dock, Paranid Equipment Dock, Teladi Equipment Dock, TerraCorp HQ (Home of Light), Jonferco HQ (Aquila's Beacon), Plutarch HQ (Ore Belt), NMMC HQ (PTNI Headquarters), Terran Military Base, Saturn Research Station, Earth Torus, ATF Orbital Defense Station, ATF Orbital Defense Station (The Moon), Aldrin Base|
+|SS_WARE_TECH251|Cargo Bay Extension|0/Tiny|12 to 1000 (Avg: 506)|-100|Equipment Docks (5 Races), Trading Stations (5 Races), Pirate Base, Terran Military Base, USC Orbital Defense Station, USC Patrol Base, Saturn Research Station, Earth Torus, ATF Orbital Defense Station, ATF Orbital Defense Station (The Moon), Aldrin Base|
+|SS_WARE_TECH213|Engine Tuning|0/Tiny|100 to 3000 (Avg: 1550)|-100|Equipment Docks (5 Races), Trading Stations (5 Races), Pirate Base, Terran Military Base, USC Orbital Defense Station, USC Patrol Base, Saturn Research Station, Earth Torus, ATF Orbital Defense Station, ATF Orbital Defense Station (The Moon), Aldrin Base|
+|SS_WARE_TECH246|Rudder Optimisation|0/Tiny|60 to 1800 (Avg: 930)|-100|Equipment Docks (5 Races), Trading Stations (5 Races), Pirate Base, Terran Military Base, USC Orbital Defense Station, USC Patrol Base, Saturn Research Station, Earth Torus, ATF Orbital Defense Station, ATF Orbital Defense Station (The Moon), Aldrin Base|
+|SS_WARE_TECH241|Docking Computer|0/Tiny|18932|33|Paranid Equipment Dock, OTAS HQ (Legend's Home), Duke's Haven, Atreus HQ (Queen's Harbour), Terran Military Base, Earth Torus, Aldrin Base|
+|SS_WARE_TECH242|Video Enhancement Goggles|0/Tiny|5329|0|Boron Equipment Dock, Teladi Equipment Dock, Terran Military Base, Paranid Trading Stations|
+|SS_WARE_TECH231|Singularity Engine Time Accelerator (SETA)|0/Tiny|252|-100|Equipment Docks (5 Races), Trading Stations (5 Races), TerraCorp HQ (Home of Light), OTAS HQ (Legend's Home), Jonferco HQ (Aquila's Beacon), Terran Military Base, USC Orbital Defense Station, USC Patrol Base, Saturn Research Station, Earth Torus, ATF Orbital Defense Station, ATF Orbital Defense Station (The Moon), Aldrin Base|
+|SS_WARE_L_A|Argon Law Enforcement License|0/Tiny|7573|1000|Argon Trading Stations, Goner Temple (Elysium of Light), TerraCorp HQ (Home of Light), Argon Military Outposts, Boron Trading Stations|
+|SS_WARE_L_B|Boron Law Enforcement License|0/Tiny|7573|1000|Boron Trading Stations, Boron Military Outposts|
+|SS_WARE_L_S|Split Police License|0/Tiny|7573|1000|Split Trading Stations, Split Military Outposts|
+|SS_WARE_L_P|Paranid Police License|0/Tiny|7573|1000|Paranid Trading Stations, Duke's Haven, Paranid Military Outposts|
+|SS_WARE_L_T|Teladi Company Security License|0/Tiny|7573|1000|Teladi Trading Stations, Teladi Military Outposts|
+|SS_WARE_BESTBUY|Best Buys Locator|0/Tiny|22437|0|Teladi Equipment Dock, TerraCorp HQ (Home of Light), NMMC HQ (PTNI Headquarters)|
+|SS_WARE_BESTSELL|Best Selling Price Locator|0/Tiny|19633|0|Teladi Equipment Dock, TerraCorp HQ (Home of Light), NMMC HQ (PTNI Headquarters)|
+|SS_WARE_BEAMING|Transporter Device|1/S|56094|33|Argon Trading Stations, Goner Temple (Elysium of Light), TerraCorp HQ (Home of Light), Jonferco HQ (Aquila's Beacon), Terran Military Base, Saturn Research Station, Earth Torus, ATF Orbital Defense Station (The Moon)|
+|SS_WARE_WARPING|Jumpdrive|1/M|100968|33|Goner Temple (Elysium of Light), TerraCorp HQ (Home of Light), OTAS HQ (Legend's Home), Atreus HQ (Queen's Harbour), Earth Torus|
+|SS_WARE_LIFESUPPORT|Cargo Bay Life Support System|3/S|2805|-100|Duke's Haven, Strong Arms HQ (Thyn's Excavation), Pirate Base, Terran Military Base, Earth Torus, Aldrin Base, Teladi Trading Stations, Boron Trading Stations, Paranid Trading Stations, Boron Equipment Dock|
+|SS_WARE_BOOST|Boost Extension|0/Tiny|1122|-100|Equipment Docks (5 Races), Terran Military Base, USC Orbital Defense Station, USC Patrol Base, Saturn Research Station, Earth Torus, ATF Orbital Defense Station, ATF Orbital Defense Station (The Moon), Aldrin Base|
+|SS_WARE_SPACEFLYCOLLECTOR|Spacefly Collector|5/S|28047|-100|Split Equipment Dock, Paranid Trading Stations|
+|SS_WARE_ORECOLLECTOR|Ore Collector|50/XL|30851|-100|Argon Equipment Dock, Paranid Equipment Dock, Teladi Equipment Dock, Plutarch HQ (Ore Belt), NMMC HQ (PTNI Headquarters), Terran Military Base, Earth Torus, Aldrin Base, Teladi Trading Stations, Paranid Trading Stations|
+|SS_WARE_SCANNER2|Duplex Scanner|1/S|4207|0|Argon Equipment Dock, Split Equipment Dock, Teladi Equipment Dock, Terran Military Base, USC Orbital Defense Station, USC Patrol Base, Saturn Research Station, ATF Orbital Defense Station, Aldrin Base, Paranid Equipment Dock, Paranid Trading Stations|
+|SS_WARE_SCANNER3|Triplex Scanner|2/M|9816|33|Military Outposts (5 Races), Paranid Equipment Dock, Boron Equipment Dock, OTAS HQ (Legend's Home), Jonferco HQ (Aquila's Beacon), Duke's Haven, Atreus HQ (Queen's Harbour), Terran Military Base, Saturn Research Station, Earth Torus, ATF Orbital Defense Station (The Moon), Aldrin Base, Argon Trading Stations|
+|SS_WARE_SW_NAV_1|Navigation Command Software MK1|0/Tiny|2945|0|Equipment Docks (5 Races), Terran Military Base, USC Orbital Defense Station, USC Patrol Base, Saturn Research Station, Earth Torus, ATF Orbital Defense Station, ATF Orbital Defense Station (The Moon), Aldrin Base, Split Trading Stations, Paranid Trading Stations, Argon Trading Stations|
+|SS_WARE_SW_TRADE_1|Trade Command Software MK1|0/Tiny|5918|0|Equipment Docks (5 Races), Terran Military Base, Earth Torus, Paranid Trading Stations, Argon Trading Stations|
+|SS_WARE_SW_TRADE_2|Trade Command Software MK2|0/Tiny|3506|0|Equipment Docks (5 Races), Terran Military Base, Earth Torus, Paranid Trading Stations, Argon Trading Stations|
+|SS_WARE_SW_FIGHT_1|Fight Command Software MK1|0/Tiny|2412|33|Equipment Docks (5 Races), Military Outposts (5 Races), Duke's Haven, Strong Arms HQ (Thyn's Excavation), Pirate Base, Terran Military Base, USC Orbital Defense Station, USC Patrol Base, Saturn Research Station, Earth Torus, ATF Orbital Defense Station, ATF Orbital Defense Station (The Moon), Aldrin Base, Split Trading Stations, Paranid Trading Stations, Argon Trading Stations|
+|SS_WARE_SW_FIGHT_2|Fight Command Software MK2|0/Tiny|3506|333|Equipment Docks (5 Races), Duke's Haven, Strong Arms HQ (Thyn's Excavation), Pirate Base, Terran Military Base, USC Orbital Defense Station, USC Patrol Base, Earth Torus, ATF Orbital Defense Station, ATF Orbital Defense Station (The Moon), Aldrin Base, Paranid Trading Stations, Argon Trading Stations|
+|SS_WARE_SW_SPECIAL_1|Special Command Software MK1|0/Tiny|4207|0|Equipment Docks (5 Races), Pirate Base, Terran Military Base, USC Orbital Defense Station, USC Patrol Base, Saturn Research Station, Earth Torus, ATF Orbital Defense Station, ATF Orbital Defense Station (The Moon), Aldrin Base, Paranid Trading Stations, Argon Trading Stations|
+|SS_WARE_SW_NEW2|Software Signature Scrambler|0/Tiny|932051|0|Duke's Haven|
+|SS_WARE_SW_NEW3|System Override Software (SOS)|0/Tiny|600987|0|Duke's Haven|
+|SS_WARE_SW_NEW13|Trade Command Software MK3|0/Tiny|500832|333|Teladi Equipment Dock, TerraCorp HQ (Home of Light)|
+|SS_WARE_SW_SUPPLY_1|Supply Command Software|0/Tiny|2945|0|TerraCorp HQ (Home of Light), OTAS HQ (Legend's Home), Jonferco HQ (Aquila's Beacon), Plutarch HQ (Ore Belt), Argon Equipment Dock|
+|SS_WARE_SW_EXPLORE_1|Explorer Command Software|0/Tiny|2945|0|NMMC HQ (PTNI Headquarters), Teladi Equipment Dock|
+|SS_WARE_SW_PATROL_1|Patrol Command Software|0/Tiny|2945|0|Equipment Docks (5 Races), Duke's Haven, Earth Torus, ATF Orbital Defense Station (The Moon), Pirate Base, Split Trading Stations, Paranid Trading Stations, Argon Trading Stations|
+|SS_WARE_SW_CARRIER_1|Carrier Command Software|0/Tiny|2945|0|Split Equipment Dock, Teladi Equipment Dock|
+|SS_WARE_FIREWALL|Advanced Firewall Software|0/Tiny|2945|0|Special / Not purchasable|
+|SS_WARE_SENTRY|Internal Sentry Lasers|0/Tiny|2945|0|Special / Not purchasable|
+|SS_WARE_BIOSCANNER|Bioscanner|0/Tiny|2945|0|TerraCorp HQ (Home of Light), Jonferco HQ (Aquila's Beacon)|
+|SS_WARE_HULLPOLARIZE|Hull Polarising Device|0/Tiny|2945|0|Special / Not purchasable|
+|SS_WARE_CARGOSHIELD|Cargo Bay Shielding|0/Tiny|2945|0|Duke's Haven, Strong Arms HQ (Thyn's Excavation)|
+|SS_WARE_UNFOCUS_JUMP|Unfocused Jumpdrive|1/Tiny|100968|33|Exclusive Plot Reward (Goner Plot — Pilot personal inventory)|
+|SS_WARE_BLUEPRINTSCANNER|Blueprint Scanner|1/Tiny|100968|33|Exclusive Plot Reward (Balance of Power Plot — Pilot personal inventory)|
+|SS_WARE_SW_NEW6|Commodity Logistics Software MK1 (CLS1) [Bonus Pack]|0/Tiny|7937|-100|Argon Equipment Dock, TerraCorp HQ (Home of Light), Free Argon Trading Station (Herron's Nebula), Paranid Communications Facility (Priest's Pity)|
+|SS_WARE_SW_NEW7|Commodity Logistics Software MK2 (CLS2) [Bonus Pack]|0/Tiny|10742|-100|Argon Equipment Dock, TerraCorp HQ (Home of Light), Free Argon Trading Station (Herron's Nebula), Paranid Communications Facility (Priest's Pity)|
+|SS_WARE_SW_NEW12|Turbo Booster MK1 [Bonus Pack]|0/Tiny|1843637|-100|Split Equipment Dock (Burns Energy Cells or Shields; for M5..M3, M8, TS/TP/TM, and M6)|
+|SS_WARE_SW_NEW16|Turbo Booster MK2 [Bonus Pack]|0/Tiny|17907922|-100|Split Equipment Dock (Burns Energy Cells or Shields; for capitals M7, M7M, TL, M1, and M2)|
+
+## 4. Factories and Production Complexes Master Table (303 Rows | 356 Active Stations)
+|Idx|ID|Name|Race|Size|Price (Rep)|Cycle|Product(s) (+Units/Cycle)|Primary Resources (-Consumption/Cycle)|Secondary Resources (NPC)|Selling Shipyards|
+|---|---|---|---|---|---|---|---|---|---|---|
+|6|SS_FAC_A_TECH204|Weapon Component Factory|Argon|1x|896005 (1000)|180s|+20 Warheads|-45 Energy Cells, -30 Meatsteak Cahoonas, -8 Ore|Cloth Rimes|Argon Prime, Cloudbase South East, Legend's Home, Argon Sector M148|
+|7|SS_FAC_B_TECH204|Weapon Component Factory|Boron|1x|815284 (1000)|180s|+20 Warheads|-45 Energy Cells, -8 Ore, -8 BoFu|Cloth Rimes|Great Reef, Queen's Retribution|
+|8|SS_FAC_P_TECH204|Weapon Component Factory|Paranid|1x|774924 (1000)|180s|+20 Warheads|-45 Energy Cells, -6 Soja Husk, -8 Ore|Cloth Rimes|Third Redemption, Cardinal's Domain, Heaven's Assertion|
+|9|SS_FAC_S_TECH204|Weapon Component Factory|Split|1x|855645 (1000)|180s|+20 Warheads|-45 Energy Cells, -4 Rastar Oil, -8 Ore|-|Family Pride, Rhonkar's Might, Zyarth's Dominion, Rhonkar's Trial, Family Rhy, Patriarch's Conclusion|
+|10|SS_FAC_T_TECH204|Weapon Component Factory|Teladi|1x|815284 (1000)|180s|+20 Warheads|-45 Energy Cells, -30 Nostrop Oil, -8 Ore|Cloth Rimes|Profit Share, Ceo's Sprite|
+|11|SS_FAC_A_TECH205|Crystal Fab M|Argon|2x(M)|3890762 (1000)|8m|+16 Crystals|-240 Energy Cells, -10 Silicon Wafers, -160 Meatsteak Cahoonas|-|Argon Prime, Cloudbase South East, Omicron Lyrae, Light of Heart, Legend's Home|
+|12|SS_FAC_B_TECH205|Crystal Fab M|Boron|2x(M)|3697031 (1000)|8m|+16 Crystals|-240 Energy Cells, -40 BoFu, -10 Silicon Wafers|-|Kingdom End, Queen's Retribution|
+|13|SS_FAC_P_TECH205|Crystal Fab M|Paranid|2x(M)|4278224 (1000)|8m|+16 Crystals|-240 Energy Cells, -32 Soja Husk, -10 Silicon Wafers|-|Paranid Prime, Third Redemption, Duke's Citadel, Heaven's Assertion|
+|14|SS_FAC_S_TECH205|Crystal Fab M|Split|2x(M)|4084493 (1000)|8m|+16 Crystals|-240 Energy Cells, -10 Silicon Wafers, -24 Rastar Oil|-|Cho's Defeat, Zyarth's Dominion, Rhonkar's Trial, Patriarch's Conclusion|
+|15|SS_FAC_T_TECH205|Crystal Fab M|Teladi|2x(M)|3890762 (1000)|8m|+16 Crystals|-240 Energy Cells, -10 Silicon Wafers, -160 Nostrop Oil|-|Ceo's Sprite, PTNI Headquarters|
+|16|SS_FAC_A_TECH206|Quantum Tube Fab|Argon|1x|5141940 (1000)|8m|+3 Quantum Tubes|-120 Energy Cells, -20 Ore, -80 Meatsteak Cahoonas|Crystals|Cloudbase South East, Light of Heart, Legend's Home|
+|17|SS_FAC_B_TECH206|Quantum Tube Fab|Boron|1x|6280109 (1000)|8m|+3 Quantum Tubes|-120 Energy Cells, -20 Ore, -20 BoFu|Crystals|Ocean of Fantasy, Queen's Retribution|
+|18|SS_FAC_P_TECH206|Quantum Tube Fab|Paranid|1x|5706989 (1000)|8m|+3 Quantum Tubes|-120 Energy Cells, -20 Ore, -16 Soja Husk|Crystals|Trinity Sanctum, Third Redemption, Heaven's Assertion|
+|19|SS_FAC_S_TECH206|Quantum Tube Fab|Split|1x|5706989 (1000)|8m|+3 Quantum Tubes|-120 Energy Cells, -20 Ore, -12 Rastar Oil|Crystals|Rhonkar's Might, Tkr's Deprivation, Zyarth's Dominion, Rhonkar's Trial, Family Rhy, Patriarch's Conclusion|
+|20|SS_FAC_T_TECH206|Quantum Tube Fab|Teladi|1x|5141940 (1000)|8m|+3 Quantum Tubes|-120 Energy Cells, -20 Ore, -80 Nostrop Oil|Crystals|Ceo's Sprite, Grand Exchange|
+|21|SS_FAC_A_TECH207|Chip Plant|Argon|1x|6961396 (1000)|24m|+4 Microchips|-360 Energy Cells, -15 Silicon Wafers, -240 Meatsteak Cahoonas|-|Argon Prime, Cloudbase South East, Legend's Home|
+|22|SS_FAC_B_TECH207|Chip Plant|Boron|1x|6231677 (1000)|24m|+4 Microchips|-360 Energy Cells, -60 BoFu, -15 Silicon Wafers|-|Lucky Planets, Queen's Retribution|
+|23|SS_FAC_P_TECH207|Chip Plant|Paranid|1x|8427293 (1000)|24m|+4 Microchips|-48 Soja Husk, -360 Energy Cells, -15 Silicon Wafers|-|Third Redemption, Cardinal's Domain, Heaven's Assertion|
+|24|SS_FAC_S_TECH207|Chip Plant|Split|1x|8065662 (1000)|24m|+4 Microchips|-360 Energy Cells, -15 Silicon Wafers, -36 Rastar Oil|-|Family Njy, Zyarth's Dominion, Rhonkar's Trial, Patriarch's Conclusion|
+|25|SS_FAC_T_TECH207|Chip Plant|Teladi|1x|6961396 (1000)|24m|+4 Microchips|-360 Energy Cells, -15 Silicon Wafers, -240 Nostrop Oil|-|Profit Share, Ceo's Sprite, PTNI Headquarters, Ianamus Zura, Ministry of Finance|
+|26|SS_FAC_A_TECH208|Computer Plant|Argon|1x|2155256 (1000)|240s|+5 Computer Components|-60 Energy Cells, -2 Silicon Wafers, -40 Meatsteak Cahoonas|Microchips|Omicron Lyrae|
+|27|SS_FAC_B_TECH208|Computer Plant|Boron|1x|1759722 (1000)|240s|+5 Computer Components|-60 Energy Cells, -10 BoFu, -2 Silicon Wafers|Microchips|Depths of Silence, Queen's Retribution|
+|28|SS_FAC_P_TECH208|Computer Plant|Paranid|1x|2155256 (1000)|240s|+5 Computer Components|-60 Energy Cells, -8 Soja Husk, -2 Silicon Wafers|Quantum Tubes|Paranid Prime, Third Redemption, Duke's Citadel, Heaven's Assertion|
+|29|SS_FAC_S_TECH208|Computer Plant|Split|1x|2058391 (1000)|240s|+5 Computer Components|-60 Energy Cells, -2 Silicon Wafers, -6 Rastar Oil|Microchips|Family Pride, Rhonkar's Might, Zyarth's Dominion, Rhonkar's Trial, Family Rhy, Patriarch's Conclusion|
+|30|SS_FAC_T_TECH208|Computer Plant|Teladi|1x|1759722 (1000)|240s|+5 Computer Components|-60 Energy Cells, -2 Silicon Wafers, -40 Nostrop Oil|Quantum Tubes|Ceo's Sprite, Ministry of Finance|
+|31|SS_FAC_A_MISSILE_A|Mosquito Missile Factory|Argon|1x|750707 (333)|60s|+15 Mosquito Missile|-15 Energy Cells, -2 Ore, -10 Meatsteak Cahoonas|Warheads, Cloth Rimes, Silicon Wafers|Argon Prime, Cloudbase South East, Legend's Home, Argon Sector M148|
+|32|SS_FAC_A_MISSILE_B|Wasp Missile Factory|Argon|1x|1896948 (1000)|120s|+5 Wasp Missile|-30 Energy Cells, -5 Ore, -20 Meatsteak Cahoonas|Warheads, Cloth Rimes, Silicon Wafers|Cloudbase South East, Legend's Home, Argon Sector M148|
+|33|SS_FAC_A_MISSILE_D|Silkworm Missile Factory|Argon|1x|3575949 (1000)|24m|+16 Silkworm Missile|-360 Energy Cells, -60 Ore, -240 Meatsteak Cahoonas|Warheads, Cloth Rimes, Silicon Wafers|Cloudbase South East, Light of Heart, Legend's Home, Argon Sector M148|
+|34|SS_FAC_B_MISSILE_A|Mosquito Missile Factory|Boron|1x|686130 (333)|60s|+15 Mosquito Missile|-15 Energy Cells, -2 Ore, -2 BoFu|Warheads, Cloth Rimes, Silicon Wafers|Ocean of Fantasy, Queen's Retribution|
+|35|SS_FAC_B_MISSILE_C|Dragonfly Missile Factory|Boron|1x|1299611 (1000)|180s|+10 Dragonfly Missile|-45 Energy Cells, -8 Ore, -8 BoFu|Warheads, Cloth Rimes, Silicon Wafers|Lucky Planets, Queen's Retribution|
+|36|SS_FAC_P_MISSILE_B|Wasp Missile Factory|Paranid|1x|1800083 (1000)|120s|+5 Wasp Missile|-30 Energy Cells, -5 Ore, -4 Soja Husk|Warheads, Cloth Rimes, Silicon Wafers|Third Redemption, Cardinal's Domain, Heaven's Assertion|
+|37|SS_FAC_P_MISSILE_E|Hornet Missile Factory|Paranid|1x|3648598 (3333)|24m|+8 Hornet Missile|-360 Energy Cells, -48 Soja Husk, -60 Ore|Warheads, Cloth Rimes, Silicon Wafers|Paranid Prime, Third Redemption, Duke's Citadel, Heaven's Assertion|
+|38|SS_FAC_S_MISSILE_B|Wasp Missile Factory|Split|1x|2082607 (1000)|120s|+5 Wasp Missile|-30 Energy Cells, -5 Ore, -3 Rastar Oil|Warheads, Cloth Rimes, Silicon Wafers|Family Njy, Zyarth's Dominion, Rhonkar's Trial, Patriarch's Conclusion|
+|39|SS_FAC_S_MISSILE_C|Dragonfly Missile Factory|Split|1x|1186602 (1000)|180s|+10 Dragonfly Missile|-45 Energy Cells, -8 Ore, -4 Rastar Oil|Warheads, Cloth Rimes, Silicon Wafers|Zyarth's Dominion, Rhonkar's Trial, Patriarch's Conclusion|
+|40|SS_FAC_S_MISSILE_D|Silkworm Missile Factory|Split|1x|3745464 (1000)|24m|+16 Silkworm Missile|-360 Energy Cells, -60 Ore, -36 Rastar Oil|Warheads, Cloth Rimes, Silicon Wafers|Family Pride, Rhonkar's Might, Zyarth's Dominion, Rhonkar's Trial, Family Rhy, Patriarch's Conclusion|
+|41|SS_FAC_T_MISSILE_A|Mosquito Missile Factory|Teladi|1x|653842 (333)|60s|+15 Mosquito Missile|-15 Energy Cells, -2 Ore, -10 Nostrop Oil|Warheads, Cloth Rimes, Silicon Wafers|Profit Share, Ceo's Sprite|
+|42|SS_FAC_T_MISSILE_D|Silkworm Missile Factory|Teladi|1x|3406435 (1000)|24m|+16 Silkworm Missile|-360 Energy Cells, -60 Ore, -240 Nostrop Oil|Warheads, Cloth Rimes, Silicon Wafers|Ceo's Sprite, PTNI Headquarters|
+|43|SS_FAC_P_MINE|SQUASH Mine Factory|Paranid|1x|2792954 (1000)|5m40s|+1 SQUASH Mine|-85 Energy Cells, -14 Ore, -11 Soja Husk|Cloth Rimes, Warheads|Third Redemption, Cardinal's Domain, Heaven's Assertion|
+|44|SS_FAC_S_MINE|SQUASH Mine Factory|Split|1x|2510429 (1000)|5m40s|+1 SQUASH Mine|-85 Energy Cells, -14 Ore, -8 Rastar Oil|Cloth Rimes, Warheads|Rhonkar's Might, Tkr's Deprivation, Zyarth's Dominion, Rhonkar's Trial, Family Rhy, Patriarch's Conclusion|
+|45|SS_FAC_T_MINE|SQUASH Mine Factory|Teladi|1x|3075478 (1000)|5m40s|+1 SQUASH Mine|-85 Energy Cells, -14 Ore, -57 Nostrop Oil|Cloth Rimes, Warheads|Ceo's Sprite, Ministry of Finance|
+|46|SS_FAC_A_OLASER|Lasertower Factory|Argon|1x|1517559 (1000)|94m|+1 Lasertower|-1410 Energy Cells, -235 Ore, -940 Meatsteak Cahoonas|Warheads, Cloth Rimes|Cloudbase South East, Light of Heart, Legend's Home|
+|47|SS_FAC_P_OLASER|Lasertower Factory|Paranid|1x|1517559 (1000)|94m|+1 Lasertower|-1410 Energy Cells, -235 Ore, -188 Soja Husk|Warheads, Cloth Rimes|Third Redemption, Cardinal's Domain, Heaven's Assertion|
+|48|SS_FAC_S_OLASER|Lasertower Factory|Split|1x|1372260 (1000)|94m|+1 Lasertower|-1410 Energy Cells, -235 Ore, -141 Rastar Oil|Cloth Rimes, Warheads|Rhonkar's Might, Tkr's Deprivation, Zyarth's Dominion, Rhonkar's Trial, Family Rhy, Patriarch's Conclusion|
+|49|SS_FAC_A_DRONE|Drone Factory|Argon|1x|3603394 (1000)|17m36s|+8 Fighter Drone|-264 Energy Cells, -352 Massom Powder, -11 Silicon Wafers|Computer Components, Quantum Tubes|Cloudbase South East, Omicron Lyrae, Legend's Home, Argon Sector M148|
+|50|SS_FAC_B_DRONE|Drone Factory|Boron|1x|NPC only (val: 2921462)|16m|+1 Freight Drone|-240 Energy Cells, -320 Massom Powder, -10 Silicon Wafers|Computer Components, Quantum Tubes|-|
+|51|SS_FAC_S_DRONE|Drone Factory|Split|1x|3773878 (1000)|17m36s|+8 Fighter Drone|-264 Energy Cells, -352 Massom Powder, -11 Silicon Wafers|Computer Components, Quantum Tubes|Rhonkar's Might, Zyarth's Dominion, Rhonkar's Trial, Family Rhy, Patriarch's Conclusion|
+|52|SS_FAC_T_DRONE|Drone Factory|Teladi|1x|3254679 (1000)|16m|+1 Freight Drone|-240 Energy Cells, -10 Silicon Wafers, -320 Massom Powder|Computer Components, Quantum Tubes|PTNI Headquarters, Grand Exchange|
+|53|SS_FAC_A_SAT|Satellite Factory|Argon|1x|928294 (333)|17m36s|+4 Navigation Relay Satellite|-264 Energy Cells, -11 Silicon Wafers, -352 Majaglit|Meatsteak Cahoonas, Microchips|Omicron Lyrae|
+|54|SS_FAC_B_SAT|Satellite Factory|Boron|1x|1089736 (333)|17m36s|+4 Navigation Relay Satellite|-264 Energy Cells, -11 Silicon Wafers, -352 Majaglit|Stott Spices, Microchips|Ocean of Fantasy, Queen's Retribution|
+|55|SS_FAC_S_SAT|Satellite Factory|Split|1x|1202746 (333)|17m36s|+4 Navigation Relay Satellite|-264 Energy Cells, -11 Silicon Wafers, -352 Majaglit|Rastar Oil, Quantum Tubes|Family Pride, Rhonkar's Might, Zyarth's Dominion, Rhonkar's Trial, Family Rhy, Patriarch's Conclusion|
+|56|SS_FAC_T_SAT|Satellite Factory|Teladi|1x|1033231 (333)|17m36s|+4 Navigation Relay Satellite|-264 Energy Cells, -11 Silicon Wafers, -352 Majaglit|Nostrop Oil, Quantum Tubes|Ceo's Sprite, Grand Exchange|
+|57|SS_FAC_A_SAT2|Advanced Satellite Factory|Argon|1x|4019916 (1000)|14m24s|+2 Advanced Satellite|-216 Energy Cells, -9 Silicon Wafers, -288 Majaglit|Computer Components|Cloudbase South East, Light of Heart, Legend's Home|
+|58|SS_FAC_P_SAT2|Advanced Satellite Factory|Paranid|1x|3253064 (1000)|14m24s|+2 Advanced Satellite|-216 Energy Cells, -9 Silicon Wafers, -288 Majaglit|Computer Components|Trinity Sanctum, Third Redemption, Heaven's Assertion|
+|59|SS_FAC_S_SAT2|Advanced Satellite Factory|Split|1x|4213647 (1000)|14m24s|+2 Advanced Satellite|-216 Energy Cells, -9 Silicon Wafers, -288 Majaglit|Computer Components|Cho's Defeat, Zyarth's Dominion, Rhonkar's Trial, Patriarch's Conclusion|
+|60|SS_FAC_A_LS|Impulse Ray Emitter Forge|Argon|1x|3383187 (1000)|96s|+1 IRE|-24 Energy Cells, -16 Meatsteak Cahoonas, -4 Ore|Crystals|Omicron Lyrae|
+|61|SS_FAC_B_LS|Impulse Ray Emitter Forge|Boron|1x|3198820 (1000)|96s|+1 IRE|-24 Energy Cells, -4 BoFu, -4 Ore|Crystals|Kingdom End|
+|62|SS_FAC_S_LS|Impulse Ray Emitter Forge|Split|1x|2936799 (1000)|96s|+1 IRE|-24 Energy Cells, -2 Rastar Oil, -4 Ore|Crystals|Family Pride, Rhonkar's Might, Zyarth's Dominion, Rhonkar's Trial, Family Rhy, Patriarch's Conclusion|
+|63|SS_FAC_T_LS|Impulse Ray Emitter Forge|Teladi|1x|3190102 (1000)|96s|+1 IRE|-24 Energy Cells, -16 Nostrop Oil, -4 Ore|Crystals|Ceo's Sprite, Ianamus Zura|
+|64|SS_FAC_B_LWEP_COMPLEX|Light Weapons Complex|Boron|1x|NPC only (val: 807212)|96s|+1 IRE (or PAC)|-24 Energy Cells, -4 BoFu, -4 Ore|Crystals|-|
+|65|SS_FAC_S_PR|Particle Accelerator Cannon Forge|Split|1x|NPC only (val: 5322110)|14m|+1 PAC|-210 Energy Cells, -21 Rastar Oil, -35 Ore|Crystals|-|
+|66|SS_FAC_B_PR|Particle Accelerator Cannon Forge|Boron|1x|5009073 (1000)|14m|+1 PAC|-210 Energy Cells, -35 BoFu, -35 Ore|Crystals|Kingdom End, Queen's Retribution|
+|67|SS_FAC_P_PR|Particle Accelerator Cannon Forge|Paranid|1x|5113446 (1000)|14m|+1 PAC|-210 Energy Cells, -28 Soja Husk, -35 Ore|Crystals|Third Redemption, Cardinal's Domain, Heaven's Assertion|
+|68|SS_FAC_A_PR|Particle Accelerator Cannon Forge|Argon|1x|5217818 (3333)|14m|+1 PAC|-210 Energy Cells, -140 Meatsteak Cahoonas, -35 Ore|Crystals|Argon Prime, Cloudbase South East, Legend's Home, Argon Sector M148|
+|69|SS_FAC_P_PL|High Energy Plasma Thrower Forge|Paranid|1x|8347299 (3333)|48m|+1 HEPT|-720 Energy Cells, -96 Soja Husk, -120 Ore|Crystals|Paranid Prime, Third Redemption, Duke's Citadel, Heaven's Assertion|
+|70|SS_FAC_A_LWEP_COMPLEX|Light Weapons Complex|Argon|1x|NPC only (val: 807212)|14m|+1 PAC (or PRG)|-210 Energy Cells, -140 Meatsteak Cahoonas, -35 Ore|Crystals|-|
+|71|SS_FAC_T_PR|Particle Accelerator Cannon Forge|Teladi|1x|NPC only (val: 4904701)|14m|+1 PAC|-210 Energy Cells, -140 Nostrop Oil, -35 Ore|Crystals|-|
+|72|SS_FAC_A_PL|High Energy Plasma Thrower Forge|Argon|1x|8517701 (3333)|48m|+1 HEPT|-720 Energy Cells, -480 Meatsteak Cahoonas, -120 Ore|Crystals|Argon Prime, Cloudbase South East, Legend's Home, Argon Sector M148|
+|73|SS_FAC_T_PL|High Energy Plasma Thrower Forge|Teladi|1x|8006574 (3333)|48m|+1 HEPT|-720 Energy Cells, -480 Nostrop Oil, -120 Ore|Crystals|Ceo's Sprite, Ianamus Zura|
+|74|SS_FAC_P_CIG|Concussion Impulse Generator Forge|Paranid|1x|11662599 (10000)|137m12s|+1 CIG|-2058 Energy Cells, -274 Soja Husk, -343 Ore|Crystals|Paranid Prime, Third Redemption, Duke's Citadel, Heaven's Assertion|
+|75|SS_FAC_S_PL|High Energy Plasma Thrower Forge|Split|1x|8688023 (3333)|48m|+1 HEPT|-720 Energy Cells, -72 Rastar Oil, -120 Ore|Crystals|Family Njy, Zyarth's Dominion, Rhonkar's Trial, Patriarch's Conclusion|
+|76|SS_FAC_A_MWEP_COMPLEX|Medium Weapons Complex|Argon|1x|NPC only (val: 807212)|48m|+1 HEPT (or CIG)|-720 Energy Cells, -480 Meatsteak Cahoonas, -120 Ore|Crystals|-|
+|77|SS_FAC_P_LWEP_COMPLEX|Light Weapons Complex|Paranid|1x|NPC only (val: 807212)|68m48s|+1 FBL (or HEPT)|-1032 Energy Cells, -138 Soja Husk, -172 Ore|Crystals|-|
+|78|SS_FAC_A_CIG|Concussion Impulse Generator Forge|Argon|1x|11901211 (10000)|137m12s|+1 CIG|-2058 Energy Cells, -1372 Meatsteak Cahoonas, -343 Ore|Crystals|Omicron Lyrae|
+|79|SS_FAC_T_GAUSS|Gauss Cannon Forge|Teladi|1x|15033516 (10000)|229m12s|+1 GC|-3438 Energy Cells, -2292 Nostrop Oil, -573 Ore|Teladianium|Ceo's Sprite|
+|80|SS_FAC_B_PPC|Photon Pulse Cannon Forge|Boron|1x|15250495 (33333)|288m|+1 PPC|-4320 Energy Cells, -720 BoFu, -720 Ore|Crystals|Great Reef, Queen's Retribution|
+|81|SS_FAC_P_PPC|Photon Pulse Cannon Forge|Paranid|1x|15568214 (33333)|288m|+1 PPC|-4320 Energy Cells, -576 Soja Husk, -720 Ore|Crystals|Trinity Sanctum, Third Redemption, Heaven's Assertion|
+|82|SS_FAC_A_PPC|Photon Pulse Cannon Forge|Argon|1x|15885932 (33333)|288m|+1 PPC|-4320 Energy Cells, -2880 Meatsteak Cahoonas, -720 Ore|Crystals|Cloudbase South East, Light of Heart, Legend's Home|
+|83|SS_FAC_S_PPC|Photon Pulse Cannon Forge|Split|1x|16203651 (33333)|288m|+1 PPC|-4320 Energy Cells, -432 Rastar Oil, -720 Ore|Crystals|Zyarth's Dominion, Rhonkar's Trial, Patriarch's Conclusion|
+|85|SS_FAC_T_PPC|Photon Pulse Cannon Forge|Teladi|1x|NPC only (val: 14915663)|288m|+1 PPC|-4320 Energy Cells, -2880 Nostrop Oil, -720 Ore|Crystals|-|
+|86|SS_FAC_P_FBL|Fragmentation Bomb Launcher Forge|Paranid|1x|6373746 (3333)|68m48s|+1 FBL|-1032 Energy Cells, -138 Soja Husk, -172 Ore|Crystals|Trinity Sanctum, Third Redemption, Heaven's Assertion|
+|87|SS_FAC_T_CIG|Concussion Impulse Generator Forge|Teladi|1x|11186748 (3333)|137m12s|+1 CIG|-2058 Energy Cells, -1372 Nostrop Oil, -343 Ore|Crystals|Profit Share, Ceo's Sprite|
+|88|SS_FAC_P_PSG|Phased Shockwave Generator Forge|Paranid|1x|11087864 (10000)|190m|+1 PSG|-2850 Energy Cells, -380 Soja Husk, -475 Ore|Crystals|Paranid Prime, Third Redemption, Cardinal's Domain, Duke's Citadel, Heaven's Assertion|
+|89|SS_FAC_T_FLAK|Flak Artillery Array Forge|Teladi|1x|14161727 (10000)|210m|+1 FAA|-3150 Energy Cells, -2100 Nostrop Oil, -525 Ore|Crystals|Ceo's Sprite, PTNI Headquarters|
+|91|SS_FAC_T_HWEP_COMPLEX|Heavy Weapons Complex|Teladi|1x|NPC only (val: 871789)|229m12s|+1 GC (or FAA, Gauss Cannon Ammunition)|-3438 Energy Cells, -2292 Nostrop Oil, -573 Ore|Crystals, Teladianium|-|
+|93|SS_FAC_A_MASS|Mass Driver Forge|Argon|1x|NPC only (val: 4972426)|42m48s|+1 MD (or Mass Driver Ammunition)|-642 Energy Cells, -107 Ore, -428 Meatsteak Cahoonas|Teladianium|-|
+|94|SS_FAC_S_MASS|Mass Driver Forge|Split|1x|5237191 (3333)|42m48s|+1 MD|-642 Energy Cells, -107 Ore, -64 Rastar Oil|Teladianium|Zyarth's Dominion, Rhonkar's Trial, Patriarch's Conclusion|
+|95|SS_FAC_A_AMMO|Ammunition Factory|Argon|1x|3519444 (1000)|7m|+20 Mass Driver Ammunition|-18 Ore, -105 Energy Cells, -70 Meatsteak Cahoonas|Teladianium|Argon Prime, Cloudbase South East, Legend's Home, Argon Sector M148|
+|96|SS_FAC_S_AMMO|Ammunition Factory|Split|1x|3519444 (1000)|7m|+20 Mass Driver Ammunition|-105 Energy Cells, -18 Ore, -10 Rastar Oil|Teladianium|Family Pride, Rhonkar's Might, Zyarth's Dominion, Rhonkar's Trial, Family Rhy, Patriarch's Conclusion|
+|97|SS_FAC_B_ION|Ion Disruptor Forge|Boron|1x|13007414 (10000)|86m|+1 ID|-215 BoFu, -1290 Energy Cells, -215 Ore|Crystals|Great Reef, Queen's Retribution|
+|98|SS_FAC_S_ESR|Ion Shard Railgun Forge|Split|1x|12515015 (10000)|134m48s|+1 ISR|-202 Rastar Oil, -2022 Energy Cells, -337 Ore|Crystals|Rhonkar's Might, Zyarth's Dominion, Rhonkar's Trial, Family Rhy, Patriarch's Conclusion|
+|99|SS_FAC_A_SWEP_COMPLEX|Special Weapons Production Complex|Argon|1x|NPC only (val: 807212)|51m12s|+1 PRG (or MD, Mass Driver Ammunition)|-768 Energy Cells, -512 Meatsteak Cahoonas, -128 Ore|Crystals, Teladianium|-|
+|100|SS_FAC_B_CIG|Concussion Impulse Generator Forge|Boron|1x|NPC only (val: 11425440)|137m12s|+1 CIG|-2058 Energy Cells, -343 BoFu, -343 Ore|Crystals|-|
+|101|SS_FAC_S_LWEP_COMPLEX|Medium Weapons Complex|Split|1x|NPC only (val: 805920)|80m|+1 PBE (or ISR, MD, Mass Driver Ammunition)|-1200 Energy Cells, -120 Rastar Oil, -200 Ore|Crystals, Teladianium|-|
+|102|SS_FAC_P_DRILL|Mobile Drilling System Factory|Paranid|1x|5301768 (1000)|28m48s|+1 MDS|-432 Energy Cells, -58 Soja Husk, -72 Ore|Crystals|Paranid Prime, Third Redemption, Duke's Citadel, Heaven's Assertion|
+|103|SS_FAC_T_DRILL|Mobile Drilling System Factory|Teladi|1x|4578506 (1000)|28m48s|+1 MDS|-432 Energy Cells, -288 Nostrop Oil, -72 Ore|Crystals|Profit Share, Ceo's Sprite|
+|104|SS_FAC_B_IONC|Ion Cannon Forge|Boron|1x|17526187 (10000)|294m48s|+1 IC|-4422 Energy Cells, -737 BoFu, -737 Ore|Crystals|Ocean of Fantasy, Lucky Planets, Queen's Retribution|
+|106|SS_FAC_A_CFLAK|Cluster Flak Array Forge|Argon|1x|14968939 (33333)|214m24s|+1 CFA|-3216 Energy Cells, -2144 Meatsteak Cahoonas, -536 Ore|Crystals|Cloudbase South East, Light of Heart, Legend's Home|
+|107|SS_FAC_B_HWEP_COMPLEX|Heavy Weapons Complex|Boron|1x|NPC only (val: 11129839)|294m48s|+1 IC (or PPC)|-4422 Energy Cells, -737 BoFu, -737 Ore|Crystals|-|
+|109|SS_FAC_P_HWEP_COMPLEX|Heavy Weapons Complex|Paranid|1x|NPC only (val: 807212)|190m|+1 PSG (or PPC)|-2850 Energy Cells, -380 Soja Husk, -475 Ore|Crystals|-|
+|110|SS_FAC_A_PRG|Phased Repeater Gun Forge|Argon|1x|6037946 (3333)|51m12s|+1 PRG|-768 Energy Cells, -512 Meatsteak Cahoonas, -128 Ore|Crystals|Argon Prime, Cloudbase South East, Legend's Home, Argon Sector M148|
+|111|SS_FAC_T_EBC|Energy Bolt Chaingun Forge|Teladi|1x|7952653 (3333)|50m24s|+1 EBC|-756 Energy Cells, -504 Nostrop Oil, -126 Ore|Teladianium|PTNI Headquarters, Grand Exchange, Ianamus Zura, Ministry of Finance|
+|112|SS_FAC_B_IONP|Ion Pulse Generator Forge|Boron|1x|12973511 (10000)|146m|+1 IPG|-2190 Energy Cells, -365 BoFu, -365 Ore|Crystals|Depths of Silence, Queen's Retribution|
+|113|SS_FAC_S_PBE|Pulsed Beam Emitter Forge|Split|1x|11275137 (10000)|80m|+1 PBE|-1200 Energy Cells, -120 Rastar Oil, -200 Ore|Crystals|Family Njy, Zyarth's Dominion, Rhonkar's Trial, Patriarch's Conclusion|
+|114|SS_FAC_B_MWEP_COMPLEX|Medium Weapons Complex|Boron|1x|NPC only (val: 807212)|146m|+1 IPG (or CIG)|-2190 Energy Cells, -365 BoFu, -365 Ore|Crystals|-|
+|115|SS_FAC_S_CIG|Concussion Impulse Generator Forge|Split|1x|NPC only (val: 12138370)|137m12s|+1 CIG|-2058 Energy Cells, -206 Rastar Oil, -343 Ore|Crystals|-|
+|116|SS_FAC_A_SHIELD_A|Shield Prod. Facility 1 MJ|Argon|1x|2027717 (1000)|130s|+1 1 MJ Shield|-32 Energy Cells, -5 Ore, -22 Meatsteak Cahoonas|Quantum Tubes|Argon Prime, Cloudbase South East, Legend's Home|
+|117|SS_FAC_T_SHIELD_A|Shield Prod. Facility 1 MJ|Teladi|1x|1846901 (1000)|130s|+1 1 MJ Shield|-32 Energy Cells, -5 Ore, -22 Nostrop Oil|Quantum Tubes|Ceo's Sprite, Ianamus Zura|
+|118|SS_FAC_P_SHIELD_B|Shield Prod. Facility 5 MJ|Paranid|1x|2673486 (1000)|8m20s|+1 5 MJ Shield|-125 Energy Cells, -21 Ore, -17 Soja Husk|Quantum Tubes|Third Redemption, Cardinal's Domain, Heaven's Assertion|
+|119|SS_FAC_T_SHIELD_B|Shield Prod. Facility 5 MJ|Teladi|1x|2537875 (1000)|8m20s|+1 5 MJ Shield|-125 Energy Cells, -21 Ore, -83 Nostrop Oil|Quantum Tubes|Ceo's Sprite, Ministry of Finance|
+|120-124|SS_FAC_[A/B/P/S/T]_LSHIELD_COMPLEX|Light shield Production Complex|5 Races (A/B/P/S/T)|1x|NPC only (val: 807212)|130s|+1 1 MJ Shield (or 5 MJ Shield)|-32 Energy Cells, -5 Ore, Racial Food (Meatsteak Cahoonas/BoFu/Soja Husk/Rastar Oil/Nostrop Oil)|Quantum Tubes|-|
+|125|SS_FAC_P_SHIELD_C|Shield Prod. Facility 25 MJ|Paranid|1x|4972426 (3333)|32m|+1 25 MJ Shield|-480 Energy Cells, -80 Ore, -64 Soja Husk|Quantum Tubes|Paranid Prime, Third Redemption, Duke's Citadel, Heaven's Assertion|
+|126|SS_FAC_S_SHIELD_C|Shield Prod. Facility 25 MJ|Split|1x|4262079 (3333)|32m|+1 25 MJ Shield|-480 Energy Cells, -80 Ore, -48 Rastar Oil|Quantum Tubes|Family Njy, Zyarth's Dominion, Rhonkar's Trial, Patriarch's Conclusion|
+|127|SS_FAC_A_SHIELD_D|Shield Prod. Facility 200 MJ|Argon|1x|7878389 (3333)|54m|+1 200 MJ Shield|-810 Energy Cells, -135 Ore, -540 Meatsteak Cahoonas|Quantum Tubes|Cloudbase South East, Omicron Lyrae, Legend's Home, Argon Sector M148|
+|128|SS_FAC_B_SHIELD_D|Shield Prod. Facility 200 MJ|Boron|1x|6696631 (3333)|54m|+1 200 MJ Shield|-810 Energy Cells, -135 Ore, -135 BoFu|Quantum Tubes|Lucky Planets, Queen's Retribution|
+|129-133|SS_FAC_[A/B/P/S/T]_MSHIELD_COMPLEX|Medium shield Production Complex|5 Races (A/B/P/S/T)|1x|NPC only (val: 807212)|32m|+1 25 MJ Shield (or 200 MJ Shield)|-480 Energy Cells, -80 Ore, Racial Food (Meatsteak Cahoonas/BoFu/Soja Husk/Rastar Oil/Nostrop Oil)|Quantum Tubes|-|
+|134|SS_FAC_B_SHIELD_E|Shield Prod. Facility 1GJ|Boron|1x|10145040 (10000)|96m|+1 1 GJ Shield|-1440 Energy Cells, -240 Ore, -240 BoFu|Quantum Tubes|Depths of Silence, Queen's Retribution|
+|135|SS_FAC_S_SHIELD_E|Shield Prod. Facility 1GJ|Split|1x|11268680 (10000)|96m|+1 1 GJ Shield|-1440 Energy Cells, -240 Ore, -144 Rastar Oil|Quantum Tubes|Zyarth's Dominion, Rhonkar's Trial, Patriarch's Conclusion|
+|136|SS_FAC_A_SHIELD_F|Shield Prod. Facility 2 GJ|Argon|1x|15253078 (33333)|256m|+1 2 GJ Shield|-3840 Energy Cells, -640 Ore, -2560 Meatsteak Cahoonas|Quantum Tubes|Cloudbase South East, Light of Heart, Legend's Home, Argon Sector M148|
+|137|SS_FAC_P_SHIELD_F|Shield Prod. Facility 2 GJ|Paranid|1x|16861044 (33333)|256m|+1 2 GJ Shield|-3840 Energy Cells, -640 Ore, -512 Soja Husk|Quantum Tubes|Trinity Sanctum, Third Redemption, Heaven's Assertion|
+|138-142|SS_FAC_[A/B/P/S/T]_HSHIELD_COMPLEX|Heavy shield Production Complex|5 Races (A/B/P/S/T)|1x|NPC only (val: 805920)|96m|+1 1 GJ Shield (or 2 GJ Shield)|-1440 Energy Cells, -240 Ore, Racial Food (Meatsteak Cahoonas/BoFu/Soja Husk/Rastar Oil/Nostrop Oil)|Quantum Tubes|-|
+|143|SS_FAC_R214|Wheat Farm M|Argon|2x(M)|456317 (100)|60s|+20 Delexian Wheat|-30 Energy Cells|-|Argon Prime, Cloudbase South East, Omicron Lyrae, Legend's Home|
+|144|SS_FAC_R214_1|Wheat Farm L|Argon|5x(L)|1140752 (100)|60s|+50 Delexian Wheat|-75 Energy Cells|-|Cloudbase South East, Light of Heart, Legend's Home|
+|145|SS_FAC_R215|Cattle Ranch M|Argon|2x(M)|341935 (100)|60s|+6 Argnu Beef|-30 Energy Cells|Scruffin Fruits, Plankton|Argon Prime, Cloudbase South East, Legend's Home|
+|146|SS_FAC_R215_1|Cattle Ranch L|Argon|5x(L)|854757 (100)|60s|+15 Argnu Beef|-75 Energy Cells|Scruffin Fruits, Plankton|Cloudbase South East, Omicron Lyrae, Light of Heart, Legend's Home|
+|147|SS_FAC_R224|Plankton Farm M|Boron|2x(M)|397875 (100)|60s|+30 Plankton|-30 Energy Cells|Delexian Wheat|Kingdom End, Lucky Planets, Depths of Silence, Queen's Retribution|
+|148|SS_FAC_R224_1|Plankton Farm L|Boron|5x(L)|994647 (100)|60s|+75 Plankton|-75 Energy Cells|Delexian Wheat|Ocean of Fantasy, Great Reef, Queen's Retribution|
+|149|SS_FAC_R225|Bio Gas Factory M|Boron|2x(M)|279295 (100)|72s|+2 BoGas|-36 Energy Cells|Ore, Teladianium|Ocean of Fantasy, Lucky Planets, Great Reef, Queen's Retribution|
+|150|SS_FAC_R225_1|Bio Gas Factory L|Boron|5x(L)|698158 (100)|72s|+5 BoGas|-90 Energy Cells|Ore, Teladianium|Kingdom End, Depths of Silence, Queen's Retribution|
+|151|SS_FAC_R234|Scruffin Farm M|Split|2x(M)|397875 (100)|60s|+30 Scruffin Fruits|-30 Energy Cells|Spaceflies, Sunrise Flowers|Rhonkar's Might, Cho's Defeat, Tkr's Deprivation, Zyarth's Dominion, Rhonkar's Trial, Family Rhy, Patriarch's Conclusion|
+|152|SS_FAC_R234_1|Scruffin Farm L|Split|5x(L)|994647 (100)|60s|+75 Scruffin Fruits|-75 Energy Cells|Spaceflies, Sunrise Flowers|Family Pride, Rhonkar's Might, Family Njy, Zyarth's Dominion, Rhonkar's Trial, Family Rhy, Patriarch's Conclusion|
+|153|SS_FAC_R235|Chelt Space Aquarium M|Split|2x(M)|294632 (100)|60s|+6 Chelts Meat|-30 Energy Cells|Spaceflies, Teladianium|Cho's Defeat, Family Njy, Zyarth's Dominion, Rhonkar's Trial, Patriarch's Conclusion|
+|154|SS_FAC_R235_1|Chelt Space Aquarium L|Split|5x(L)|736662 (100)|60s|+15 Chelts Meat|-75 Energy Cells|Spaceflies, Teladianium|Family Pride, Rhonkar's Might, Family Tkr, Zyarth's Dominion, Rhonkar's Trial, Family Rhy, Patriarch's Conclusion|
+|155|SS_FAC_R244|Soyfarm M|Paranid|2x(M)|596772 (100)|60s|+24 Soya Beans|-30 Energy Cells|Teladianium|Paranid Prime, Third Redemption, Cardinal's Domain, Duke's Citadel, Heaven's Assertion|
+|156|SS_FAC_R244_1|Soyfarm L|Paranid|5x(L)|1491970 (100)|60s|+60 Soya Beans|-75 Energy Cells|Teladianium|Trinity Sanctum, Third Redemption, Heaven's Assertion|
+|157|SS_FAC_R245|Snail Ranch M|Paranid|2x(M)|373013 (100)|60s|+4 Maja Snails|-30 Energy Cells|Teladianium|Paranid Prime, Trinity Sanctum, Third Redemption, Duke's Citadel, Heaven's Assertion|
+|158|SS_FAC_R245_1|Snail Ranch L|Paranid|5x(L)|932491 (100)|60s|+10 Maja Snails|-75 Energy Cells|Teladianium|Trinity Sanctum, Third Redemption, Cardinal's Domain, Heaven's Assertion|
+|159|SS_FAC_R254|Flower Farm M|Teladi|2x(M)|447599 (100)|60s|+30 Sunrise Flowers|-30 Energy Cells|Teladianium|Profit Share, Ceo's Sprite, PTNI Headquarters, Grand Exchange|
+|160|SS_FAC_R254_1|Flower Farm L|Teladi|5x(L)|1118957 (100)|60s|+75 Sunrise Flowers|-75 Energy Cells|Teladianium|Ceo's Sprite, Ianamus Zura, Ministry of Finance|
+|161|SS_FAC_R255|Teladianium Foundry M|Teladi|2x(M)|404090 (100)|60s|+4 Teladianium|-30 Energy Cells|Ore|Ceo's Sprite, PTNI Headquarters, Grand Exchange, Ianamus Zura|
+|162|SS_FAC_R255_1|Teladianium Foundry L|Teladi|5x(L)|1009015 (100)|60s|+10 Teladianium|-75 Energy Cells|Ore|Profit Share, Ceo's Sprite, Ministry of Finance|
+|163|SS_FAC_R256|Dream Farm M|Teladi|2x(M)|341935 (100)|60s|+4 Swamp Plant|-30 Energy Cells|Teladianium|Ceo's Sprite, Grand Exchange, Ianamus Zura, Ministry of Finance|
+|164|SS_FAC_R256_1|Dream Farm L|Teladi|5x(L)|854757 (100)|60s|+10 Swamp Plant|-75 Energy Cells|Teladianium|Profit Share, Ceo's Sprite, PTNI Headquarters|
+|165|SS_FAC_F217|Rimes Fact M|Argon|2x(M)|994647 (333)|120s|+10 Cloth Rimes|-60 Energy Cells, -40 Delexian Wheat|-|Argon Prime, Cloudbase South East, Omicron Lyrae, Legend's Home|
+|166|SS_FAC_F217_1|Rimes Fact L|Argon|5x(L)|2486617 (333)|120s|+25 Cloth Rimes|-150 Energy Cells, -100 Delexian Wheat|-|Cloudbase South East, Light of Heart, Legend's Home|
+|167|SS_FAC_F218|Cahoona Bakery M|Argon|2x(M)|1087880 (333)|60s|+20 Meatsteak Cahoonas|-30 Energy Cells, -6 Argnu Beef|Delexian Wheat, Stott Spices|Argon Prime, Cloudbase South East, Light of Heart, Legend's Home|
+|168|SS_FAC_F218_1|Cahoona Bakery L|Argon|5x(L)|2719739 (333)|60s|+50 Meatsteak Cahoonas|-75 Energy Cells, -15 Argnu Beef|Delexian Wheat, Stott Spices|Argon Prime, Cloudbase South East, Legend's Home|
+|169|SS_FAC_F219|Space Fuel Distillery M|Argon|2x(M)|2486617 (333)|240s|+10 Space Fuel|-120 Energy Cells, -80 Delexian Wheat|Stott Spices|Cloudbase South East, Light of Heart, Legend's Home|
+|170|SS_FAC_F219_1|Space Fuel Distillery L|Argon|5x(L)|6838296 (333)|240s|+25 Space Fuel|-300 Energy Cells, -200 Delexian Wheat|Stott Spices|Argon Prime, Cloudbase South East, Omicron Lyrae, Legend's Home|
+|171|SS_FAC_F227|Stott Mixery M|Boron|2x(M)|1372260 (333)|60s|+20 Stott Spices|-30 Energy Cells, -30 Plankton|Delexian Wheat, Soja Husk|Kingdom End, Ocean of Fantasy, Great Reef, Queen's Retribution|
+|172|SS_FAC_F227_1|Stott Mixery L|Boron|5x(L)|3087586 (333)|60s|+50 Stott Spices|-75 Energy Cells, -75 Plankton|Delexian Wheat, Soja Husk|Lucky Planets, Great Reef, Queen's Retribution|
+|173|SS_FAC_F228|BoFu Chemical Lab M|Boron|2x(M)|1007078 (333)|120s|+10 BoFu|-60 Energy Cells, -3 BoGas|Soja Husk, Plankton|Ocean of Fantasy, Lucky Planets, Depths of Silence, Queen's Retribution|
+|174|SS_FAC_F228_1|BoFu Chemical Lab L|Boron|5x(L)|2517694 (333)|120s|+25 BoFu|-150 Energy Cells, -8 BoGas|Soja Husk, Plankton|Kingdom End, Great Reef, Queen's Retribution|
+|175|SS_FAC_F237|Massom Mill M|Split|2x(M)|1000862 (333)|60s|+40 Massom Powder|-30 Energy Cells, -30 Scruffin Fruits|Soja Husk, Spaceflies|Rhonkar's Might, Cho's Defeat, Tkr's Deprivation, Family Njy, Zyarth's Dominion, Rhonkar's Trial, Family Rhy, Patriarch's Conclusion|
+|176|SS_FAC_F237_1|Massom Mill L|Split|5x(L)|2502196 (333)|60s|+100 Massom Powder|-75 Energy Cells, -75 Scruffin Fruits|Soja Husk, Spaceflies, Nostrop Oil|Family Pride, Rhonkar's Might, Zyarth's Dominion, Rhonkar's Trial, Family Rhy, Patriarch's Conclusion|
+|177|SS_FAC_F238|Rastar Refinery M|Split|2x(M)|1388405 (333)|120s|+6 Rastar Oil|-60 Energy Cells, -12 Chelts Meat|Spaceflies, Nostrop Oil|Family Pride, Rhonkar's Might, Cho's Defeat, Tkr's Deprivation, Zyarth's Dominion, Rhonkar's Trial, Family Rhy, Patriarch's Conclusion|
+|178|SS_FAC_F238_1|Rastar Refinery L|Split|5x(L)|3123910 (333)|120s|+15 Rastar Oil|-150 Energy Cells, -30 Chelts Meat|Spaceflies, Nostrop Oil|Family Njy, Zyarth's Dominion, Rhonkar's Trial, Patriarch's Conclusion|
+|179|SS_FAC_F247|Space Jewellery M|Paranid|2x(M)|1469126 (333)|60s|+40 Majaglit|-30 Energy Cells, -4 Maja Snails|Rastar Oil|Paranid Prime, Third Redemption, Cardinal's Domain, Duke's Citadel, Heaven's Assertion|
+|180|SS_FAC_F247_1|Space Jewellery L|Paranid|5x(L)|3305533 (333)|60s|+100 Majaglit|-75 Energy Cells, -10 Maja Snails|Rastar Oil|Trinity Sanctum, Third Redemption, Heaven's Assertion|
+|181|SS_FAC_F248|Soyery M|Paranid|2x(M)|1339972 (333)|60s|+4 Soja Husk|-30 Energy Cells, -24 Soya Beans|Nostrop Oil|Trinity Sanctum, Third Redemption, Heaven's Assertion|
+|182|SS_FAC_F248_1|Soyery L|Paranid|5x(L)|2595429 (333)|60s|+10 Soja Husk|-75 Energy Cells, -60 Soya Beans|Nostrop Oil|Paranid Prime, Third Redemption, Cardinal's Domain, Duke's Citadel, Heaven's Assertion|
+|183|SS_FAC_F257|Sun Oil Refinery M|Teladi|2x(M)|1056802 (333)|60s|+20 Nostrop Oil|-30 Energy Cells, -30 Sunrise Flowers|Swamp Plant, Stott Spices|Profit Share, Ceo's Sprite, Ianamus Zura, Ministry of Finance|
+|184|SS_FAC_F257_1|Sun Oil Refinery L|Teladi|5x(L)|2642086 (333)|60s|+50 Nostrop Oil|-75 Energy Cells, -75 Sunrise Flowers|Swamp Plant, Stott Spices|Ceo's Sprite, PTNI Headquarters, Grand Exchange|
+|185|SS_FAC_F258|Bliss Place M|Teladi|2x(M)|1969597 (333)|216s|+2 Space Weed|-108 Energy Cells, -14 Swamp Plant|Stott Spices|Profit Share, Ceo's Sprite, PTNI Headquarters, Ministry of Finance|
+|186|SS_FAC_F258_1|Bliss Place L|Teladi|5x(L)|4431594 (333)|216s|+5 Space Weed|-270 Energy Cells, -36 Swamp Plant|Stott Spices|Ceo's Sprite, Grand Exchange, Ianamus Zura|
+|187|SS_FAC_A_POWER|Solar Power Plant M|Argon|2x(M)|6086378 (333)|118s (Sun 100%)|+552 Energy Cells|-4 Crystals (Player) / None (NPC)|Crystals|Argon Prime, Cloudbase South East, Legend's Home|
+|188|SS_FAC_A_POWER_1|Solar Power Plant L|Argon|5x(L)|13694352 (333)|118s (Sun 100%)|+1380 Energy Cells|-10 Crystals (Player) / None (NPC)|Crystals|Omicron Lyrae|
+|189|SS_FAC_A_POWER_2|Solar Power Plant XL|Argon|10x(XL)|24345514 (333)|118s (Sun 100%)|+2760 Energy Cells|-20 Crystals (Player) / None (NPC)|Crystals|Cloudbase South East, Light of Heart, Legend's Home|
+|190|SS_FAC_B_POWER|Solar Power Plant M|Boron|2x(M)|5472897 (333)|118s (Sun 100%)|+552 Energy Cells|-4 Crystals (Player) / None (NPC)|Crystals|Kingdom End, Lucky Planets, Queen's Retribution|
+|191|SS_FAC_B_POWER_1|Solar Power Plant L|Boron|5x(L)|12314019 (333)|118s (Sun 100%)|+1380 Energy Cells|-10 Crystals (Player) / None (NPC)|Crystals|Depths of Silence, Great Reef, Queen's Retribution|
+|192|SS_FAC_B_POWER_2|Solar Power Plant XL|Boron|10x(XL)|21891589 (333)|118s (Sun 100%)|+2760 Energy Cells|-20 Crystals (Player) / None (NPC)|Crystals|Ocean of Fantasy, Queen's Retribution|
+|193|SS_FAC_P_POWER|Solar Power Plant M|Paranid|2x(M)|6393119 (333)|118s (Sun 100%)|+552 Energy Cells|-4 Crystals (Player) / None (NPC)|Crystals|Paranid Prime, Third Redemption, Duke's Citadel, Heaven's Assertion|
+|194|SS_FAC_P_POWER_1|Solar Power Plant L|Paranid|5x(L)|14384518 (333)|118s (Sun 100%)|+1380 Energy Cells|-10 Crystals (Player) / None (NPC)|Crystals|Trinity Sanctum, Third Redemption, Heaven's Assertion|
+|195|SS_FAC_P_POWER_2|Solar Power Plant XL|Paranid|10x(XL)|25572476 (333)|118s (Sun 100%)|+2760 Energy Cells|-20 Crystals (Player) / None (NPC)|Crystals|Third Redemption, Cardinal's Domain, Heaven's Assertion|
+|196|SS_FAC_S_POWER|Solar Power Plant M|Split|2x(M)|6699860 (333)|118s (Sun 100%)|+552 Energy Cells|-4 Crystals (Player) / None (NPC)|Crystals|Rhonkar's Might, Tkr's Deprivation, Family Njy, Zyarth's Dominion, Rhonkar's Trial, Family Rhy, Patriarch's Conclusion|
+|197|SS_FAC_S_POWER_1|Solar Power Plant L|Split|5x(L)|15074684 (333)|118s (Sun 100%)|+1380 Energy Cells|-10 Crystals (Player) / None (NPC)|Crystals|Family Pride, Rhonkar's Might, Cho's Defeat, Zyarth's Dominion, Rhonkar's Trial, Family Rhy, Patriarch's Conclusion|
+|198|SS_FAC_S_POWER_2|Solar Power Plant XL|Split|10x(XL)|26799438 (333)|118s (Sun 100%)|+2760 Energy Cells|-20 Crystals (Player) / None (NPC)|Crystals|Zyarth's Dominion, Rhonkar's Trial, Patriarch's Conclusion|
+|199|SS_FAC_T_POWER|Solar Power Plant M|Teladi|2x(M)|5779638 (333)|118s (Sun 100%)|+552 Energy Cells|-4 Crystals (Player) / None (NPC)|Crystals|Profit Share, Ceo's Sprite, Grand Exchange, Ministry of Finance|
+|200|SS_FAC_T_POWER_1|Solar Power Plant L|Teladi|5x(L)|13004185 (333)|118s (Sun 100%)|+1380 Energy Cells|-10 Crystals (Player) / None (NPC)|Crystals|Ceo's Sprite, PTNI Headquarters|
+|201|SS_FAC_T_POWER_2|Solar Power Plant XL|Teladi|10x(XL)|23118552 (333)|118s (Sun 100%)|+2760 Energy Cells|-20 Crystals (Player) / None (NPC)|Crystals|Ceo's Sprite, Ianamus Zura|
+|202|SS_FAC_X_POWER|Solar Power Plant M|Xenon|2x(M)|NPC only (val: 6054090)|118s (Sun 100%)|+552 Energy Cells|-4 Crystals (Player) / None (NPC)|Crystals|-|
+|203|SS_FAC_A_ORE|Ore Mine M|Argon|2x(M)|559479 (100)|72s (Yield 25)|+6 Ore|-36 Energy Cells|-|Argon Prime, Cloudbase South East, Omicron Lyrae, Legend's Home|
+|204|SS_FAC_A_ORE_1|Ore Mine L|Argon|5x(L)|1126061 (100)|72s (Yield 25)|+15 Ore|-90 Energy Cells|-|Cloudbase South East, Light of Heart, Legend's Home|
+|205|SS_FAC_B_ORE|Ore Mine M|Boron|2x(M)|683789 (100)|72s (Yield 25)|+6 Ore|-36 Energy Cells|-|Kingdom End, Lucky Planets, Great Reef, Queen's Retribution|
+|206|SS_FAC_B_ORE_1|Ore Mine L|Boron|5x(L)|1416657 (100)|72s (Yield 25)|+15 Ore|-90 Energy Cells|-|Ocean of Fantasy, Depths of Silence, Queen's Retribution|
+|207|SS_FAC_P_ORE|Ore Mine M|Paranid|2x(M)|615418 (100)|72s (Yield 25)|+6 Ore|-36 Energy Cells|-|Paranid Prime, Third Redemption, Duke's Citadel, Heaven's Assertion|
+|208|SS_FAC_P_ORE_1|Ore Mine L|Paranid|5x(L)|1235034 (100)|72s (Yield 25)|+15 Ore|-90 Energy Cells|-|Trinity Sanctum, Third Redemption, Cardinal's Domain, Heaven's Assertion|
+|209|SS_FAC_S_ORE|Ore Mine M|Split|2x(M)|508544 (100)|72s (Yield 25)|+6 Ore|-36 Energy Cells|-|Rhonkar's Might, Tkr's Deprivation, Family Njy, Zyarth's Dominion, Rhonkar's Trial, Family Rhy, Patriarch's Conclusion|
+|210|SS_FAC_S_ORE_1|Ore Mine L|Split|5x(L)|1017087 (100)|72s (Yield 25)|+15 Ore|-90 Energy Cells|-|Family Pride, Rhonkar's Might, Cho's Defeat, Zyarth's Dominion, Rhonkar's Trial, Family Rhy, Patriarch's Conclusion|
+|211|SS_FAC_T_ORE|Ore Mine M|Teladi|2x(M)|528401 (100)|72s (Yield 25)|+6 Ore|-36 Energy Cells|-|Profit Share, Ceo's Sprite, PTNI Headquarters, Grand Exchange|
+|212|SS_FAC_T_ORE_1|Ore Mine L|Teladi|5x(L)|1056802 (100)|72s (Yield 25)|+15 Ore|-90 Energy Cells|-|Ceo's Sprite, Ianamus Zura, Ministry of Finance|
+|213|SS_FAC_A_SIL|Silicon Mine M|Argon|2x(M)|683789 (100)|93s (Yield 25)|+2 Silicon Wafers|-48 Energy Cells|-|Omicron Lyrae|
+|214|SS_FAC_A_SIL_1|Silicon Mine L|Argon|5x(L)|1416657 (100)|93s (Yield 25)|+5 Silicon Wafers|-120 Energy Cells|-|Argon Prime, Cloudbase South East, Light of Heart, Legend's Home, Argon Sector M148|
+|215|SS_FAC_B_SIL|Silicon Mine M|Boron|2x(M)|774924 (100)|93s (Yield 25)|+2 Silicon Wafers|-48 Energy Cells|-|Kingdom End, Ocean of Fantasy, Lucky Planets, Queen's Retribution|
+|216|SS_FAC_B_SIL_1|Silicon Mine L|Boron|5x(L)|1743578 (100)|93s (Yield 25)|+5 Silicon Wafers|-120 Energy Cells|-|Depths of Silence, Great Reef, Queen's Retribution|
+|217|SS_FAC_P_SIL|Silicon Mine M|Paranid|2x(M)|678058 (100)|93s (Yield 25)|+2 Silicon Wafers|-48 Energy Cells|-|Trinity Sanctum, Third Redemption, Cardinal's Domain, Heaven's Assertion|
+|218|SS_FAC_P_SIL_1|Silicon Mine L|Paranid|5x(L)|1525631 (100)|93s (Yield 25)|+5 Silicon Wafers|-120 Energy Cells|-|Paranid Prime, Third Redemption, Duke's Citadel, Heaven's Assertion|
+|219|SS_FAC_S_SIL|Silicon Mine M|Split|2x(M)|621634 (100)|93s (Yield 25)|+2 Silicon Wafers|-48 Energy Cells|-|Family Pride, Rhonkar's Might, Family Njy, Zyarth's Dominion, Rhonkar's Trial, Family Rhy, Patriarch's Conclusion|
+|220|SS_FAC_S_SIL_1|Silicon Mine L|Split|5x(L)|1271359 (100)|93s (Yield 25)|+5 Silicon Wafers|-120 Energy Cells|-|Rhonkar's Might, Cho's Defeat, Family Tkr, Zyarth's Dominion, Rhonkar's Trial, Family Rhy, Patriarch's Conclusion|
+|221|SS_FAC_T_SIL|Silicon Mine M|Teladi|2x(M)|559479 (100)|93s (Yield 25)|+2 Silicon Wafers|-48 Energy Cells|-|Profit Share, Ceo's Sprite, Ianamus Zura, Ministry of Finance|
+|222|SS_FAC_T_SIL_1|Silicon Mine L|Teladi|5x(L)|1126061 (100)|93s (Yield 25)|+5 Silicon Wafers|-120 Energy Cells|-|Ceo's Sprite, PTNI Headquarters, Grand Exchange|
+|228-232|SS_FAC_[A/B/P/S/T]_CCKIT|Complex Construction Kit|5 Races (A/B/P/S/T)|1x|322885 (1000)|Instant|Complex Construction Kit (Joins stations via connecting tubes)|-|-|All Shipyards across Argon, Boron, Paranid, Split, and Teladi|
+|242-246|SS_FAC_[A/B/P/S/T]_DUMBFIRE_COMPLEX|Dumbfire Missile Production Complex|5 Races (A/B/P/S/T)|1x|NPC only (val: 807212)|180s|+10 Dragonfly Missile (or Firefly, Aurora)|-45 Energy Cells, -8 Ore, Racial Food (Meatsteak Cahoonas/BoFu/Soja Husk/Rastar Oil/Nostrop Oil), -2 Silicon Wafers|Warheads, Cloth Rimes|-|
+|247-251|SS_FAC_[A/B/P/S/T]_SWARM_COMPLEX|Swarm Missile Production Complex|5 Races (A/B/P/S/T)|1x|NPC only (val: 807212)|120s|+5 Wasp Missile (or Typhoon)|-30 Energy Cells, -5 Ore, Racial Food (Meatsteak Cahoonas/BoFu/Soja Husk/Rastar Oil/Nostrop Oil), -1 Silicon Wafers|Warheads, Cloth Rimes|-|
+|252-256|SS_FAC_[A/B/P/S/T]_SEEKER_COMPLEX|Seeker Missile Production Complex|5 Races (A/B/P/S/T)|1x|NPC only (val: 807212)|40m|+16 Thunderbolt Missile (or Tempest)|-600 Energy Cells, -100 Ore, Racial Food (Meatsteak Cahoonas/BoFu/Soja Husk/Rastar Oil/Nostrop Oil), -25 Silicon Wafers|Warheads, Cloth Rimes|-|
+|257-261|SS_FAC_[A/B/P/S/T]_IMAGERECOG_COMPLEX|Image Recognition Production Complex|5 Races (A/B/P/S/T)|1x|NPC only (val: 807212)|60s|+15 Mosquito Missile (or Silkworm)|-15 Energy Cells, -2 Ore, Racial Food (Meatsteak Cahoonas/BoFu/Soja Husk/Rastar Oil/Nostrop Oil), -1 Silicon Wafers|Warheads, Cloth Rimes|-|
+|262-266|SS_FAC_[A/B/P/S/T]_HIGHYIELD_COMPLEX|High Yield Production Complex|5 Races (A/B/P/S/T)|1x|NPC only (val: 807212)|24m|+8 Hornet Missile (or Firestorm Torpedo)|-360 Energy Cells, -60 Ore, Racial Food (Meatsteak Cahoonas/BoFu/Soja Husk/Rastar Oil/Nostrop Oil), -15 Silicon Wafers|Warheads, Cloth Rimes|-|
+|267|SS_FAC_A_MISSILE_DMBF|Firefly Missile Factory|Argon|1x|887933 (333)|60s|+10 Firefly Missile|-15 Energy Cells, -2 Ore, -10 Meatsteak Cahoonas|Warheads, Cloth Rimes, Silicon Wafers|Argon Prime, Cloudbase South East, Legend's Home, Argon Sector M148|
+|268|SS_FAC_S_MISSILE_HTSK|Thunderbolt Missile Factory|Split|1x|3761608 (3333)|40m|+16 Thunderbolt Missile|-600 Energy Cells, -100 Ore, -60 Rastar Oil|Warheads, Cloth Rimes, Silicon Wafers|Cho's Defeat, Zyarth's Dominion, Rhonkar's Trial, Patriarch's Conclusion|
+|269|SS_FAC_B_MISSILE_FF|Tempest Missile Factory|Boron|1x|9581606 (10000)|8m|+2 Tempest Missile|-120 Energy Cells, -20 Ore, -20 BoFu|Warheads, Cloth Rimes, Silicon Wafers|Depths of Silence, Queen's Retribution|
+|270|SS_FAC_P_MISSILE_PROX|Hurricane Missile Factory|Paranid|1x|3043189 (3333)|288s|+4 Hurricane Missile|-72 Energy Cells, -12 Ore, -10 Soja Husk|Warheads, Cloth Rimes, Silicon Wafers|Third Redemption, Heaven's Assertion|
+|271|SS_FAC_T_MISSILE_TRAK|Cyclone Missile Factory|Teladi|1x|5174229 (3333)|24m|+4 Cyclone Missile|-360 Energy Cells, -60 Ore, -240 Nostrop Oil|Warheads, Cloth Rimes, Silicon Wafers|Ceo's Sprite|
+|272|SS_FAC_B_MISSILE_PROXTRAK|Cyclone Missile Factory|Boron|1x|10970011 (10000)|24m|+4 Cyclone Missile|-360 Energy Cells, -60 Ore, -60 BoFu|Warheads, Cloth Rimes, Silicon Wafers|Queen's Retribution|
+|273|SS_FAC_S_MISSILE_SWRMDMBF|Tornado Missile Factory|Split|1x|7224547 (10000)|40m|+8 Tornado Missile|-600 Energy Cells, -100 Ore, -60 Rastar Oil|Warheads, Cloth Rimes, Silicon Wafers|Zyarth's Dominion, Rhonkar's Trial, Patriarch's Conclusion|
+|274|SS_FAC_T_MISSILE_SWRM|Typhoon Missile Factory|Teladi|1x|11365545 (10000)|40m|+4 Typhoon Missile|-600 Energy Cells, -100 Ore, -400 Nostrop Oil|Warheads, Cloth Rimes, Silicon Wafers|Ceo's Sprite, Grand Exchange|
+|275|SS_FAC_A_MISSILE_TORP|Firestorm Torpedo Factory|Argon|1x|13617666 (10000)|24m|+1 Firestorm Torpedo|-360 Energy Cells, -60 Ore, -240 Meatsteak Cahoonas|Warheads, Cloth Rimes, Silicon Wafers|Cloudbase South East, Omicron Lyrae, Legend's Home|
+|276|SS_FAC_P_MISSILE_SYN|Aurora Missile Factory|Paranid|1x|2679944 (3333)|120s|+3 Aurora Missile|-30 Energy Cells, -5 Ore, -4 Soja Husk|Warheads, Cloth Rimes, Silicon Wafers|Trinity Sanctum, Third Redemption, Heaven's Assertion|
+|299|SS_FAC_S_TRACTORBEAM|Tractor Beam Factory|Split|1x|NPC only (val: 15885932)|233m12s|+1 TB|-3498 Energy Cells, -350 Rastar Oil, -583 Ore|Computer Components|-|
+|300|SS_FAC_P_TRACTORBEAM|Tractor Beam Factory|Paranid|1x|17655341 (10000)|233m12s|+1 TB|-466 Soja Husk, -3498 Energy Cells, -583 Ore|Computer Components|Third Redemption, Heaven's Assertion|
+|334|SS_FAC_TR_F6|Food Preparation Facility M|Terran|2x(M)|NPC only (val: 1291539)|60s|+20 C-Ration|-30 Energy Cells, -20 Carbo Cake, -20 Protein Paste|Water, Flavour Pack|-|
+|335|SS_FAC_TR_F6_1|Food Preparation Facility L|Terran|5x(L)|NPC only (val: 2905963)|60s|+50 C-Ration|-75 Energy Cells, -50 Protein Paste, -50 Carbo Cake|Water, Flavour Pack|-|
+|343|SS_FAC_TR_SPECTRE|Spectre Missile Manufacturing Facility|Terran|1x|NPC only (val: 3575949)|140s|+1 Spectre Missile|-35 Energy Cells, -6 Ore, -23 C-Ration, -23 Water|Matter/Anti-matter Warhead|-|
+|346|SS_FAC_TR_TECH7|M/A-M Warhead Production Fab M|Terran|2x(M)|NPC only (val: 3890762)|180s|+10 Matter/Anti-matter Warhead|-15 Ore, -15 Terran MRE, -90 Energy Cells|Hull Plating|-|
+|347|SS_FAC_TR_TECH8|Hull Plating Production Facility M|Terran|2x(M)|NPC only (val: 3890762)|180s|+40 Hull Plating|-15 Terran MRE, -15 Ore, -90 Energy Cells|Water|-|
+|348|SS_FAC_SOLDIER_1|Rehabilitation Facility M|Pirate|2x(M)|NPC only (val: 3890762)|8m20s|+2 Mercenary|-250 Energy Cells, -25 Rastar Oil|Slaves, Space Fuel, Disintegrator Rifles, Low-yield Sidearms|-|
+|349|SS_FAC_A_SOLDIER_2|Marine Training Barracks M|Argon|2x(M)|NPC only (val: 3890762)|9m10s|+2 Marine|-275 Energy Cells, -183 Meatsteak Cahoonas|Space Fuel, Disintegrator Rifles, Low-yield Sidearms|-|
+|350|SS_FAC_B_MINE_2|Ion Mine Fab|Boron|1x|2792954 (1000)|11m20s|+1 Ion Mine|-170 Energy Cells, -28 BoFu, -28 Ore|Warheads, Quantum Tubes|Queen's Retribution|
+|351|SS_FAC_S_MINE_3|Tracker Mine Fab|Split|1x|2792954 (1000)|5m40s|+1 Tracker Mine|-8 Rastar Oil, -85 Energy Cells, -14 Ore|Microchips, Warheads|Zyarth's Dominion, Rhonkar's Trial, Patriarch's Conclusion|
+|352|SS_FAC_TR_MINE|Matter/Anti-Matter Mine Fab|Terran|1x|NPC only (val: 2792954)|11m20s|+1 Matter/Anti-Matter Mine|-170 Energy Cells, -113 C-Ration, -28 Ore|Matter/Anti-matter Warhead, Hull Plating, Water|-|
+|353|SS_FAC_TR_ARMS|EMP Rifle Assembly Facility|Terran|1x|NPC only (val: 2792954)|32m|+1 Terran EMP Rifle|-80 Ore, -320 Water, -320 C-Ration, -480 Energy Cells|Hull Plating|-|
+|356|SS_FAC_TR_AF_CAPITAL|Ghoul Missile Manufacturing Plant|Terran|1x|NPC only (val: 13617666)|10m|+1 Ghoul Missile|-150 Energy Cells, -25 Ore, -100 C-Ration, -100 Water|Matter/Anti-matter Warhead|-|
+|357|SS_FAC_A_ARMS_1|Low-yield Sidearms Fab|Argon|1x|2792954 (1000)|8m|+1 Low-yield Sidearms|-120 Energy Cells, -20 Ore, -80 Meatsteak Cahoonas|Majaglit, Quantum Tubes|Argon Prime, Omicron Lyrae, Argon Sector M148|
+|358|SS_FAC_P_ARMS_1|Low-yield Sidearms Fab|Paranid|1x|2792954 (1000)|8m|+1 Low-yield Sidearms|-120 Energy Cells, -20 Ore, -16 Soja Husk|Majaglit, Quantum Tubes|Paranid Prime, Trinity Sanctum, Cardinal's Domain, Duke's Citadel|
+|359|SS_FAC_S_ARMS_1|Low-yield Sidearms Fab|Split|1x|2792954 (1000)|8m|+1 Low-yield Sidearms|-120 Energy Cells, -20 Ore, -12 Rastar Oil|Majaglit, Quantum Tubes|Family Pride, Rhonkar's Might, Cho's Defeat, Family Njy, Family Rhy|
+|360|SS_FAC_T_ARMS_1|Low-yield Sidearms Fab|Teladi|1x|2792954 (1000)|8m|+1 Low-yield Sidearms|-120 Energy Cells, -20 Ore, -80 Nostrop Oil|Majaglit, Quantum Tubes|Profit Share, Grand Exchange, Ministry of Finance|
+|361|SS_FAC_S_ARMS_2|Disintegrator Rifles Fab|Split|1x|2792954 (1000)|16m|+1 Disintegrator Rifles|-240 Energy Cells, -40 Ore, -24 Rastar Oil|Majaglit, Quantum Tubes|Zyarth's Dominion, Rhonkar's Trial, Patriarch's Conclusion|
+|362|SS_FAC_B_RECONDRONE|Recon Drone Construction Facility|Boron|1x|2921462 (1000)|200m|+12 Recon Drone|-3000 Energy Cells, -125 Silicon Wafers, -500 BoFu|Quantum Tubes, Computer Components|Queen's Retribution|
+|363|SS_FAC_T_AMMO_BETA|Energy Bolt Chaingun Ammunition Forge|Teladi|1x|4399305 (1000)|11m|+30 Energy Bolt Chaingun Ammunition|-165 Energy Cells, -28 Ore, -110 Nostrop Oil|Teladianium|PTNI Headquarters, Grand Exchange, Ianamus Zura, Ministry of Finance|
+|364|SS_FAC_T_AMMO_GAMMA|Gauss Cannon Ammunition Forge|Teladi|1x|5206517 (1000)|210s|+1 Gauss Cannon Ammunition|-52 Energy Cells, -9 Ore, -35 Nostrop Oil|Teladianium|PTNI Headquarters, Grand Exchange, Ianamus Zura, Ministry of Finance|
+|365|SS_FAC_A_BOMBER|Tomahawk Missile Manufacturing Plant|Argon|1x|3575949 (1000)|40m|+6 Tomahawk Heavy Missile|-600 Energy Cells, -100 Ore, -400 Meatsteak Cahoonas|Warheads, Cloth Rimes, Silicon Wafers|Cloudbase South East, Legend's Home|
+|366|SS_FAC_B_BOMBER|Tomahawk Missile Manufacturing Plant|Boron|1x|3575949 (1000)|40m|+6 Tomahawk Heavy Missile|-600 Energy Cells, -100 Ore, -100 BoFu|Warheads, Cloth Rimes, Silicon Wafers|Queen's Retribution|
+|367|SS_FAC_P_BOMBER|Tomahawk Missile Manufacturing Plant|Paranid|1x|3575949 (1000)|40m|+6 Tomahawk Heavy Missile|-600 Energy Cells, -100 Ore, -80 Soja Husk|Warheads, Cloth Rimes, Silicon Wafers|Third Redemption, Heaven's Assertion|
+|368|SS_FAC_S_BOMBER|Tomahawk Missile Manufacturing Plant|Split|1x|3575949 (1000)|40m|+6 Tomahawk Heavy Missile|-600 Energy Cells, -100 Ore, -60 Rastar Oil|Warheads, Cloth Rimes, Silicon Wafers|Zyarth's Dominion, Rhonkar's Trial, Patriarch's Conclusion|
+|369|SS_FAC_T_BOMBER|Tomahawk Missile Manufacturing Plant|Teladi|1x|3575949 (1000)|40m|+6 Tomahawk Heavy Missile|-600 Energy Cells, -100 Ore, -400 Nostrop Oil|Warheads, Cloth Rimes, Silicon Wafers|Ceo's Sprite|
+|370|SS_FAC_A_TORP_CAPITAL|Hammer Torpedo Fabrication Facility|Argon|1x|3575949 (1000)|120m|+8 Hammer Heavy Torpedo|-1800 Energy Cells, -300 Ore, -1200 Meatsteak Cahoonas|Warheads, Cloth Rimes, Silicon Wafers|Cloudbase South East, Legend's Home|
+|371|SS_FAC_B_TORP_CAPITAL|Hammer Torpedo Fabrication Facility|Boron|1x|3575949 (1000)|120m|+8 Hammer Heavy Torpedo|-1800 Energy Cells, -300 Ore, -300 BoFu|Warheads, Cloth Rimes, Silicon Wafers|Queen's Retribution|
+|372|SS_FAC_P_TORP_CAPITAL|Hammer Torpedo Fabrication Facility|Paranid|1x|3575949 (1000)|120m|+8 Hammer Heavy Torpedo|-1800 Energy Cells, -300 Ore, -240 Soja Husk|Warheads, Cloth Rimes, Silicon Wafers|Third Redemption, Heaven's Assertion|
+|373|SS_FAC_S_TORP_CAPITAL|Hammer Torpedo Fabrication Facility|Split|1x|3575949 (1000)|120m|+8 Hammer Heavy Torpedo|-1800 Energy Cells, -300 Ore, -180 Rastar Oil|Warheads, Cloth Rimes, Silicon Wafers|Zyarth's Dominion, Rhonkar's Trial, Patriarch's Conclusion|
+|374|SS_FAC_T_TORP_CAPITAL|Hammer Torpedo Fabrication Facility|Teladi|1x|3575949 (1000)|120m|+8 Hammer Heavy Torpedo|-1800 Energy Cells, -300 Ore, -1200 Nostrop Oil|Warheads, Cloth Rimes, Silicon Wafers|Ceo's Sprite|
+|375|SS_FAC_A_AF_CAPITAL|Flail Missile Production Facility|Argon|1x|3575949 (1000)|40m|+4 Flail Barrage Missile|-600 Energy Cells, -100 Ore, -400 Meatsteak Cahoonas|Warheads, Cloth Rimes, Silicon Wafers|Cloudbase South East, Legend's Home|
+|376|SS_FAC_B_AF_CAPITAL|Flail Missile Production Facility|Boron|1x|3575949 (1000)|40m|+4 Flail Barrage Missile|-600 Energy Cells, -100 Ore, -100 BoFu|Warheads, Cloth Rimes, Silicon Wafers|Queen's Retribution|
+|377|SS_FAC_P_AF_CAPITAL|Flail Missile Production Facility|Paranid|1x|3575949 (1000)|40m|+4 Flail Barrage Missile|-600 Energy Cells, -100 Ore, -80 Soja Husk|Warheads, Cloth Rimes, Silicon Wafers|Third Redemption, Heaven's Assertion|
+|378|SS_FAC_S_AF_CAPITAL|Flail Missile Production Facility|Split|1x|3575949 (1000)|40m|+4 Flail Barrage Missile|-600 Energy Cells, -100 Ore, -60 Rastar Oil|Warheads, Cloth Rimes, Silicon Wafers|Zyarth's Dominion, Rhonkar's Trial, Patriarch's Conclusion|
+|379|SS_FAC_T_AF_CAPITAL|Flail Missile Production Facility|Teladi|1x|3575949 (1000)|40m|+4 Flail Barrage Missile|-600 Energy Cells, -100 Ore, -400 Nostrop Oil|Warheads, Cloth Rimes, Silicon Wafers|Ceo's Sprite|
+|380|SS_FAC_TR_ICE|Ice Harvesting Facility M|Terran|1x|NPC only (val: 500471)|72s (Yield 25)|+3 Ice|-18 Energy Cells|Terran MRE|-|
+|381|SS_FAC_PI_PD|Plasma Burst Generator Forge|Pirate|1x|NPC only (val: 8637168)|42m|+1 PBG|-42 Space Fuel, -630 Energy Cells, -105 Ore|Space Weed, Crystals|-|
+|382|SS_FAC_PI_IBL|Incendiary Bomb Launcher Forge|Pirate|1x|NPC only (val: 14139125)|264m|+1 IBL|-3960 Energy Cells, -660 Ore, -264 Space Fuel|Space Weed, Crystals|-|
+|383|SS_FAC_T_LWEP_COMPLEX|Light Weapons Complex|Teladi|1x|NPC only (val: 807212)|11m|+30 Energy Bolt Chaingun Ammunition (or EBC, HEPT)|-165 Energy Cells, -28 Ore, -110 Nostrop Oil|Teladianium, Crystals|-|
+|384|SS_FAC_A_HWEP_COMPLEX|Heavy Weapons Complex|Argon|1x|NPC only (val: 11112403)|288m|+1 PPC (or CFA)|-4320 Energy Cells, -720 Ore, -2880 Meatsteak Cahoonas|Crystals|-|
+|388|SS_FAC_LC_1|Aldrin Mining Base M|Aldrin|2x(M)|NPC only (val: 500471)|72s (Yield 25)|+6 Ore|-36 Energy Cells|-|-|
+|389|SS_FAC_LC_2|Aldrin Tech Production Base M|Aldrin|2x(M)|NPC only (val: 3890762)|180s|+40 Hull Plating|-15 Cloth Rimes, -60 Meatsteak Cahoonas, -6 Space Fuel, -120 Massom Powder, -9 Rastar Oil, -12 Soja Husk, -60 Nostrop Oil, -15 Ore, -90 Energy Cells|-|-|
+|390|SS_FAC_LC_3|Aldrin Mixed Food Production Base M|Aldrin|2x(M)|NPC only (val: 1372260)|120s|+10 Cloth Rimes (or Meatsteak Cahoonas, Space Fuel, Massom Powder, Rastar Oil, Soja Husk, Nostrop Oil)|-40 Delexian Wheat, -12 Argnu Beef, -60 Scruffin Fruits, -12 Chelts Meat, -48 Soya Beans, -60 Sunrise Flowers, -60 Energy Cells|Water|-|
+|391|SS_FAC_LC_4|Aldrin Natural Habitat Base L|Aldrin|5x(L)|NPC only (val: 1307683)|60s|+50 Delexian Wheat (or Argnu Beef, Scruffin Fruits, Chelts Meat, Soya Beans, Sunrise Flowers)|-75 Energy Cells|-|-|
+|392|SS_FAC_LC_5|Aldrin Energy Production Base XL|Aldrin|10x(XL)|NPC only (val: 25572476)|118s (Sun 100%)|+2760 Energy Cells|-20 Crystals (Player) / None (NPC)|Crystals|-|
+|394|SS_FAC_LC_7|Aldrin Weapon Production Base M|Aldrin|2x(M)|NPC only (val: 3889147)|180s|+10 Matter/Anti-matter Warhead (or PMAML, PSSC, Spectre Missile, Poltergeist Missile)|-15 Cloth Rimes, -60 Meatsteak Cahoonas, -6 Space Fuel, -120 Massom Powder, -9 Rastar Oil, -12 Soja Husk, -60 Nostrop Oil, -15 Ore, -90 Energy Cells|-|-|
+|396|SS_FAC_TR_ICE_1|Ice Harvesting Facility L|Terran|5x(L)|NPC only (val: 1000943)|72s (Yield 25)|+15 Ice|-90 Energy Cells|Terran MRE|-|
+|401|SS_FAC_LC_EEMPC|Aldrin Experimental EMPC Forge M|Aldrin|2x(M)|NPC only (val: 3889147)|99m36s|+2 EEMPC|-498 Cloth Rimes, -1992 Meatsteak Cahoonas, -3984 Massom Powder, -498 Ore, -2988 Energy Cells|Space Fuel, Rastar Oil, Soja Husk|-|
+|402|SS_FAC_A_DRONE_COMPLEX|Drone Production Facility|Argon|1x|NPC only (val: 3603394)|17m36s|+8 Fighter Drone (or Fighter Drone MKII)|-264 Energy Cells, -352 Massom Powder, -11 Silicon Wafers|Computer Components, Quantum Tubes|-|
+|403|SS_FAC_B_DRONE_COMPLEX|Drone Production Facility|Boron|1x|NPC only (val: 2921462)|16m|+1 Freight Drone (or Fighter Drone)|-240 Energy Cells, -320 Massom Powder, -10 Silicon Wafers|Computer Components, Quantum Tubes|-|
+|404|SS_FAC_S_DRONE_COMPLEX|Drone Production Facility|Split|1x|NPC only (val: 3773878)|17m36s|+8 Fighter Drone (or Fighter Drone MKII)|-264 Energy Cells, -352 Massom Powder, -11 Silicon Wafers|Computer Components, Quantum Tubes|-|
+|405|SS_FAC_T_DRONE_COMPLEX|Drone Production Facility|Teladi|1x|NPC only (val: 3254679)|17m36s|+8 Fighter Drone (or Freight Drone)|-264 Energy Cells, -11 Silicon Wafers, -352 Massom Powder|Computer Components, Quantum Tubes|-|
+|406|SS_FAC_A_DRONE_MK2|Advanced Drone Factory|Argon|1x|3603394 (1000)|16m|+1 Fighter Drone MKII|-240 Energy Cells, -320 Massom Powder, -10 Silicon Wafers|Computer Components, Quantum Tubes|Argon Prime, Cloudbase South East, Legend's Home, Argon Sector M148|
+|407|SS_FAC_S_DRONE_MK2|Advanced Drone Factory|Split|1x|3773878 (1000)|16m|+1 Fighter Drone MKII|-240 Energy Cells, -320 Massom Powder, -10 Silicon Wafers|Computer Components, Quantum Tubes|Family Pride, Family Njy, Zyarth's Dominion, Rhonkar's Trial, Patriarch's Conclusion|
+|408|SS_FAC_TR_POWER_PL|Solar Power Plant M|Terran|2x(M)|8701745 (1000)|118s (Sun 100%)|+552 Energy Cells|-4 Crystals (Player) / None (NPC)|Crystals|Terran Unknown Sector 1 (15,10) (After Aldrin Plot)|
+|409|SS_FAC_TR_POWER_PL_1|Solar Power Plant L|Terran|5x(L)|12314019 (1000)|118s (Sun 100%)|+1380 Energy Cells|-10 Crystals (Player) / None (NPC)|Crystals|Terran Unknown Sector 1 (15,10) (After Aldrin Plot)|
+|410|SS_FAC_TR_POWER_PL_2|Solar Power Plant XL|Terran|10x(XL)|21891589 (1000)|118s (Sun 100%)|+2760 Energy Cells|-20 Crystals (Player) / None (NPC)|Crystals|Terran Unknown Sector 1 (15,10) (After Aldrin Plot)|
+|411|SS_FAC_TR_ORE_PL|Ore Mine M|Terran|2x(M)|500471 (100)|72s (Yield 25)|+6 Ore|-36 Energy Cells|C-Ration|Terran Unknown Sector 1 (15,10) (After Aldrin Plot)|
+|412|SS_FAC_TR_ORE_PL_1|Ore Mine L|Terran|5x(L)|1000943 (100)|72s (Yield 25)|+15 Ore|-90 Energy Cells|C-Ration|Terran Unknown Sector 1 (15,10) (After Aldrin Plot)|
+|413|SS_FAC_TR_SIL_PL|Silicon Mine M|Terran|2x(M)|500471 (100)|93s (Yield 25)|+2 Silicon Wafers|-48 Energy Cells|C-Ration|Terran Unknown Sector 1 (15,10) (After Aldrin Plot)|
+|414|SS_FAC_TR_SIL_PL_1|Silicon Mine L|Terran|5x(L)|1000943 (100)|93s (Yield 25)|+5 Silicon Wafers|-120 Energy Cells|C-Ration|Terran Unknown Sector 1 (15,10) (After Aldrin Plot)|
+|415|SS_FAC_TR_PROTEIN_PL|Protein Paste Blending Facility M|Terran|2x(M)|404090 (100)|60s|+20 Protein Paste|-30 Energy Cells|Water|Terran Unknown Sector 1 (15,10) (After Aldrin Plot)|
+|416|SS_FAC_TR_PROTEIN_PL_1|Protein Paste Blending Facility L|Terran|5x(L)|1009015 (100)|60s|+50 Protein Paste|-75 Energy Cells|Water|Terran Unknown Sector 1 (15,10) (After Aldrin Plot)|
+|417|SS_FAC_TR_WATER_PL|Water Purification Plant M|Terran|2x(M)|500471 (100)|60s|+40 Water|-5 Ice, -30 Energy Cells|-|Terran Unknown Sector 1 (15,10) (After Aldrin Plot)|
+|418|SS_FAC_TR_WATER_PL_1|Water Purification Plant L|Terran|5x(L)|1065520 (100)|60s|+100 Water|-12 Ice, -75 Energy Cells|-|Terran Unknown Sector 1 (15,10) (After Aldrin Plot)|
+|419|SS_FAC_TR_CRYSTAL_PL|Crystal Fab M|Terran|2x(M)|3890762 (1000)|8m|+16 Crystals|-240 Energy Cells, -40 Terran MRE, -10 Silicon Wafers|Water|Terran Unknown Sector 1 (15,10) (After Aldrin Plot)|
+|420|SS_FAC_TR_CRYSTAL_PL_1|Crystal Fab L|Terran|5x(L)|7781524 (1000)|8m|+40 Crystals|-600 Energy Cells, -100 Terran MRE, -25 Silicon Wafers|Water|Terran Unknown Sector 1 (15,10) (After Aldrin Plot)|
+|421|SS_FAC_TR_MRE_PL|USC Food Supply Factory M|Terran|2x(M)|1146241 (333)|120s|+10 Terran MRE|-60 Energy Cells, -40 Protein Paste|Water, Vita Kai, Flavour Pack|Terran Unknown Sector 1 (15,10) (After Aldrin Plot)|
+|422|SS_FAC_TR_MRE_PL_1|USC Food Supply Factory L|Terran|5x(L)|2579042 (333)|120s|+25 Terran MRE|-150 Energy Cells, -100 Protein Paste|Water, Vita Kai, Flavour Pack|Terran Unknown Sector 1 (15,10) (After Aldrin Plot)|
+|423|SS_FAC_TR_CARBO_PL|Carbo Cake Factory M|Terran|2x(M)|404090 (100)|60s|+20 Carbo Cake|-30 Energy Cells|Water|Terran Unknown Sector 1 (15,10) (After Aldrin Plot)|
+|424|SS_FAC_TR_CARBO_PL_1|Carbo Cake Factory L|Terran|5x(L)|1009015 (100)|60s|+50 Carbo Cake|-75 Energy Cells|Water|Terran Unknown Sector 1 (15,10) (After Aldrin Plot)|
+|425|SS_FAC_TR_EMP_PL|EMPC Forge|Terran|1x|10647126 (3333)|99m36s|+1 EMPC|-1494 Energy Cells, -249 Ore, -249 Terran MRE|Water, Hull Plating|Terran Unknown Sector 1 (15,10) (After Aldrin Plot)|
+|426|SS_FAC_TR_MAM_LAUNCH_PL|Matter/Anti-Matter Launcher Forge|Terran|1x|14876917 (10000)|137m|+1 MAML|-2055 Energy Cells, -342 Ore, -342 Terran MRE|Water, Hull Plating|Terran Unknown Sector 1 (15,10) (After Aldrin Plot)|
+|427|SS_FAC_TR_PSP_PL|Point Singularity Projector Forge|Terran|1x|19857415 (33333)|309m36s|+1 PSP|-4644 Energy Cells, -774 Terran MRE, -774 Ore|Water, Hull Plating|Terran Unknown Sector 1 (15,10) (After Aldrin Plot)|
+|428|SS_FAC_TR_TERRANANTIFIGHTER_PL|Starburst Shockwave Cannon Forge|Terran|1x|17702159 (10000)|210m|+1 SSC|-3150 Energy Cells, -525 Ore, -525 Terran MRE|Water, Hull Plating|Terran Unknown Sector 1 (15,10) (After Aldrin Plot)|
+|429|SS_FAC_TR_KERIS_PL|Keris Drone Factory M|Terran|2x(M)|3890762 (1000)|288s|+2 Keris|-144 Energy Cells, -6 Silicon Wafers, -24 Terran MRE|Water|Terran Unknown Sector 1 (15,10) (After Aldrin Plot)|
+|430|SS_FAC_TR_TORP_CAPITAL_PL|Shadow Missile Construction Facility|Terran|1x|3648598 (3333)|15m|+1 Shadow Missile|-225 Energy Cells, -38 Ore, -38 Terran MRE|C-Ration, Water, Matter/Anti-matter Warhead|Terran Unknown Sector 1 (15,10) (After Aldrin Plot)|
+|431|SS_FAC_TR_BOMBER_PL|Phantom Missile Fabrication Facility|Terran|1x|3592093 (1000)|6m40s|+1 Phantom Missile|-100 Energy Cells, -17 Ore, -17 Terran MRE|C-Ration, Water, Matter/Anti-matter Warhead|Terran Unknown Sector 1 (15,10) (After Aldrin Plot)|
+|432|SS_FAC_TR_POLTERGEIST_PL|Poltergeist Missile Fabrication Facility|Terran|1x|3648598 (3333)|60s|+1 Poltergeist Missile|-15 Energy Cells, -2 Ore, -2 Terran MRE|C-Ration, Water, Matter/Anti-matter Warhead|Terran Unknown Sector 1 (15,10) (After Aldrin Plot)|
+|433|SS_FAC_TR_WRAITH_PL|Wraith Missile Production Plant|Terran|1x|13617666 (10000)|10m|+1 Wraith Missile|-150 Energy Cells, -25 Ore, -25 Terran MRE|C-Ration, Water, Matter/Anti-matter Warhead|Terran Unknown Sector 1 (15,10) (After Aldrin Plot)|
+|434|SS_FAC_A_TECH205_1|Crystal Fab L|Argon|5x(L)|8072120 (1000)|8m|+40 Crystals|-600 Energy Cells, -25 Silicon Wafers, -400 Meatsteak Cahoonas|-|Argon Prime, Cloudbase South East, Omicron Lyrae, Light of Heart, Legend's Home|
+|435|SS_FAC_B_TECH205_1|Crystal Fab L|Boron|5x(L)|8233562 (1000)|8m|+40 Crystals|-600 Energy Cells, -100 BoFu, -25 Silicon Wafers|-|Kingdom End, Queen's Retribution|
+|436|SS_FAC_P_TECH205_1|Crystal Fab L|Paranid|5x(L)|8120553 (1000)|8m|+40 Crystals|-600 Energy Cells, -80 Soja Husk, -25 Silicon Wafers|-|Paranid Prime, Third Redemption, Duke's Citadel, Heaven's Assertion|
+|437|SS_FAC_S_TECH205_1|Crystal Fab L|Split|5x(L)|8185130 (1000)|8m|+40 Crystals|-600 Energy Cells, -25 Silicon Wafers, -60 Rastar Oil|-|Cho's Defeat, Zyarth's Dominion, Rhonkar's Trial, Patriarch's Conclusion|
+|438|SS_FAC_T_TECH205_1|Crystal Fab L|Teladi|5x(L)|8152841 (1000)|8m|+40 Crystals|-600 Energy Cells, -25 Silicon Wafers, -400 Nostrop Oil|-|Ceo's Sprite, PTNI Headquarters|
+
+## 5. Docks, Trading Stations, and Corporations Master Table (41 Rows)
+|Idx|ID|Name|Race|Price (Rep)|Location / Selling Shipyards|Standard Inventory (Short Names and Acronyms)|
+|---|---|---|---|---|---|---|
+|0|SS_DOCK_A_TRADE|Free Argon Trading Station|Argon|37212473 (3333)|Purchasable at: Argon Prime, Cloudbase South East, Legend's Home|Warheads, Cargo Bay Extension, Cloth Rimes, Engine Tuning, Meatsteak Cahoonas, Argon Law Enforcement License, Rudder Optimisation, Quantum Tubes, Fighter Drone, SETA, Navigation Relay Satellite, Crystals, Computer Components, Lasertower, Transporter Device, Salvage Insurance, Stott Spices, Microchips, Majaglit, Soja Husk, Nostrop Oil, Space Fuel, Rastar Oil, Marine, BoFu, Argnu Beef, Triplex Scanner, Advanced Satellite, Freight Scanner, 25 MJ Shield, 200 MJ Shield, Massom Powder, Fight Command Software MK1, Fight Command Software MK2, Special Command Software MK1, Patrol Command Software, Navigation Command Software MK1, Trade Command Software MK1, Trade Command Software MK2, Commodity Logistics Software MK1 (CLS1) [In Herron's Nebula], Commodity Logistics Software MK2 (CLS2) [In Herron's Nebula]|
+|1|SS_DOCK_S_TRADE|Split Trading Port|Split|36324540 (3333)|Purchasable at: Family Pride, Rhonkar's Might, Zyarth's Dominion, Rhonkar's Trial, Family Rhy, Patriarch's Conclusion|Split Police License, Cargo Bay Extension, SQUASH Mine, Advanced Satellite, Massom Powder, Engine Tuning, Lasertower, Crystals, Rastar Oil, Rudder Optimisation, SETA, Fighter Drone, Tracker Mine, Warheads, Nostrop Oil, Space Weed, Quantum Tubes, Marine, Computer Components, Microchips, Stott Spices, Soja Husk, Navigation Relay Satellite, Fight Command Software MK1, Delexian Wheat, Navigation Command Software MK1, Teladianium, Patrol Command Software, Cloth Rimes, Majaglit|
+|2|SS_DOCK_P_TRADE|Paranid Trading Dock|Paranid|37051031 (3333)|Purchasable at: Paranid Prime, Third Redemption, Duke's Citadel, Heaven's Assertion|Computer Components, Soja Husk, Cargo Bay Extension, Rastar Oil, Paranid Police License, Engine Tuning, Lasertower, Advanced Satellite, Rudder Optimisation, Majaglit, SETA, Microchips, Warheads, Cloth Rimes, BoFu, Quantum Tubes, Crystals, Marine, SQUASH Mine, Fighter Drone, Meatsteak Cahoonas, Fight Command Software MK1, Sunrise Flowers, Mosquito, Wasp, 5 MJ Shield, Fight Command Software MK2, Nividium, Special Command Software MK1, Space Weed, Space Fuel, Duplex Scanner, Patrol Command Software, MDS, Spaceflies, Freight Scanner, Navigation Command Software MK1, Spacefly Collector, Video Enhancement Goggles, Slaves, Trade Command Software MK1, Ore Collector, Cargo Bay Life Support System, Trade Command Software MK2|
+|3|SS_DOCK_B_TRADE|Royal Boron Trading Station|Boron|37938964 (3333)|Purchasable at: Kingdom End, Queen's Retribution|BoFu, Cargo Bay Extension, Engine Tuning, Quantum Tubes, Rudder Optimisation, Computer Components, Stott Spices, SETA, Boron Law Enforcement License, Navigation Relay Satellite, Ion Mine, Freight Drone, Cloth Rimes, Soja Husk, Microchips, Warheads, Crystals, Massom Powder, Lasertower, Rastar Oil, Fighter Drone, SQUASH Mine, Sunrise Flowers, Nostrop Oil, Space Weed, Argon Law Enforcement License, BoGas, Cargo Bay Life Support System, Meatsteak Cahoonas|
+|4|SS_DOCK_T_TRADE|Teladi Trading Station|Teladi|35113722 (3333)|Purchasable at: Profit Share, Ceo's Sprite|Cargo Bay Extension, SQUASH Mine, Teladianium, Nostrop Oil, Crystals, Engine Tuning, Space Weed, Quantum Tubes, Teladi Company Security License, Rudder Optimisation, Microchips, SETA, Freight Drone, Warheads, Computer Components, Lasertower, Fighter Drone, Navigation Relay Satellite, Cargo Bay Life Support System, Meatsteak Cahoonas, Majaglit, Marine, Nividium, Ore Collector, BoFu, Soja Husk|
+|5|SS_DOCK_X_TRADE|Xenon Station|Xenon|NPC only (val: 161442400)|Location: Xenon Sector 596, Xenon Sector 597, Xenon Sector 472, Xenon Core 023, Xenon Sector 347|-|
+|6|SS_DOCK_A_EQUIP|Argon Equipment Dock|Argon|63608306 (10000)|Purchasable at: Argon Prime, Cloudbase South East, Legend's Home, Argon Sector M148|Boost Extension, Cargo Bay Extension, Fight Command Software MK1, Engine Tuning, Fight Command Software MK2, Rudder Optimisation, Mass Driver Ammunition, Special Command Software MK1, Duplex Scanner, Mineral Scanner, Freight Scanner, Navigation Command Software MK1, Trading System Extension, Trade Command Software MK1, Ore Collector, SETA, Trade Command Software MK2, IRE, PAC, PRG, HEPT, CIG, CFA, PPC, MDS, TB, Mosquito, Silkworm, Hornet, 1 MJ Shield, 200 MJ Shield, 2 GJ Shield, 25 MJ Shield, Firestorm Torpedo, Wasp, Firefly, Supply Command Software, MD, Patrol Command Software, Marine, Commodity Logistics Software MK1 (CLS1), Commodity Logistics Software MK2 (CLS2)|
+|7|SS_DOCK_S_EQUIP|Split Equipment Dock|Split|59733688 (10000)|Purchasable at: Family Pride, Rhonkar's Might, Zyarth's Dominion, Rhonkar's Trial, Family Rhy, Patriarch's Conclusion|Cargo Bay Extension, Boost Extension, 1 MJ Shield, Fight Command Software MK1, PBE, Engine Tuning, Fight Command Software MK2, Mass Driver Ammunition, Rudder Optimisation, Wasp, 25 MJ Shield, Special Command Software MK1, ISR, Silkworm, Duplex Scanner, Mineral Scanner, Navigation Command Software MK1, Freight Scanner, Spacefly Collector, Trade Command Software MK1, SETA, Trade Command Software MK2, Tracker Mine, 1 GJ Shield, 2 GJ Shield, IRE, PAC, MD, HEPT, CIG, TB, MDS, Carrier Command Software, Firestorm Torpedo, Mosquito, Thunderbolt, Patrol Command Software, PPC, Marine, Turbo Booster MK1, Turbo Booster MK2|
+|8|SS_DOCK_P_EQUIP|Paranid Equipment Dock|Paranid|60137294 (10000)|Purchasable at: Paranid Prime, Third Redemption, Duke's Citadel, Heaven's Assertion|Cargo Bay Extension, Boost Extension, Fight Command Software MK1, Engine Tuning, Mosquito, 5 MJ Shield, Fight Command Software MK2, PSG, Rudder Optimisation, Special Command Software MK1, Docking Computer, PPC, Triplex Scanner, Mineral Scanner, Hornet, MDS, FBL, Freight Scanner, Navigation Command Software MK1, Trading System Extension, Trade Command Software MK1, Ore Collector, SETA, Trade Command Software MK2, 1 GJ Shield, 200 MJ Shield, 2 GJ Shield, IRE, PAC, HEPT, CIG, TB, Firestorm Torpedo, Aurora, Duplex Scanner, Patrol Command Software, Wasp, Marine, Soja Husk, Advanced Satellite, Fighter Drone, Navigation Relay Satellite|
+|9|SS_DOCK_B_EQUIP|Boron Equipment Dock|Boron|60540900 (10000)|Purchasable at: Kingdom End, Queen's Retribution|Cargo Bay Extension, Boost Extension, Wasp, 1 MJ Shield, Fight Command Software MK1, ID, Engine Tuning, Fight Command Software MK2, Silkworm, Rudder Optimisation, Special Command Software MK1, PAC, 200 MJ Shield, IC, IPG, Triplex Scanner, PPC, Mineral Scanner, HEPT, Freight Scanner, Navigation Command Software MK1, Video Enhancement Goggles, Trade Command Software MK1, SETA, Trade Command Software MK2, Ion Mine, 5 MJ Shield, 1 GJ Shield, IRE, CIG, TB, MDS, Firestorm Torpedo, Mosquito, Tempest, Patrol Command Software, BoFu, Stott Spices, Cargo Bay Life Support System|
+|10|SS_DOCK_T_EQUIP|Teladi Space Equipment Dock|Teladi|62155324 (3333)|Purchasable at: Profit Share, Ceo's Sprite|Cargo Bay Extension, Boost Extension, Best Buys Locator, IRE, 1 MJ Shield, Dragonfly, Fight Command Software MK1, Engine Tuning, Best Selling Price Locator, 25 MJ Shield, Fight Command Software MK2, FAA, Rudder Optimisation, Special Command Software MK1, Duplex Scanner, Silkworm, Mineral Scanner, MDS, Freight Scanner, Navigation Command Software MK1, Trading System Extension, Video Enhancement Goggles, Trade Command Software MK1, Ore Collector, SETA, Trade Command Software MK2, 1 GJ Shield, 2 GJ Shield, PAC, EBC, HEPT, PBE, PBG, PPC, GC, IBL, TB, Energy Bolt Chaingun Ammunition, Gauss Cannon Ammunition, Hornet, Carrier Command Software, Trade Command Software MK3, Firestorm Torpedo, Mosquito, 5 MJ Shield, Explorer Command Software, Patrol Command Software, Typhoon, Marine|
+|13|SS_DOCK_PIRATES|Pirate Base|Pirate|NPC only (val: 145298160)|Location: Mines of Fortune, Atreus' Clouds, Rhonkar's Clouds, Ghinn's Escape, Ore Belt, Brennan's Triumph, Company Pride, Unknown Sector (12,5) (+12 more)|Cargo Bay Extension, Fight Command Software MK1, Sunrise Flowers, SQUASH Mine, Engine Tuning, Fight Command Software MK2, Special Command Software MK1, Space Weed, Space Fuel, Rudder Optimisation, Spaceflies, Freight Scanner, Slaves, Cargo Bay Life Support System, Tracker Mine, Mercenary, Marine, Low-yield Sidearms, Disintegrator Rifles, Boarding Pod, Swamp Plant, Patrol Command Software, Scruffin Fruits, Majaglit|
+|14|SS_DOCK_K|Kha'ak Station|Kha'ak|NPC only (val: 242163600)|Location: Kha'ak Sector 931, Kha'ak Sector 841|-|
+|15|SS_DOCK_A_MILITARY|Military Outpost|Argon|NPC only (val: 63608306)|Location: Elena's Fortune, Aladna Hill, Black Hole Sun, Argon Sector M148|PRG, Argon Law Enforcement License, Triplex Scanner, Navigation Relay Satellite, Advanced Satellite, Freight Scanner, Fight Command Software MK1, SQUASH Mine, Fighter Drone, Lasertower, MD, IRE, PAC, CIG, Tomahawk, Hammer Heavy Torpedo, Flail Barrage, Mass Driver Ammunition, Mercenary, Marine, Firestorm Torpedo, Energy Cells|
+|16|SS_DOCK_B_MILITARY|Military Outpost|Boron|NPC only (val: 60540900)|Location: Kingdom End, Atreus' Clouds, Hila's Joy, Great Trench, Depths of Silence, Wretched Skies|ID, Boron Law Enforcement License, Triplex Scanner, Navigation Relay Satellite, Advanced Satellite, Freight Scanner, Fight Command Software MK1, SQUASH Mine, Fighter Drone, Lasertower, IRE, PAC, MD, CIG, Tomahawk, Hammer Heavy Torpedo, Flail Barrage, Mass Driver Ammunition, Firestorm Torpedo, Energy Cells|
+|17|SS_DOCK_P_MILITARY|Military Outpost|Paranid|NPC only (val: 60137294)|Location: Empire's Edge, Preacher's Refuge, Pontifex' Seclusion|FBL, Paranid Police License, Triplex Scanner, Navigation Relay Satellite, Advanced Satellite, Freight Scanner, Fight Command Software MK1, SQUASH Mine, Fighter Drone, Lasertower, IRE, PAC, MD, CIG, Tomahawk, Hammer Heavy Torpedo, Flail Barrage, Mass Driver Ammunition, Mercenary, Marine, Firestorm Torpedo, Energy Cells|
+|18|SS_DOCK_S_MILITARY|Military Outpost|Split|NPC only (val: 59733688)|Location: Rhonkar's Fire, Ghinn's Escape, Rhonkar's Trial, Twisted Skies|PBE, Split Police License, Triplex Scanner, Navigation Relay Satellite, Advanced Satellite, Freight Scanner, Fight Command Software MK1, SQUASH Mine, Fighter Drone, Lasertower, IRE, PAC, MD, CIG, Tomahawk, Hammer Heavy Torpedo, Flail Barrage, Mass Driver Ammunition, Mercenary, Marine, Firestorm Torpedo, Energy Cells|
+|19|SS_DOCK_T_MILITARY|Military Outpost|Teladi|NPC only (val: 62155324)|Location: Ceo's Sprite, Eighteen Billion, Merchant Haven|EBC, Teladi Company Security License, Triplex Scanner, Navigation Relay Satellite, Advanced Satellite, Freight Scanner, Fight Command Software MK1, SQUASH Mine, Fighter Drone, Lasertower, IRE, PAC, MD, CIG, Tomahawk, Hammer Heavy Torpedo, Flail Barrage, Mass Driver Ammunition, Energy Bolt Chaingun Ammunition, Mercenary, Marine, Firestorm Torpedo, Energy Cells|
+|20|SS_DOCK_P_HQ|Headquarters|Player|PHQ Plot Reward (val: 242163600)|Deployable by player (Delivered in Boron Orca TL at end of PHQ Plot)|Player-configurable warehouse (Any ware)|
+|21|SS_DOCK_GONER_NEW|Goner Temple|Goner|NPC only (val: 242163600)|Location: Elysium of Light (Constructed in Goner Plot)|Transporter Device, Salvage Insurance, Jumpdrive, Argon Law Enforcement License|
+|22|SS_DOCK_TR_SUPPLY_1|USC Orbital Supply Base|Terran|NPC only (val: 37212473)|Location: Venus, The Moon, Mars, Aldrin 2|Protein Paste, Vita Kai, Carbo Cake, Flavour Pack, Terran MRE, C-Ration, Energy Cells, Water, Ice, Ore|
+|23|SS_DOCK_TR_SUPPLY_2|USC Orbital Support Station|Terran|NPC only (val: 53356713)|Location: Saturn, Mercury, Jupiter|Protein Paste, Vita Kai, Carbo Cake, Flavour Pack, Terran MRE, C-Ration, Energy Cells, Water, Ice, Ore|
+|24|SS_DOCK_TR_SUPPLY_3|USC Orbital Logistics Dock|Terran|NPC only (val: 63608306)|Location: Titan, Pluto, Neptune, Uranus|Protein Paste, Vita Kai, Carbo Cake, Flavour Pack, Terran MRE, C-Ration, Energy Cells, Water, Ice, Ore|
+|25|SS_DOCK_TR_MILITARY_1|Military Base|Terran|NPC only (val: 37212473)|Location: Mercury, The Moon, Unknown Sector (7,5)|Terran EMP Rifles, Matter/Anti-matter Warhead, Hull Plating, Terran MRE, C-Ration, Matter/Anti-Matter Mine, Navigation Command Software MK1, Trade Command Software MK1, Trade Command Software MK2, Fight Command Software MK1, Fight Command Software MK2, Special Command Software MK1, Salvage Insurance, Mineral Scanner, Docking Computer, Video Enhancement Goggles, Freight Scanner, Cargo Bay Extension, Engine Tuning, Rudder Optimisation, SETA, Trading System Extension, Boost Extension, Duplex Scanner, Triplex Scanner, SSC, PSP, EMPC, MAML, Transporter Device, Cargo Bay Life Support System, Ore Collector, Poltergeist, Spectre, Wraith, Phantom, Shadow, 25 MJ Shield, 200 MJ Shield, 1 GJ Shield, 2 GJ Shield|
+|26|SS_DOCK_TR_MILITARY_2|Orbital Defence Station|Terran|NPC only (val: 53356713)|Location: Neptune, Uranus, Saturn 2, Venus, Mars|Terran MRE, C-Ration, Terran EMP Rifles, Matter/Anti-matter Warhead, Hull Plating, Matter/Anti-Matter Mine, Navigation Command Software MK1, Fight Command Software MK1, Fight Command Software MK2, Special Command Software MK1, Salvage Insurance, Freight Scanner, Cargo Bay Extension, Engine Tuning, Rudder Optimisation, SETA, Boost Extension, Duplex Scanner, SSC, EMPC, MAML, Poltergeist, Spectre, Phantom, Shadow, 1 MJ Shield, 5 MJ Shield, 25 MJ Shield, 200 MJ Shield, 1 GJ Shield|
+|27|SS_DOCK_TR_MILITARY_3|Orbital Patrol Base|Terran|NPC only (val: 63608306)|Location: Kuiper Belt, Titan, Oort Cloud, Pluto, Jupiter, Asteroid Belt|Terran MRE, Matter/Anti-matter Warhead, Navigation Command Software MK1, Fight Command Software MK1, Fight Command Software MK2, Special Command Software MK1, Cargo Bay Extension, Engine Tuning, Rudder Optimisation, SETA, Boost Extension, Duplex Scanner, EMPC, MAML, Poltergeist, 1 MJ Shield, 5 MJ Shield, 25 MJ Shield|
+|28|SS_DOCK_ATF_MILITARY_1|Orbital Defence Station|ATF|NPC only (val: 37212473)|Location: Saturn, Asteroid Belt, Heretic's End|Trading System Extension, Cargo Bay Extension, Engine Tuning, Rudder Optimisation, SETA, Boost Extension, Duplex Scanner, Navigation Command Software MK1, Fight Command Software MK1, Fight Command Software MK2, Special Command Software MK1, Matter/Anti-matter Warhead, Terran EMP Rifles, Keris, EMPC, MAML, Spectre, Poltergeist, Phantom, Shadow, Ghoul|
+|29|SS_DOCK_ATF_MILITARY_2|Orbital Defence Station|ATF|NPC only (val: 37212473)|Location: The Moon, Unknown Sector (8,4)|Freight Scanner, Trading System Extension, Cargo Bay Extension, Engine Tuning, Rudder Optimisation, SETA, Transporter Device, Boost Extension, Triplex Scanner, Navigation Command Software MK1, Fight Command Software MK1, Fight Command Software MK2, Special Command Software MK1, Matter/Anti-matter Warhead, Hull Plating, Terran EMP Rifles, Matter/Anti-Matter Mine, Keris, EMPC, MAML, SSC, PSP, Wraith, Spectre, Poltergeist, Phantom, Shadow, Ghoul, Patrol Command Software|
+|30|SS_DOCK_TORUS|Earth Torus|Terran|NPC only (val: 403606000)|Location: Earth|Salvage Insurance, Mineral Scanner, Freight Scanner, Trading System Extension, Cargo Bay Extension, Engine Tuning, Rudder Optimisation, Docking Computer, SETA, Transporter Device, Jumpdrive, Cargo Bay Life Support System, Boost Extension, Advanced Satellite, Ore Collector, Triplex Scanner, Navigation Command Software MK1, Trade Command Software MK1, Trade Command Software MK2, Fight Command Software MK1, Fight Command Software MK2, Patrol Command Software, Special Command Software MK1, Matter/Anti-matter Warhead, Hull Plating, Terran EMP Rifles, Matter/Anti-Matter Mine, Keris, EMPC, MAML, SSC, PSP, Wraith, Spectre, Poltergeist, Phantom, Shadow, Ghoul, Protein Paste, Vita Kai, Carbo Cake, Flavour Pack, Water, Energy Cells, Terran MRE, C-Ration, Ore, Ice|
+|31|SS_DOCK_LC_1|Unknown Aldrin Base|Aldrin|NPC only (val: 37212473)|Location: Aldrin|Cargo Bay Extension, Rudder Optimisation, Engine Tuning, SETA, Boost Extension, Duplex Scanner, Navigation Command Software MK1, Fight Command Software MK1, Fight Command Software MK2, Special Command Software MK1, EEMPC, Poltergeist, 1 MJ Shield, 5 MJ Shield, 25 MJ Shield, 200 MJ Shield|
+|32,46|SS_DOCK_LC_2 / LC_5|Unknown Aldrin Base|Aldrin|NPC only (val: 37212473)|Location: Aldrin|Trading System Extension, Cargo Bay Extension, Engine Tuning, Rudder Optimisation, SETA, Docking Computer, Boost Extension, Duplex Scanner, Triplex Scanner, Cargo Bay Life Support System, Ore Collector, Navigation Command Software MK1, Fight Command Software MK1, Fight Command Software MK2, Special Command Software MK1, Matter/Anti-matter Warhead, EEMPC, PMAML, PSSC, Spectre, Poltergeist, 1 MJ Shield, 5 MJ Shield, 25 MJ Shield, 200 MJ Shield, 1 GJ Shield, 2 GJ Shield|
+|35|SS_DOCK_CORP_1|Terracorp HQ|Argon|NPC only (val: 63608306)|Location: Home of Light|Salvage Insurance, Trading System Extension, SETA, Argon Law Enforcement License, Best Buys Locator, Best Selling Price Locator, Transporter Device, Jumpdrive, Trade Command Software MK3, Supply Command Software, Bioscanner, Commodity Logistics Software MK1 (CLS1), Commodity Logistics Software MK2 (CLS2)|
+|36|SS_DOCK_CORP_2|OTAS HQ|Argon|NPC only (val: 63608306)|Location: Legend's Home|Lasertower, Salvage Insurance, Freight Scanner, Docking Computer, SETA, Jumpdrive, Advanced Satellite, Triplex Scanner, Supply Command Software, 1 MJ Shield, 5 MJ Shield, 25 MJ Shield, 200 MJ Shield, 1 GJ Shield, 2 GJ Shield|
+|37|SS_DOCK_CORP_3|Jonferco Headquarters|Argon|NPC only (val: 63608306)|Location: Aquila's Beacon|Crystals, Navigation Relay Satellite, Advanced Satellite, Mineral Scanner, Freight Scanner, Trading System Extension, SETA, Transporter Device, Triplex Scanner, Supply Command Software, Bioscanner|
+|38|SS_DOCK_CORP_4|Plutarch Mining Corporation HQ|Argon|NPC only (val: 63608306)|Location: Ore Belt|Ore, Silicon Wafers, Nividium, Ice, Mineral Scanner, Trading System Extension, Ore Collector, Supply Command Software|
+|39|SS_DOCK_CORP_5|NMMC Headquarters|Teladi|NPC only (val: 63608306)|Location: PTNI Headquarters|Ore, Silicon Wafers, Nividium, Ice, Mineral Scanner, Trading System Extension, Ore Collector, Explorer Command Software, Best Buys Locator, Best Selling Price Locator|
+|40|SS_DOCK_CORP_6|Duke's Haven|Pirate|NPC only (val: 63608306)|Location: Unknown Sector (10,16)|Slaves, SQUASH Mine, Freight Scanner, Docking Computer, Paranid Police License, Cargo Bay Life Support System, Triplex Scanner, Software Signature Scrambler, System Override Software (SOS), Cargo Bay Shielding, Patrol Command Software, Fight Command Software MK1, Fight Command Software MK2|
+|41|SS_DOCK_CORP_7|Atreus Headquarters|Boron|NPC only (val: 63608306)|Location: Queen's Harbour|Quantum Tubes, Microchips, Computer Components, Navigation Relay Satellite, Advanced Satellite, Lasertower, Fighter Drone, Docking Computer, Jumpdrive, Triplex Scanner, Freight Drone, Ion Mine, Recon Drone, Fighter Drone MKII|
+|42|SS_DOCK_CORP_8|Strong Arms HQ|Split|NPC only (val: 63608306)|Location: Thyn's Excavation|Spaceflies, SQUASH Mine, Ion Mine, Lasertower, Freight Scanner, Cargo Bay Life Support System, Fight Command Software MK1, Fight Command Software MK2, Cargo Bay Shielding, Low-yield Sidearms, Disintegrator Rifles, Terran EMP Rifles, Slaves, Mass Driver Ammunition, Energy Bolt Chaingun Ammunition, Gauss Cannon Ammunition|
+|43|SS_DOCK_HUB|Xenon Hub|Player (Xenon/Ancients)|HUB Plot Reward (val: 322884800)|Unknown Sector (13,8) (Re-aligns up to 3 pairs of jump gates)|Player-configurable warehouse (Any ware)|
+|45|SS_DOCK_TR_RESEARCH|Saturn Research Station|Terran|NPC only (val: 63608306)|Location: Saturn|Terran MRE, Matter/Anti-matter Warhead, Navigation Command Software MK1, Fight Command Software MK1, Special Command Software MK1, Cargo Bay Extension, Engine Tuning, Rudder Optimisation, SETA, Boost Extension, Duplex Scanner, Freight Scanner, Trading System Extension, Transporter Device, Triplex Scanner, Hull Plating, Terran EMP Rifles, Matter/Anti-Matter Mine, Keris|

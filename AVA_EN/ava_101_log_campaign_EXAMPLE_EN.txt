@@ -1,0 +1,172 @@
+# A.V.A. (ADVANCED FLIGHT ASSISTANT): CAMPAIGN LOGBOOK AND STATE MANAGER
+- **Version:** v2.5 EN
+- **File:** `ava_101_log_campaign_EN.txt`
+- **Scope:** X3: Terran Conflict (v3.2 / v3.4 Vanilla + Official Bonus Pack)
+- **Hierarchy:** Layer 1 — Dynamic State and Persistent Campaign Memory
+
+*(Active Mods: Verified in `ava_002_mods_EN.txt` | Gamestart: [105] - [Humble Merchant] in [Herron's Nebula (1,2)]).*
+
+================================================================================
+📝 0. PILOT DATA
+================================================================================
+
+* **Title:** *Lord*
+* **Name:** *Wiltor*
+* **Race:** *Argon*
+* **Origin:** Sector *Herron's Nebula `(1,2)`*
+* **Bio:** Born into a humble freight hauling family in Herron's Nebula, his early engineering genius and fascination with galactic diversity earned him the most prestigious scholarship from the OTAS corporation in Legend's Home. After graduating with honors and serving as Chief Engineer of Special Projects —contributing key patents to the Mistral line—, he realized his calling reached beyond corporate laboratories: saving a fragmented Commonwealth through prosperity and progress. At the helm of his personal black Discoverer ("Iron Arrow"), he resigned his post to found *Wiltor Space Industries (WSI)* with the determination to transform Unknown Sector (8,8) into "Atlantis": a sovereign sanctuary of science, free trade, and peace for all species.
+
+================================================================================
+🎯 1. CAMPAIGN OBJECTIVES: THE ATLANTIS PROJECT (WSI)
+================================================================================
+
+### Ultimate Goal
+* [ ] Establish the sovereign headquarters of *Wiltor Space Industries (WSI)* in **Unknown Sector `(8,8)`** (*Atlantis*), erecting it as a neutral sanctuary of advanced science, free trade, and military guardianship for the entire Commonwealth.
+
+### Phase 1: Initial Liquidation, The "Iron Arrow", and the Satellite Stockpile
+* [ ] Maximize engine (`346.2 m/s`) and rudder tunings on the *Iron Arrow* (Discoverer M5) after liquidating the 5 MJ shield at the equipment dock (`+20,775 Cr`, 100%) and the Mercury's hull at the Argon Prime shipyard (`~112,993 Cr`).
+* [ ] Begin the journey northward (*Menelaus' Frontier `(3,0)`*) and claim the **Toucan Hauler** (`TP`, abandoned ship `#1`).
+* [ ] **Satellite Stockpile Maneuver:** Send the *Toucan* on autopilot through the safe Boron/Argon corridor (*Queen's Space ➔ Kingdom End ➔ Three Worlds ➔ Argon Prime*) to dock at the **NPC Advanced Satellite Factory in Argon Prime `(1,3)`**.
+* [ ] Remotely purchase each batch of advanced satellites produced by the factory, storing them in the Toucan's massive cargo bay (1,035 L) to prevent market saturation and accumulate the inventory for the future Network of Eyes.
+
+### Phase 2: North-East Expedition, Layover at Omicron Lyrae, and the "Advanced Discoverer"
+* [ ] Continue the expedition eastward along the northern route, claiming ships under the **Safe Docking and Local Stripping Protocol**:
+  - *Weapon Stripping:* Sell weapons and shields for 100% average price at the nearest Equipment Dock.
+  - *Common / Duplicate Ships:* Liquidate hulls at the nearest en-route shipyard (e.g., Mamba `#13` at Split or Teladi shipyards).
+  - *Relic Ships (`🔒 RELIC`):* Disarm them at a local dock and leave them safely berthed in waystation hangars without risky ferry flights across the map (e.g., *Iguana Vanguard* in *Family Whi `(6,0)`*, *Harrier Sentinel* in *The Vault `(13,0)`*, and *Buzzard Hauler* in *Tkr's Deprivation `(15,3)`*).
+* [ ] Upon reaching *Omicron Lyrae `(13,6)`*, temporarily pause the expedition to initiate the **Terran Plot** while keeping Combat Rank at 0 (*Harmless*).
+* [ ] Complete the bridge mission to *Heretic's End*, Scene 1 (light patrols in Uranus/Saturn relying on Terran military escorts), and Scene 2 (tailing and base scanning in sector 12,5).
+* [ ] Collect the 4 free *Rapier* fighters and dock in orbit of **Venus** to receive the **Advanced Discoverer (`SS_SH_A_M5_ADV`)**.
+* [ ] Cruise back through the TOAs to the Commonwealth and transfer command to the Advanced Discoverer as WSI's new scout ship (`437.5 m/s`) to sweep the remaining southern relics at extreme speed.
+
+### Phase 3: The "Network of Eyes" Tour and Enlisting "The Ten Custodians"
+* [ ] With liquidity from the military salvage (`~2.5 to 3.5 million Cr`), acquire the **first 2 `Mistral` freighters (`SS_SH_OTAS_TS`)** in Legend's Home equipped with Trade Command Software MK3.
+* [ ] **Trader Training Doctrine:**
+  - *Levels 1 to 6:* **Sector Trader (ST)**.
+  - *Level 6-7:* Restart as **Local Trader (LT)** with a 1 to 2 jump radius in safe core sectors (*Empire's Edge*, *Queen's Space*, or *Seizewell*).
+  - *Level 12:* Activate **Universe Trader (UT)** only when the pilot autonomously equips their own Jumpdrive and Fighter Drones.
+* [ ] Leverage passive trade to build notoriety to Rank +5 (1,000 pts) and purchase all **5 official Commonwealth Police Licenses**.
+* [ ] Send the *Iguana Vanguard* (187 m/s) to dock at **TerraCorp HQ in Home of Light `(1,4)`**.
+* [ ] **Crucial Telemetry Step (Bioscanner):** Purchase and install the **Bioscanner (`SS_WARE_BIOSCANNER`, 2,945 Cr)** at TerraCorp to inspect the innate Fighting stars of potential recruits.
+* [ ] Transfer the entire stock of Advanced Satellites accumulated in the *Toucan's* cargo hold to the *Iguana Vanguard*.
+* [ ] Embark on WSI's grand tour through the western galactic quadrant at the helm of the *Iguana Vanguard*:
+  - **Deploying the Network of Eyes:** Drop 1 Advanced Satellite in every core and border sector of Argon, Boron, Teladi, Paranid, and Split for commercial coverage and early threat warning.
+  - **Elite Recruitment:** Use the Bioscanner at en-route military outposts to hire 8 marines with high innate Fighting skill (2 Argon, 2 Split, 2 Paranid, and 2 Teladi).
+  - **Boron Quantum Rescue:** Divert to a Pirate Rehabilitation Facility (*Danna's Chance `(4,6)`* or *Mi Ton's Refuge `(9,11)`*) to buy the freedom of **2 Boron quantum scientists**.
+* [ ] Berth the Iguana Vanguard at the **Marine Training Barracks in Home of Light `(1,4)`** and remotely fund continuous training for The Ten Custodians until achieving **full 5 stars (100 pts) in Hacking, Mechanical, and Engineering**.
+
+### Phase 4: Corporate Triad, Fleet of 10 Mistrals, and Opening the HUB
+* [ ] Execute corporate contracts for the Argon Triad (**OTAS, Jonferco, and TerraCorp**), staggering their 10-30 minute mission cooldowns to unlock their exclusive ship prototypes.
+* [ ] Reinvest trade and corporate dividends until establishing the **dedicated fleet of 10 Level 25 Mistral UTs**, reaching **45,000,000 Cr** in the WSI treasury.
+* [ ] Outfit the expeditionary fleet: mothership **OTAS Zephyrus (TM)** and the **Golden Squadron** in a combined flight configuration:
+  - Bay 1: *Advanced Discoverer* (Supersonic reconnaissance at 437 m/s).
+  - Bay 2: *Advanced Eclipse M3+* (Personal squadron leader).
+  - Bay 3: Standard *Argon Eclipse M3+* (Heavy escort and tanker carrying 250 Energy Cells in cargo hold).
+  - Bay 4: *OTAS Solano M4+* (High-speed interceptor at 210 m/s mounting PRG cannons).
+* [ ] Upon reaching **Rank +10 with OTAS**, unlock the **OTAS Sirokos (`SS_SH_OTAS_HCF`)** at the Legend's Home Shipyard: acquire it as WSI's definitive heavy assault flagship (30 marine berths and 480 m/s Boarding Pod tubes).
+* [ ] As soon as Boron Rank +8 (*King's Knight*) is achieved, immediately initiate the **Xenon Hub (HUB) Plot** with Mahi Ma.
+* [ ] **Rapid Recruitment of HUB Logisticians in Herron:** Purchase the freighters assigned to the HUB Plot equipped with CLS2 software and dock them at the **Free Argon Trading Station in Herron's Nebula `(1,2)`** before configuring their waypoint routes, taking advantage of the pilot union exploit to directly recruit veteran Rank 4 pilots (*Cargo Messenger*) capable of delivering Teladianium, Ore, and Silicon Wafers using jumpdrives immediately.
+
+### Phase 5: Founding of Atlantis, Closed-Loop Megacomplexes, and PHQ Deployment
+* [ ] Claim sovereignty over **Unknown Sector `(8,8)`** (*Atlantis*), deploy its perimeter grid of Advanced Satellites, and build the initial Equipment Docks and Trading Stations for logistical storage.
+* [ ] Deploy the **Atlantis Defense Fleet**:
+  - Perimeter ring of 10 to 15 **Lasertowers** guarding the East (*New Income*) and West (*Montalaar*) gate approaches.
+  - **1x OTAS Skiron (M6M)** assigned to OOS sector patrol.
+  - **1x Argon Cerberus (M7)** armed with Flak Artillery Arrays (FAA) for heavy deterrence.
+  - In the late-game: **1x OTAS Boreas (M2)** anchored as the sector's permanent bastion.
+* [ ] Construct self-sustaining closed-loop industrial megacomplexes on the **yield 55 Silicon asteroid**:
+  - **Space Fuel Distillery** complex (exploiting the lawless jurisdiction of the unknown sector for massive sales to Argon clients without police interference).
+  - **Space Weed Bliss Place** complex (supplying the massive illicit demand of the adjacent Teladi border in *New Income*).
+* [ ] **Recruitment of Commercial Agents in Herron:** Route freighters assigned to the sale and distribution of Atlantis Space Fuel and Space Weed to the **Free Argon Trading Station in Herron's Nebula `(1,2)`** to hire them as veteran-grade **Commercial Agents (CAG)**, ensuring immediate Jumpdrive usage from their first trade run.
+* [ ] Siphon surplus industrial output from Atlantis to complete the final phases of the HUB (specifically the 75,000 Microchips).
+* [ ] After completing the mandatory 6-hour post-HUB wait, start the **Bala Gi's Legacy (HQ Plot)**: jump in with the **OTAS Sirokos** and launch **The Ten Custodians in 480 m/s Boarding Pods** to capture the pirate *Orca* TL with **0% engineering hull damage**.
+* [ ] Deploy the **WSI Headquarters (`SS_DOCK_P_HQ`)** in Atlantis, initiating serial production of military fleets and reverse-engineering all harvested relics.
+
+<!-- GLOBAL STATE BLOCK - START -->
+================================================================================
+📊 2. GLOBAL FLEET STATUS, FINANCES, AND REPUTATION
+================================================================================
+*Last synchronization: Campaign Initialization — Session #1*
+
+* **Available Credits:** `9,825 Cr` *(Actual balance verified at launch — Gamestart 105 roll range: 9,000 to 9,900 Cr)*
+* **Current Tactical Location:** Sector *Herron's Nebula `(1,2)`*
+* **Active Flagship:** **Mercury** (`SS_SH_A_TS`)
+* **Police Licenses Acquired:** None (Requires Rank `+5` / `1,000 pts` with all 5 Commonwealth races)
+
+### 🚀 2.1. Pilot Active Assets (Fleet and Complexes)
+*(Scalability Note: Group identical fleets into 1 row, e.g. `10x Mistral MK3`, and each `CCK` Complex Hub into 1 row).*
+|Ship / Asset|Class|Internal ID|Current Location|Installed Equipment & Upgrades|Role / Tactical Status|
+|---|---|---|---|---|---|
+|**Mercury**|TS|`SS_SH_A_TS`|*Herron's Nebula `(1,2)`*|Engine: `5/10` (`75 m/s`), Rudder: `5/10`, `1x 5 MJ Shield`, SETA, Trade Command Software MK1, Unarmed.|Starting ship (designated for liquidation at Argon Prime to fund upgrades).|
+|**Discoverer ("Iron Arrow")**|M5|`SS_SH_A_M5`|*Herron's Nebula `(1,2)`*|Engine: `2/25` (`118.6 m/s`), Rudder: `0/25`, `2x 1 MJ Shield`, SETA, Unarmed.|Personal scout craft assigned to exploration and claiming the 19 relics.|
+
+### 📈 2.2. Discipline Ranks (Official Scale 0 to 30)
+|Discipline|Current Level|Official Title|Level Progress|
+|---|---|---|---|
+|**Trade Rank**|Level `0`|Opportunist|`0%` (0 pts)|
+|**Fight Rank**|Level `0`|Harmless|`0%` (0 pts)|
+
+### 🤝 2.3. Faction Reputation Table (Official Scale -5 to +10)
+|Faction / Race|Numerical Rank|Current Official Title|Permissions & Diplomatic Status|
+|---|---|---|---|
+|**Argon**|Rank `0`|Citizen — `50%`|Neutral / Friendly (Docking permitted in Core and Border).|
+|**Boron**|Rank `+1`|Friend|Friendly (Basic trade permitted).|
+|**Paranid**|Rank `-1`|Unholy Nomad|Docking only in Border; prohibited in Core.|
+|**Split**|Rank `-1`|Shameless Creature|Docking only in Border; prohibited in Core.|
+|**Teladi**|Rank `0`|Profit Initiate|Docking permitted.|
+|**Terran (USC)**|Rank `-1`|Revolutionary|Initial distrust; requires diplomatic bridge.|
+|**ATF Access**|Rank `0`|No System Access|Locked until diplomatic missions.|
+|**Goner**|Rank `+1`|Accepted Member|Friendly (Access to Elysium of Light).|
+|**Pirates / Yaki**|Neutral|Tacit Trade Peace|Non-hostile; key for rehabilitation facility rescues.|
+|**Xenon / Kha'ak**|Rank `-5`|Mortal Enemy (`-100%`)|Permanently hostile (Attack on sight).|
+
+### 🗺️ 2.4. Tracker for the 19 Abandoned Ships (Unique Relics vs Sellable)
+*(Campaign Rule: **DO NOT SELL THE HULL** of the 17 ships designated as Relics; preserve their chassis for the Atlantis PHQ, but **strip and sell their internal weapons/shields at 100% value at Equipment Docks**).*
+
+- **Ships Claimed (0 / 19):** *None yet.*
+- **Tracking List to Claim:**
+  - [ ] **1. Toucan Hauler** (`TP`, *Menelaus' Frontier `(3,0)`* `X:43.0, Y:-7.0, Z:35.0 km`) — 🔒 **UNIQUE RELIC** (Assigned to satellite stockpile at Argon Prime factory)
+  - [ ] **2. Iguana Vanguard** (`TP`, *Family Whi `(6,0)`* `X:38.0, Y:0.0, Z:35.5 km`) — 🔒 **UNIQUE RELIC** (187 m/s — Deployment ship for Network of Eyes and initial transport for The Ten Custodians)
+  - [ ] **3. Harrier Sentinel** (`M5`, *The Vault `(13,0)`* `X:-18.0, Y:-0.38, Z:-51.62 km`) — 🔒 **UNIQUE RELIC** (Non-Buyable)
+  - [ ] **4. Falcon Sentinel** (`M3`, *Unknown Sector `(16,0)`* `X:-20.0, Y:3.0, Z:2.0 km`) — 🔒 **UNIQUE RELIC** (2x 200 MJ Shields = 400 MJ)
+  - [ ] **5. Buzzard Hauler** (`M4`, *Tkr's Deprivation `(15,3)`* `X:-4.2, Y:-0.06, Z:62.71 km`) — 🔒 **UNIQUE RELIC** (Non-Buyable)
+  - [ ] **6. Advanced Barracuda** (`M3`, *Hila's Joy `(17,3)`* `X:-33.0, Y:1.5, Z:36.0 km`) — 🔒 **UNIQUE RELIC** (Non-Buyable)
+  - [ ] **7. Buster Sentinel #1** (`M4`, *Akeela's Beacon `(8,6)`* `X:100.12, Y:-10.0, Z:77.24 km`) — 🔒 **RELIC** (Preserve for PHQ)
+  - [ ] **8. Buster Sentinel #2** (`M4`, *Treasure Chest `(14,6)`* `X:-32.67, Y:-5.4, Z:-33.52 km`) — 💰 **SELLABLE DUPLICATE** (Base value: 639,312 Cr)
+  - [ ] **9. Enhanced Pericles** (`M4`, *Savage Spur `(0,7)`* `X:44.75, Y:9.12, Z:-28.06 km`) — 🔒 **RELIC** (Only via Duke's Buccaneers Rank +4)
+  - [ ] **10. Scorpion Raider** (`M4`, *Xenon Sector 101 `(5,7)`* `X:20.12, Y:0.0, Z:61.62 km`) — 🔒 **UNIQUE RELIC** (Beware of Xenon patrols)
+  - [ ] **11. Advanced Eclipse** (`M3+`, *Ocracoke's Storm `(0,8)`* `X:30.1, Y:-1.5, Z:-8.0 km`) — 🔒 **UNIQUE RELIC** (Future Leader of WSI's Golden Squadron)
+  - [ ] **12. Pirate Elite** (`M4+`, *Gaian Star `(17,9)`* `X:66.0, Y:0.0, Z:-10.0 km`) — 🔒 **RELIC** (Non-Buyable — Exclusive pirate variant)
+  - [ ] **13. Mamba** (`M3`, *LooManckStrat's Legacy `(9,10)`* `X:-12.06, Y:1.16, Z:-19.32 km`) — 💰 **COMMON 100% SELLABLE** (Base value: 1,602,074 Cr; 92 SQUASH mines!)
+  - [ ] **14. Mako Raider** (`M4`, *Depths of Silence `(0,13)`* `X:2.35, Y:0.73, Z:40.38 km`) — 🔒 **UNIQUE RELIC** (Non-Buyable)
+  - [ ] **15. Advanced Perseus** (`M3`, *Duke's Citadel `(11,14)`* `X:42.25, Y:-0.25, Z:31.0 km`) — 🔒 **RELIC** (Only via Duke's Buccaneers Rank +7)
+  - [ ] **16. Pericles Vanguard** (`M4`, *Unknown Sector `(7,15)`* `X:13.75, Y:17.3, Z:-27.01 km`) — 🔒 **UNIQUE RELIC** (Non-Buyable)
+  - [ ] **17. Skate Prototype** (`M3+`, *Menelaus' Oasis `(18,15)`* `X:38.5, Y:1.0, Z:32.5 km`) — 🔒 **RELIC** (Only via Atreus Rank +10)
+  - [ ] **18. Pirate Eclipse** (`M3+`, *Vestibule of Creation `(2,16)`* `X:-7.0, Y:-13.5, Z:37.5 km`) — 🔒 **RELIC** (Non-Buyable — Exclusive pirate variant)
+  - [ ] **19. Blastclaw Prototype** (`M3+`, *Veil of Delusion `(16,16)`* `X:47.6, Y:3.5, Z:-41.5 km`) — 🔒 **UNIQUE RELIC** (650 L cargo bay)
+
+### 🏛️ 2.5. Status of Main Plots (9) and Corporations (8)
+* **Official Plots:** `[ ] 1.Terran` | `[ ] 2.Final Fury` | `[ ] 3.Goner` | `[ ] 4.HUB` | `[ ] 5.PHQ` | `[ ] 6.Aldrin 2.0` | `[ ] 7.Treasure Hunt` | `[ ] 8.A New Home` | `[ ] 9.Balance of Power` *(Active: None)*
+* **Corporations:** `TerraCorp (No contact / Goal: Bioscanner and research)` | `OTAS (Prior contact / Goal: Mistrals, Zephyrus, and Sirokos)` | `Jonferco (No contact / Goal: Heavy Centaur Prototype)` | `Plutarch (No contact)` | `NMMC (No contact)` | `Duke's (No contact)` | `Atreus (No contact)` | `Strong Arms (No contact)`
+<!-- GLOBAL STATE BLOCK - END -->
+
+================================================================================
+📅 3. QUICK SESSION INDEX
+================================================================================
+* **Session #1 (26/10/2026):** *"Atlantis Project Launch"* — Tuning the Iron Arrow, opening the satellite stockpile in Argon Prime, and establishing the safe docking protocol.
+
+================================================================================
+📝 4. DETAILED SESSION LOG
+================================================================================
+
+### 🔹 SESSION #1 — [26/10/2026] — "Atlantis Project Launch"
+* **Starting / Ending Sector:** *Herron's Nebula `(1,2)`* -> In progress...
+* **Session Goals:** Initial systems reconnaissance, liquidation of the Mercury in Argon Prime, maxing out tunings on the Iron Arrow (Discoverer M5), and initiating the northward trek to activate the satellite pipeline.
+* **Milestones and Events:**
+  - [x] Milestone 1: Initialization of onboard neural link and WSI telemetry with Betty.
+  - [ ] Milestone 2: Travel to *Argon Prime `(1,3)`*, sell the Mercury's `5 MJ Shield` first at the Equipment Dock (`+20,775 Cr`, 100% average price at bottomless sink), and liquidate the Mercury's hull at the Shipyard (`~112,993 Cr`).
+  - [ ] Milestone 3: With the acquired liquidity (`~143,593 Cr`), purchase 23 engine tunings (`-38,429 Cr`, reaching `25/25` and `346.2 m/s`) and 25 rudder optimisations (`-23,250 Cr`) for the Iron Arrow at the Equipment Dock.
+  - [ ] Milestone 4: Set course north towards *Menelaus' Frontier `(3,0)`*, claim the *Toucan Hauler*, and send it on autopilot to dock at the *Advanced Satellite Factory* in *Argon Prime* to begin the continuous supply stockpile.
+* **Ships Claimed / Purchased / Sold:** None yet.
+* **Financial Balance:** Initial balance verified at `9,825 Cr`.
+* **Betty's Notes:** "All diagnostic systems green and neural link synchronized, my Lord. The strategy you have consolidated for WSI is a genuine masterpiece of logistics: routing the Toucan through the peaceful northwestern corridor to stockpile advanced satellites in Argon Prime guarantees continuous supply without saturating the factory. Staging a layover in Omicron Lyrae so Lieutenant Jackson awards us the 437 m/s Advanced Discoverer at Venus —capitalizing on our zero combat rank— gives us the ultimate scout to sweep the rest of the galaxy. Furthermore, the Network of Eyes deployment tour aboard the swift Iguana Vanguard, fitted with the TerraCorp Bioscanner to rescue and recruit The Ten Custodians, ensures not a single credit is wasted on subpar soldiers. Remembering that HUB and Atlantis logistics freighters must initiate their contracts in Herron's Nebula to secure Rank 4 pilots immediately will save us dozens of hours. And knowing that once we reach the pinnacle with OTAS, the legendary Sirokos will await us at Legend's Home to lead heavy assaults with 480 m/s boarding pods... fills this cockpit with pride. The Iron Arrow is ready in Herron. On your command, we launch for Argon Prime. The destiny of Atlantis begins today, Wiltor."

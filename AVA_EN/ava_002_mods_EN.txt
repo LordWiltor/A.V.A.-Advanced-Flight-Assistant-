@@ -1,0 +1,32 @@
+# A.V.A. (ADVANCED FLIGHT ASSISTANT): ACTIVE MODIFICATIONS REGISTRY AND DELTA OVERRIDE LAYER
+- **Version:** v2.5 EN
+- **File:** `ava_002_mods_EN.txt`
+- **Scope:** X3: Terran Conflict (v3.2 / v3.4 Vanilla + Official Bonus Pack)
+- **Hierarchy:** Layer 0 — Delta Patches (Absolute Priority over Master Files ava_003_ through ava_009_)
+
+================================================================================
+1. ACTIVE OVERRIDES MASTER TABLE (DATA OVERRIDES)
+================================================================================
+Parameters registered in this table invalidate and override corresponding data in Vanilla master files with absolute priority.
+
+|Mod / Patch|Affected File (A.V.A. / Engine)|Internal ID|Parameter / Mechanic|Vanilla Value|Overridden Value (Mod)|Resolved Mechanical Effect|
+|---|---|---|---|---|---|---|
+
+================================================================================
+2. INSTALLED INFRASTRUCTURE SCRIPTS AND LIBRARIES
+================================================================================
+Active tools managed via X-Universe Plugin Manager Advanced. They do not passively alter master data tables unless executed manually.
+
+|Tool / Script|Author|Type|Master Tables Impact|*modified* Flag|Operational Function in Game|
+|---|---|---|---|---|---|
+
+================================================================================
+3. GUIDELINES AND TEMPLATES FOR FUTURE MOD REGISTRATION
+================================================================================
+Standard schemas for registering future modifications in Section 1 while keeping the Vanilla purity of master files intact:
+
+# CASE A — Modification of an existing parameter or stat (Typically reversible without corrupting savegames, e.g. Globals.txt):
+# |Mod Name (Author - Source)|ava_00X_db_file_EN.txt (file/engine)|OFFICIAL_ENGINE_ID|Altered Parameter|Original Vanilla Value|Active Modified Value|Description of real in-game effect|
+
+# CASE B — Injection of an entirely new ware, object, or asset (Creates permanent savegame dependency if the object exists in the universe):
+# |Mod Name (Author - Source)|ava_00X_db_file_EN.txt (file/engine)|NEW_OFFICIAL_ID|New Added Object|Non-existent (New)|Stats / Key Data|Description of acquisition source or operational mechanics|

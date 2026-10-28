@@ -1,0 +1,252 @@
+# A.V.A. (ADVANCED FLIGHT ASSISTANT): MASTER DATABASE: GLOBAL MECHANICS AND HEADQUARTERS (PHQ)
+- **Version:** v2.5 EN
+- **File:** `ava_007_db_mechanics_EN.txt`
+- **Scope:** X3: Terran Conflict (v3.2 / v3.4 Vanilla + Official Bonus Pack)
+- **Hierarchy:** Layer 0 — Engine Constants, PHQ Industrial Operations (hq.xml), Ranks, Reputations, and Boarding
+
+*(Scale: 1 km = 500 HUD internal units | Shields in MJ/GJ | Damage in kJ | Formulas resolved to in-game values).*
+
+================================================================================
+1. GLOBAL ENGINE PARAMETERS, RADARS, AND KEY DISTANCES (Globals.txt)
+================================================================================
+
+|Category|Parameter / Device|Internal Code (`Globals.txt`)|Engine Value|Resolved In-Game Value (HUD) & Effect|
+|---|---|---|---|---|
+|Radars & Scanners|Basic Ship Radar|`SG_SCANNER_RANGE_SHIP`|5000000|10 km base gravimetric detection radius|
+|Radars & Scanners|Duplex Scanner|`SG_SCANNER_RANGE_SHIP_UPGRADE2`|10000000|20 km detection radius (doubles base range)|
+|Radars & Scanners|Triplex Scanner|`SG_SCANNER_RANGE_SHIP_UPGRADE3`|15000000|30 km detection radius (triples base range)|
+|Radars & Scanners|Navigation Relay Satellite|`SG_SCANNER_RANGE_SATELLITE`|11000000|22 km coverage radius in deployed sector|
+|Radars & Scanners|Advanced Satellite|`SG_SCANNER_RANGE_SATELLITE2`|17500000|35 km coverage radius + 3D camera map view|
+|Radars & Scanners|Station Radar|`SG_SCANNER_RANGE_STATION`|5000000|10 km radius around player stations|
+|Radars & Scanners|Lasertower Radar|`SG_SCANNER_RANGE_ORBITALLASER`|1250000|2.5 km autonomous detection radius|
+|Radars & Scanners|Freight Scanner|`SG_SCANNER_RANGE_FREIGHTSCANNER`|2000000|4 km maximum distance to scan cargo bays or Marines|
+|Radars & Scanners|Blind Nebula Range|`SG_SCANNER_RANGE_SO_NEBULA`|750000|1.5 km minimum guaranteed range in dense nebulae|
+|Interaction Distances|Maximum Comm Range|`SG_MAX_DISTANCE_COMM`|25000|25 km to communicate with stations/ships or accept missions|
+|Interaction Distances|Transporter Device|`SG_MAX_DISTANCE_BEAMING`|5000|5 km max range to beam cargo, Marines, or pilot|
+|Interaction Distances|Docking Computer|`SG_MAX_VERTEXDIST_DOCKCOMPUTER`|4000|4 km to station vertex (instant docking via Shift+D)|
+|Interaction Distances|Maximum Complex Distance (CCK)|`SG_MAX_DISTANCE_BUILDCOMPLEX`|20000|20 km maximum distance between any factory and Complex Hub|
+|Xenon Hub (HUB)|Gate Realignment Cost|`SG_GATE_REALIGNMENT_ENERGY`|10000|10,000 Energy Cells consumed per realignment|
+|Xenon Hub (HUB)|Realignment Cooldown|`SG_GATE_REALIGNMENT_WAIT`|7200|7,200 s (2 in-game hours) cooldown after realignment|
+|Xenon Hub (HUB)|Link Activation Time|`SG_GATE_REALIGNMENT_LINK`|300|300 s (5 minutes) for the new link to lock|
+|Dock Storage|Equipment Dock / Trading Station Multiplier|`SG_DOCK_STORAGE_FACTOR`|0|0 (Vanilla 1x base quota: 2,500 Energy Cells, 416 Ore, 208 Silicon Wafers, 31 5 MJ Shields, 2 heavy weapons/shields)|
+|Dock Storage|Xenon Hub Multiplier|`SG_HUB_STORAGE_FACTOR`|6|6 (Multiplies Vanilla dock quota by x12: 30,000 Energy Cells, 5,000 Ore, 2,500 Silicon Wafers, 250 Microchips)|
+|Tractor Beam|Maximum Towing Speed|`SG_TRACTOR_SPEED_LIMIT`|80|80 m/s maximum towing speed for stations or ships (Note: stations and mines CANNOT pass through Jump Gates or TOAs; only ships can)|
+|Tractor Beam|Beam Break Distance|`SG_TRACTOR_BREAK_DIST`|1332|1.33 km (1,332 m) maximum distance before link breaks|
+|Tractor Beam|Spring Equilibrium Distance|`SG_TRACTOR_SPRING_DIST`|777|777 m natural spring length (constant: 4,369)|
+|Physics & Combat|Boarding Pod Hull|`SG_MAXHULL_BOARDINGPOD`|300|300 hull pts (interceptable by anti-air turrets)|
+|Physics & Combat|Floating Cargo Container Hull|`SG_MAXHULL_CONTAINER`|100|100 hull pts for floating space cargo containers|
+|Physics & Combat|Small Ship Strafe (WASD)|`SG_MAXSTRAFEFACTOR_SMALLSHIP`|49152|Factor 49,152 (~75 m/s lateral speed on M5..TM)|
+|Physics & Combat|Big Ship Strafe (WASD)|`SG_MAXSTRAFEFACTOR_BIGSHIP`|26214|Factor 26,214 (~40 m/s lateral speed on M6..M2)|
+|Physics & Combat|Docking Approach Speed Limit|`SG_MAXGLIDESPEED`|100|100 m/s limit on green light approach path|
+|Mission Generator|Equal Mission Quota (Trade/Fight/Build/Think)|`SG_MISSION_QUOTA_*`|4|Equal weight 4 (25% Trade, Fight, Build, Think)|
+
+================================================================================
+2. THE PLAYER HEADQUARTERS - PHQ (hq.xml)
+================================================================================
+* **Internal ID:** `SS_DOCK_P_HQ` | **Source:** Bala Gi Plot Reward (`ava_009_db_plots_EN.txt`).
+* **Cargo Storage:** `500,000` shared volume units (player-configurable or via Dockware Manager).
+* **Docking Clamps:** 9 capital ships (`M1/M2/TL/M7/M6`), 15 docking clamps for freighters (`TS/TP/TM/M8`), and infinite internal hangar for fighters (`M5/M4/M3/GO`).
+* **Initial Blueprint Included:** `SS_SH_A_M4` (Argon *Buster*).
+* **Spray Shop:** Hue (`Hue: -180° to +180°`) and Saturation. Functions on Argon, Paranid, Teladi, and Xenon ships. Boron and Kha'ak ships have factor 0 (cannot change color).
+
+### 2.1. The 4 Industrial Operations of the PHQ
+|PHQ Operation|Time Required|Credit Cost|Resource Cost / Return|Engine Effect & Rules|
+|---|---|---|---|---|
+|**Production**|100% (Factor 1)|100% factory cost|100% materials|Constructs a ship from scratch if Blueprint and materials are available.|
+|**Reverse Engineering**|100% (Equal to build time)|0 Cr (Free)|0 resources (Free)|**Destroys the submitted ship** and permanently adds its blueprints to the PHQ. **(WARNING: Blueprints produce hulls with standard factory specifications; NEVER reverse-engineer a unique *Overtuned* ship as its engine/rudder overtunes will be lost forever)**.|
+|**Repair**|**50%** of base time|**50%** of Cr cost|**50%** of materials|Repairing hull from 0% to 100% costs half of new build requirements.|
+|**Recycling**|**5%** of base time|0 Cr (Neither pays nor costs)|**Returns 80%** of materials|Scraps the ship and deposits 80% of its construction materials into storage.|
+
+### 2.2. PHQ Calculation Factors and Formulas
+* `BaseVal = int(Ship_Price * 0.80428)` | `RelVal_Player = int(Ship_Price / 80.7212)`
+* `Resources = int(BaseVal / resource_divisor)` | `Time (seconds) = int((RelVal_Player * 25000) / class_divisor)`
+* **Time Divisors by Class:** `M5`: 10,000 | `M4`: 12,500 | `M3 and GO`: 16,666 | `TS / TP / TM`: 5,000 | `Capitals (M6 to M2, TL)`: 25,000.
+
+|Resource Demanded by PHQ|Internal ID|Type in `hq.xml`|Divisor (`factor`)|Ship Activation Condition|
+|---|---|---|---|---|
+|Credits|`SS_WARE_CREDITS`|Primary|3|All ships (~33.3% of base value).|
+|Energy Cells|`SS_WARE_ENERGY`|Primary|885|All ships.|
+|Teladianium|`SS_WARE_R255`|Primary|28333|All ships.|
+|Ore|`SS_WARE_ORE`|Primary|21250|All ships.|
+|Silicon Wafers|`SS_WARE_SILICON`|Primary|28333|All ships.|
+|Crystals|`SS_WARE_TECH205`|Primary|85000|All ships (~1/3 of Silicon Wafers).|
+|Cloth Rimes|`SS_WARE_F217`|Secondary|85000|Ships with `BaseVal >= 85,000 Cr`.|
+|Rastar Oil|`SS_WARE_F238`|Secondary|42500|Ships with `BaseVal >= 85,000 Cr` (Double the Cloth Rimes amount).|
+|Quantum Tubes|`SS_WARE_TECH206`|Secondary|85000|Ships with `BaseVal >= 250,000 Cr`.|
+|Computer Components|`SS_WARE_TECH208`|Secondary|85000|Ships with `BaseVal >= 250,000 Cr`.|
+|Microchips|`SS_WARE_TECH207`|Secondary|42500|Ships with `BaseVal >= 500,000 Cr` (Critical on capital ships).|
+|Nividium|`SS_WARE_NIVIDIUM2`|Kha'ak Special|170000|Demanded **ONLY** when building/repairing Kha'ak ships.|
+
+### 2.3. PHQ Construction / Reverse Engineering Reference Table (24 Key Ships)
+*(Base Production values per unit: Repair = 0.50 factor; Recycling = 0.80 factor for materials and 0.05 for time)*
+
+|Flagship / Unique Ship|Internal ID|Class|Time (Prod/RE)|Credits|Cells|Telad.|Ore|Silicon|Rimes|Rastar|Crystals|Tubes|Comp.|Chips|Nividium|
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+|Buster|`SS_SH_A_M4`|M4|2h 47m 36s|108,810 Cr|368|11|15|11|3|7|3|3|3|0|0|
+|Kestrel|`SS_SH_T_M5P`|M5|1h 05m 00s|33,759 Cr|114|3|4|3|1|2|1|0|0|0|0|
+|Cutlass|`SS_SH_USC_M3P`|M3|1d 02h 27m|1,374,192 Cr|4,658|145|194|145|48|97|48|48|48|97|0|
+|Skate Prototype|`SS_SH_B_M3P_PROTO`|M3|1d 05h 20m|1,523,514 Cr|5,164|161|215|161|53|107|53|53|53|107|0|
+|Venti|`SS_SH_OTAS_M3`|M3|17h 05m 02s|887,274 Cr|3,007|93|125|93|31|62|31|31|31|62|0|
+|Fenrir|`SS_SH_TR_M3H`|M3|1d 03h 42m|1,439,115 Cr|4,878|152|203|152|50|101|50|50|50|101|0|
+|Perseus Vanguard|`SS_SH_P_M3_2`|M3|9h 56m 22s|516,220 Cr|1,749|54|72|54|18|36|18|18|18|36|0|
+|LX|`SS_SH_X_M3P`|M3|1d 04h 57m|1,504,037 Cr|5,098|159|212|159|53|106|53|53|53|106|0|
+|Kha'ak Fighter|`SS_SH_K_M3`|M3|6h 21m 41s|330,390 Cr|1,119|34|46|34|11|23|11|11|11|23|5|
+|Mistral Super Freighter|`SS_SH_OTAS_TS_1`|TS|1d 01h 46m|401,653 Cr|1,361|42|56|42|14|28|14|14|14|28|0|
+|Zephyrus|`SS_SH_OTAS_TM`|TM|5h 29m 10s|85,481 Cr|289|9|12|9|3|6|3|3|3|0|0|
+|Springblossom|`SS_SH_LOST_M6H`|M6M|1d 00h 58m|1,945,294 Cr|6,594|205|274|205|68|137|68|68|68|137|0|
+|Vidar|`SS_SH_TR_M6`|M6M|1d 12h 53m|2,873,902 Cr|9,742|304|405|304|101|202|101|101|101|202|0|
+|Hyperion Vanguard|`SS_SH_P_M6_ADV`|M6M|5d 18h 53m|10,820,416 Cr|36,679|1,145|1,527|1,145|381|763|381|381|381|763|0|
+|Kha'ak Corvette|`SS_SH_K_M6`|M6|1d 03h 46m|2,164,083 Cr|7,335|229|305|229|76|152|76|76|76|152|38|
+|Tiger|`SS_SH_S_M7`|M7|6d 09h 48m|11,982,962 Cr|40,620|1,268|1,691|1,268|422|845|422|422|422|845|0|
+|Agamemnon|`SS_SH_P_M7_SPECIAL`|M7|6d 17h 20m|12,569,234 Cr|42,607|1,330|1,774|1,330|443|887|443|443|443|887|0|
+|Ares|`SS_SH_P_M7M`|M7M|8d 22h 02m|16,675,344 Cr|56,526|1,765|2,354|1,765|588|1,177|588|588|588|1,177|0|
+|Mammoth|`SS_SH_A_TL`|TL|4d 01h 32m|7,599,070 Cr|25,759|804|1,072|804|268|536|268|268|268|536|0|
+|Hoshi|`SS_SH_Y_M1`|M1|11d 09h 47m|21,329,638 Cr|72,303|2,258|3,011|2,258|752|1,505|752|752|752|1,505|0|
+|Aran|`SS_SH_GO_MSY`|M1|29d 13h 59m|55,312,844 Cr|187,501|5,856|7,808|5,856|1,952|3,904|1,952|1,952|1,952|3,904|0|
+|Boreas|`SS_SH_OTAS_M2`|M2|16d 01h 16m|30,015,835 Cr|101,748|3,178|4,237|3,178|1,059|2,118|1,059|1,059|1,059|2,118|0|
+|Xenon K|`SS_SH_X_M2`|M2|3d 12h 49m|6,607,876 Cr|22,399|699|932|699|233|466|233|233|233|466|0|
+|Tyr|`SS_SH_TR_M2`|M2|16d 20h 38m|31,524,201 Cr|106,861|3,337|4,450|3,337|1,112|2,225|1,112|1,112|1,112|2,225|0|
+
+================================================================================
+3. TRADE AND COMBAT RANKS MASTER TABLE (31 LEVELS)
+================================================================================
+
+|Level|Internal Points|Trade Rank|Fight Rank|
+|---|---|---|---|
+|0|0|Opportunist|Harmless|
+|1|2|Journeyman|Nuisance|
+|2|5|Profiteer|Greenhorn|
+|3|10|Hawker|Novice|
+|4|20|Petty Vendor|Rookie|
+|5|30|Vendor|Trainee|
+|6|50|Apprentice Trader|Competent|
+|7|70|Trader|Graduate|
+|8|100|Dealer|Skilled|
+|9|150|Master Dealer|Fighter|
+|10|250|Entrepreneur|Veteran|
+|11|350|Petty Retailer|Marksman|
+|12|500|Retailer|Sharpshooter|
+|13|750|Merchant|Eagle Eye|
+|14|1,000|Wholesaler|Professional|
+|15|1,400|Petty Financier|Instructor|
+|16|2,000|Financier|Specialist|
+|17|2,500|Broker|Fighter Chief|
+|18|3,500|Master Broker|Master Chief|
+|19|6,000|Economist|Militant|
+|20|9,000|Master Economist|Warrior|
+|21|14,000|Manufacturer|Assassin|
+|22|20,000|Industrialist|Vindicator|
+|23|28,000|Master Industrialist|Warlord|
+|24|40,000|Capitalist|Crusader|
+|25|60,000|Mogul|Battlemaster|
+|26|85,000|Magnate|Conqueror|
+|27|150,000|Super-Magnate|Overlord|
+|28|250,000|Tycoon|Legend|
+|29|500,000|Pan-Galactic Tycoon|Hero|
+|30|1,000,000|X-TREME|X-TREME|
+*(Exact Threshold Conversion in Plot and Gamestart Scripts: `50 pts` = Level 6 at 0% | `333 pts` = Level 10 at 83% | `3,333 pts` = Level 17 at 83% | `100,000 pts` = Level 26 at 23%).*
+
+================================================================================
+4. RACE REPUTATION AND NOTORIETY MASTER TABLE (16 LEVELS)
+================================================================================
+
+### 4.1. General Points Scale and Unlocked Privileges
+|Rank|Notoriety Points|Docking Permissions & In-Game Shipyard / Dock Unlocks|
+|---|---|---|
+|-5|-1,000,000 to -100,000|Totally Hostile (Attacks in all sectors; docking prohibited)|
+|-4|-99,999 to -10,000|Hostile in Border and Core (Docking prohibited at any station)|
+|-3|-9,999 to -1,000|Hostile in Core (Docking prohibited at any station)|
+|-2|-999 to -100|Docking prohibited in Core and Border (Will not attack unless provoked)|
+|-1|-99 to -10|Docking permitted in Border sectors (Prohibited in Core sectors)|
+|0|-9 to +9|Neutral: Docking permitted in Core and Border (Rank 0 purchases: Mosquito, Firefly)|
+|+1|+10 to +32|Rank 1 purchases (IRE light laser and basic equipment)|
+|+2|+33 to +99|Rank 2 purchases (M5 fighters, TP transports, PAC, PBG, Jumpdrive, Triplex Scanner, and light missiles)|
+|+3|+100 to +332|Rank 3 purchases (All TS freighters including Super Freighters, M4 fighters, HEPT, Mines, and Bio farms)|
+|+4|+333 to +999|Rank 4 purchases (M3 fighters, M4+ interceptors, TM transports, 25/200 MJ shields, EBC, MD, Trade Software MK3, SPP, and Food)|
+|+5|+1,000 to +3,332|**Police License unlocked** + M3+ fighters, **standard M6 corvettes**, **TL transports**, Complex Construction Kits (CCK), and Tech factories|
+|+6|+3,333 to +9,999|Rank 6 purchases (**Heavy Corvettes M6M**, **M8 bombers**, Shrike M7, 1/2 GJ shields, PPC, and Torpedoes/Pods)|
+|+7|+10,000 to +33,332|Rank 7 purchases (**M7 Frigates**, Aquilo M7M, Equipment Docks, heavy/anti-air weapons CFA/PSG/SSC/IC/GC and Forges)|
+|+8|+33,333 to +99,999|Rank 8 purchases (**M2 Destroyers**, **M1 Carriers**, **M7M Missile Frigates**, PSP, and capital weapon/shield forges)|
+|+9|+100,000 to +333,332|Full access to the race's entire military and technology catalog|
+|+10|+333,333 to +1,000,000|Maximum Honor Rank of the faction (100% privileges)|
+
+### 4.2. Official Reputation Titles for the 8 Factions
+|Rank|Argon|Boron|Split|Paranid|Teladi|Goner|Terran (USC)|ATF Access|
+|---|---|---|---|---|---|---|---|---|
+|-5|Enemy of the Federation|Enemy of the Kingdom|Enemy of all Split Families|Enemy of Priest Xaar|Enemy of the Corporation|Defiler of the Truth|Enemy of Sol|Nemesis|
+|-4|Confirmed Enemy|Queen's Nemesis|Enemy of Rhonkar|Enemy of Priest Duke|Commercial Enemy|Heretic|Terrorist|Illegal AGI Developer|
+|-3|Confirmed Insurgent|Enemy of Menelaus|Family Enemy|Desecrator of Holy Light|Commercial Anarchist|Blasphemer|Insurgent|AGI Sympathiser|
+|-2|Known Antagonist|Confirmed Adversary|Family Outcast|Tainted Wanderer|Mercantile Rebel|Heathen|Renegade|Tech Fugitive|
+|-1|Suspected Foe|Antagonist|Shameless Creature|Unholy Nomad|Profit Liability|Agnostic|Revolutionary|Suspect Programmer|
+|0|Citizen|Acquaintance|Creature|Nomad|Profit Initiate|Sceptic|Citizen|No System Access|
+|+1|Federation Member|Friend|Known Venturer|Friend|Profit Opportunity|Accepted Member|Local Councillor|Outer System Access|
+|+2|Federation Associate|Accepted Friend|Friend|Friend of Priest|Company Helper|Follower|Regional Representative|Asteroid Belt Access|
+|+3|Confirmed Friend|Trusted Courtier|Comrade|Priest Confidante|Company Trader|Believer|Senatorial Advisor|Mars Access|
+|+4|Accepted Advisor|Noble Peer|Family Friend|Friend of Priest Duke|Shareholder|Faithful Believer|Marshal of Mars|Venus Access|
+|+5|Trusted Ally|Queen's Guard|Distinguished Associate|Friend of Priest King|Majority Shareholder|Trusted Pilgrim|Warrior of Io|Mercury Access|
+|+6|Federation Guardian|Queen's Knight|Family Protector|Priest Protectorate|Company Manager|Honoured Pilgrim|Servant of Terra|Lunar Access|
+|+7|Federation Marshal|Queen's Protectorate|Privileged Associate of Rhonkar|Friend of Emperor|Company Owner|Goner Preacher|Planetary Senator|Earth Access|
+|+8|Federation Overwatch|King's Knight|Inner Circle of Rhonkar|Emperor's Protectorate|Venture Profiteer|Goner Evangelist|Guardian of Earth|Research Access|
+|+9|Protector of the Federation|King's Protectorate|Honoured Imperator of Rhonkar|Seeker of the Holy Light|Venture Capitalist|Holy Order of the Goners|Solar Sentinel|Operations Access|
+|+10|Hero of the Federation|Knight of the Kingdom|Honoured Strong Arm of Rhonkar|Honour Guard of Xaar|Company Director|Protector of the Goners|Hero of Sol|Command Access|
+
+================================================================================
+5. BOARDING MECHANICS (MARINES), BAILING, AND MOBILE MINING
+================================================================================
+
+### 5.1. Marine Boarding System
+* **Boardable Ships:** `M6`, `M7`, `M7M`, `TL`, `M1`, `M2`, `TM`, and the special ship *Aran*. **Kha'ak ships CANNOT be boarded**. Fighters (`M5..M3`), bombers (`M8`), and freighters (`TS/TP`) cannot be boarded with Marines (their pilots surrender via *Bailing*).
+* **Maximum Marine Capacity:** `M6` and `TM`: **5 Marines** | `TP`: **10 Marines** (spacewalk) | `M7`, `M7M`, `TL`, `M1`, `M2`: **20 Marines** | OTAS *Sirokos* (`M7M`): **30 Marines**. *(Note: The target ship accommodates up to its max capacity + 1 additional Marine during an assault, e.g. 6 in an M6 or 21 in capital ships).*
+* **Boarding Pods (`M_POD`) and M7M Exceptions:** Exclusive to `M7M` frigates (5 marines per pod, speed `480 m/s`, hull `300 pts`). They double the hull-cutting penetration bonus compared to spacewalk boarding. **Critical Exception:** The `Aquilo` (OTAS), `Skirnir` (ATF), and `Senshi` (Yaki) frigates **CANNOT fire Boarding Pods**; the `Sirokos` (OTAS) **CAN ONLY fire Boarding Pods** and lacks missile ordnance to strip shields.
+* **Recruitment (`Bioscanner`) and Training Costs:**
+  * *Bioscanner (`SS_WARE_BIOSCANNER`):* Allows viewing skill stars prior to hiring Marines at Military Outposts or Pirate Bases (filtering out recruits with `< 2-3★` in Fighting).
+  * *Training at Docks and Military Outposts:* Allows training **Mechanical**, **Engineering**, and **Hacking** via *Quick, Normal, and Advanced* courses. Training a Marine from `0★` to `5★` (`100 pts`) across all 3 trainable skills costs **`~1.2 to 1.5 million Cr`** in total. The **Fighting** skill CAN NEVER be trained at stations; it only increases by surviving real boarding operations.
+
+#### Marine Skill Matrix (0 to 100 pt Scale)
+|Stars|Point Range|Operational Effect|
+|---|---|---|
+|`0★`|0 to 19 pts|Incompetent. Near-guaranteed failure and heavy hull damage.|
+|`1★`|20 to 39 pts|Rookie. Acceptable only for undefended civilian targets (`TL/TM`).|
+|`2★`|40 to 59 pts|Competent. Suitable for `M6` and standard Commonwealth ships.|
+|`3★`|60 to 79 pts|Veteran. Suitable for `M7` and Commonwealth capital ships.|
+|`4★`|80 to 99 pts|Elite. Mandatory for Terran/ATF ships and upper decks.|
+|`5★`|100 pts (Max)|Master. **0% hull damage from Engineering** and maximum penetration.|
+
+#### The 4 Assault Phases and Race Difficulty Matrix
+* **Phase 1 — Approach and Critical Shield Suppression:**
+  * To launch Marines and throughout the entire hull-cutting duration (Phase 2), **target shields must remain below the critical threshold (`< 10%` on M6/TM, `< 8%` on M7, `< 5%` on M1/M2/TL; universal safe baseline: `1% to 4%`)**. If shields regenerate above this threshold before Marines breach the interior, the entire squad is electrocuted and killed on the hull.
+* **Phase 2 — Hull Cutting (Mechanical):**
+  * *Commonwealth and Pirates:* Requires **40 to 60 pts** (2-3★; easier with a Boarding Pod).
+  * *Terran and ATF:* Heavy military plating; requires **>= 90 pts** (4-5★) and a Boarding Pod is mandatory.
+  * *Xenon:* Extreme hull integrity; requires **100 pts** (5★) across all cutters and a Boarding Pod.
+* **Phase 3 — Deck-by-Deck Combat (Fighting) and Damage Control (Engineering):**
+  * *Fighting:* Governs survival floor by floor (from 2 decks on M6/TM up to 5 decks on M1/M2). On **Xenon** ships, internal automated resistance is lethal and demands reinforcing waves (21 to 30 Marines with 100 pts in Fighting).
+  * *Engineering:* Governs how much damage friendly Marines inflict on the ship's hull and subsystems while clearing each deck. With **5★ (`100 pts`) Engineering on all Marines**, the ship is captured with **0% additional hull damage**.
+* **Phase 4 — Core Hacking (Hacking):** Checks the average of the **2 best surviving hackers**:
+  * *Commonwealth:* Requires **50 to 70 pts** (3★).
+  * *Terran, ATF, and Xenon:* Requires **>= 90 to 100 pts** (5★).
+* **Internal Defenses (Detectable via Freight Scanner + Bioscanner):**
+  * *Hull Polarising Device:* Greatly increases the Mechanical requirement (makes spacewalk cutting impossible).
+  * *Internal Sentry Lasers:* Drastically increase Marine casualties on each deck.
+  * *Advanced Firewall Software:* Requires 100 pts in Hacking to prevent central mainframe failure. *(Tactical note: Sustained Ion Disruptor `ID` fire or continuous hull hits at 1% shield before launching can destroy these 3 internal defenses and onboard weaponry).*
+* **Special Protocol to Locate and Board the *Goner Aran* (`SS_SH_GO_MSY`) and UFJD Sector Rules (`308_Sector_Management.xml`):**
+  1. Jump to unknown sectors (`Internal coord 23,19`) using the **Unfocused Jumpdrive (`UFJD`)** in an `M7M` loaded with Boarding Pods and 20 Marines (**5★ in Engineering is mandatory**, as the *Aran* spawns with hull integrity between **`3% and 30%`**; Marines lacking max Engineering will destroy the ship from within). *(UFJD script note: on each unfocused jump, there is a ~10% probability that the drive surge destroys the player ship's **Transporter Device**, **Freight Scanner**, or **Triplex Scanner**; additionally, if the player has `<= 800` Energy Cells in the UFJD sector, the script automatically spawns 8 secret containers containing 100-500 Energy Cells).*
+  2. Visual acquisition on the horizon (at 20-180 km), as the *Aran* is **invisible on radar and untargetable via the HUD**.
+  3. Approach to `< 150 m`, exit ship in a **spacesuit**, and fire continuously with the **Repair Laser (`RL`)** for several seconds until the audio alert and combat music trigger (registering the ship internally as a hostile target).
+  4. Return to the `M7M` and execute **Command Console -> Piracy -> Board Ship** (where the *Aran* will now be listed as a valid target) to launch Boarding Pods.
+
+### 5.2. Pilot Bailing and Tactical Doctrine
+* **Ships Subject to Bailing:** Fighters (`M5`, `M4`, `M3`), Bombers (`M8`), and Freighters (`TS`, `TP`).
+* **Mathematical Bailing Condition:** Target shields must drop to **`< 1%`** and hull must be below **`87%`**.
+* **Hidden Morale Variable (0 to 30):** Pilots with morale `>= 25` almost never eject. The engine runs a random check every time the ship takes hull damage under these conditions.
+* **Tactical Capture Doctrine:** Maintain hull at ~80% and fire low-destructive, high-cadence burst weapons (`PBE`, `IRE`, `PAC`, or `Ion Disruptor`) to trigger dozens of morale checks without destroying the hull.
+* **Claiming:** Approach to **`< 30 m`** in a spacesuit (or to **`< 50 m`** from the cockpit using illegal *System Override Software SOS*). The spacesuit mounts a free *Repair Laser* (`SS_LASER_REPAIR`) with an effective range of **200 m**.
+
+### 5.3. Mobile Mining (Globals.txt)
+* Fragmentation divisor: 30 (`SG_MM_YIELD_DIVISOR`). Empty debris percentage: 30%. Random minimum: 2 rocks per fragment. Projectile energy to break rock: 10,000. Debris collision destruction distance: 200 m.
+
+================================================================================
+6. FLIGHT SCHOOL AND SPECIAL OBJECTS
+================================================================================
+* **Flight School (`2009_Tutorials.xml`):** Available upon starting a game in any sector belonging to the 5 major Commonwealth races. Grants `1x Poltergeist Missile` (in Terran ships) or `1x Mosquito Missile` (in Commonwealth ships) for free, restores shields to 100%, and unlocks the official `FLIGHT_SCHOOL` achievement.
+* **Special Objects (`TSpecial.txt`):** The only interactive mission objects are `SS_SPECIAL_TRAINING_DRONES` (Terran Plot Training Drones) and `SS_SPECIAL_KDCOLLECT` (Operation Final Fury Kha'ak Data Containers).

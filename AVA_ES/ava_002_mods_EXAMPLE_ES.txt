@@ -1,0 +1,38 @@
+# A.V.A. (ASISTENTE DE VUELO AVANZADO): REGISTRO DE MODIFICACIONES ACTIVAS Y CAPA DE SOBRESCRITURA DELTA
+- **Versión:** v2.5 ES
+- **Archivo:** `ava_002_mods_ES.txt`
+- **Universo:** X3: Terran Conflict (v3.2 / v3.4 Vanilla + Official Bonus Pack)
+- **Jerarquía:** CAPA 0 — Parches Delta (Prioridad Absoluta sobre Archivos Maestros ava_003_ a ava_009_)
+
+================================================================================
+1. TABLA MAESTRA DE SOBRESCRITURAS ACTIVAS (DATA OVERRIDES)
+================================================================================
+Los parámetros registrados en esta tabla invalidan y sustituyen con prioridad absoluta a los datos correspondientes en los archivos maestros Vanilla.
+
+|Mod / Parche|Archivo Afectado (A.V.A. / Motor)|ID Interno|Parámetro / Mecánica|Valor Vanilla|Valor Sobrescrito (Mod)|Efecto Mecánico Resuelto|
+|---|---|---|---|---|---|---|
+|`TD_MiniMod` (enenra - Fake Patch 14.cat)|`ava_007_db_mechanics_ES.txt` (`types/Globals.txt`)|`SG_DOCK_STORAGE_FACTOR`|Multiplicador de capacidad de Dársenas y Estaciones Comerciales del jugador|`0`|`3`|Multiplica x6 el cupo de almacenamiento base Vanilla en todas las dársenas y estaciones comerciales propiedad del jugador (ej. Células de Energía suben de 2.500 a 15.000 uds; Mena de 416 a 2.496 uds; Escudos 5 MJ de 31 a 186 uds; armas y escudos pesados de 2 a 12 uds).|
+
+================================================================================
+2. SCRIPTS Y LIBRERÍAS DE INFRAESTRUCTURA INSTALADAS
+================================================================================
+Herramientas activas gestionadas por X-Universe Plugin Manager Advanced. No alteran pasivamente las tablas maestras de datos salvo ejecución manual.
+
+|Herramienta / Script|Autor|Tipo|Impacto en Tablas Maestras|Flag *modified*|Función Operativa en la Partida|
+|---|---|---|---|---|---|
+|`Cheat Collection Package`|Cycrow|Script de utilidad|Ninguno (pasivo)|SÍ (Activa *modified*)|Soporte técnico, resolución de bugs de misiones y pruebas de desarrollo.|
+|`Community Plugin Configuration`|Cycrow|Script Library|Ninguno (pasivo)|SÍ (Activa *modified*)|Menú unificado de configuración de plugins y mods en interfaz de juego.|
+|`Cycrow Libraries`|Cycrow|Script Library|Ninguno (pasivo)|SÍ (Activa *modified*)|Librerías de funciones base compartidas para scripts del Plugin Manager.|
+|`Hotkey Manager`|Cycrow|Script Library|Ninguno (pasivo)|SÍ (Activa *modified*)|Gestión e interceptación de combinaciones de teclas asignadas a mods.|
+|`Ware Manager`|Cycrow|Script Library|Ninguno (pasivo)|SÍ (Activa *modified*)|Librería puente para gestión e inyección dinámica de mercancías sin corrupción de partidas guardadas.|
+
+================================================================================
+3. GUÍA Y PLANTILLAS PARA REGISTRO DE FUTUROS MODS
+================================================================================
+Esquemas estándar para el registro de modificaciones futuras en la Sección 1 manteniendo intacta la pureza Vanilla de los archivos maestros:
+
+# CASO A — Modificación de un parámetro o estadística existente (Normalmente reversible sin corromper savegames, ej. Globals.txt):
+# |Nombre Mod (Autor - Fuente)|ava_00X_db_archivo_ES.txt (archivo/motor)|ID_OFICIAL_MOTOR|Parámetro alterado|Valor Vanilla original|Valor Modificado activo|Descripción del efecto real en juego|
+
+# CASO B — Inyección de un objeto o contenido completamente nuevo (Genera dependencia permanente en el savegame si el objeto existe en el universo):
+# |Nombre Mod (Autor - Fuente)|ava_00X_db_archivo_ES.txt (archivo/motor)|NUEVO_ID_OFICIAL|Nuevo objeto añadido|Inexistente (Nuevo)|Estadísticas / Datos clave|Descripción de dónde se obtiene o cómo opera|

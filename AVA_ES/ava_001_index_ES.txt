@@ -1,0 +1,140 @@
+# A.V.A. (ASISTENTE DE VUELO AVANZADO): ÍNDICE MAESTRO, ENRUTADOR DE CONSULTAS Y GLOSARIO TÉCNICO
+- **Versión:** v2.5 ES
+- **Archivo:** `ava_001_index_ES.txt`
+- **Universo:** X3: Terran Conflict (v3.2 / v3.4 Vanilla + Official Bonus Pack)
+- **Jerarquía:** CAPA 0 — Catálogo de Fuentes, Diccionario de Claves y Enciclopedia de Mecánicas
+
+================================================================================
+1. MANIFIESTO DE FUENTES Y ENRUTADOR DE ACCESO RÁPIDO
+================================================================================
+
+|Archivo (.txt)|Capa / Rango|Contenido Temático Principal|Descriptores Técnicos / Palabras Clave|
+|---|---|---|---|
+|`ava_000_core_ES.txt`|Capa 0 (000-099)|Instrucciones del sistema base y motor lógico; Reglas de cálculo deterministas y precedencia.|Motor A.V.A., Precedencia, DPS Neto, Complejos N-1, Conversión PHQ, Tasación Venta, Salto.|
+|`ava_001_index_ES.txt`|Capa 0 (000-099)|Manifiesto de fuentes y esquema relacional; Unidades de medida y glosario enciclopédico.|Índice, Directorio, Enrutador, Glosario, IS/OOS, MK3, Bonus Pack, Unidades.|
+|`ava_002_mods_ES.txt`|Capa 0 (000-099)|Registro de modificaciones y mods instalados; Parámetros que sobrescriben al Vanilla.|Mods activos, Overrides, Parche delta, TD_MiniMod, Valores modificados.|
+|`ava_003_db_weapons_ES.txt`|Capa 0 (000-099)|37 Láseres (RPM, DPS, MW, Efic); 35 Misiles (Daño, Vel, Guiado); 6 Escudos (MJ, Recarga kJ/s).|Láser, Misil, Escudo, DPS, Munición, Cadencia, Torpedo, Enjambre, Recarga, EBC, PPC.|
+|`ava_004_db_ships_ES.txt`|Capa 0 (000-099)|329 Naves oficiales completas; Arcos de torreta y generadores; Hangares, bodegas y astilleros.|Estadísticas nave, Velocidad, Giro, Casco, Generador láser, Bahía cazas, Astillero, Variantes.|
+|`ava_005_db_economy_ES.txt`|Capa 0 (000-099)|98 Mercancías y recursos; 49 Mejoras y software de nave; 303 Fábricas y minas; 41 Dársenas y corporaciones.|Complejo, Fábrica, Mina, Yield, Sol, Cristal, Comida racial, Software, Motor Salto, CCK.|
+|`ava_006_db_universe_ES.txt`|Capa 0 (000-099)|231 Sectores galácticos fijos (+ UFJD); Conexiones Puertas vs TOA; Asteroides construibles y rocas; 19 Naves abandonadas y 12 cajas.|Sector, Coordenadas (X,Y), TOA, Puerta salto, Naves gratis, Contenedores, Nividium, Hielo.|
+|`ava_007_db_mechanics_ES.txt`|Capa 0 (000-099)|27 Parámetros de Globals.txt; PHQ (hq.xml: construcción/desguace); 31 Rangos y 16 Reputaciones; Abordaje con Marines y Bailing.|PHQ, Cuartel General, Abordaje, Marines, Bailing, Rendición, Radar, Satélite, Reputación.|
+|`ava_008_db_corporations_ES.txt`|Capa 0 (000-099)|8 Corporaciones (misiones/rangos); 25 Naves exclusivas corporativas; 18 Inicios oficiales (start.xml / gamestarts); Naves sobrecargadas (Overtuned).|Corporación, TerraCorp, OTAS, Inicios partida, Gamestart ID, Bitmask, Hyperion 250 m/s.|
+|`ava_009_db_plots_ES.txt`|Capa 0 (000-099)|9 Tramas oficiales completas; Árbol de dependencias y desbloqueos en cascada; Paso a paso y cantidades HUB (v3.0).|Trama, Misiones historia, HUB, PHQ, Furia Final, Goner, Aldrin 2.0, Tesoro, Nuevo Hogar.|
+|`ava_100_log_core_ES.txt`|Capa 1 (100-199)|Instrucciones del gestor de memoria; Protocolo de lectura, onboarding y cierre.|Reglas bitácora, Persistencia, Guardar partida, Reporte en 2 bloques, Cierre de jornada.|
+|`ava_101_log_campaign_ES.txt`|Capa 1 (100-199)|Estado actual de la partida del piloto; Créditos, naves y sectores visitados; Reputaciones y objetivos activos.|Partida guardada, Créditos actuales, Nave insignia, Flota activa, Progreso de campaña.|
+|`ava_102_log_campaign_TEMPLATE_ES.txt`|Capa 1 (100-199)|Plantilla neutra en blanco de reserva en disco; Molde limpio para iniciar nuevas campañas.|Plantilla bitácora, Backup local en disco, Molde en blanco de nueva campaña.|
+|`ava_200_persona_TEMPLATE_ES.txt`|Capa 2 (200-299)|Plantilla en blanco / estándar de voz; Variables de actitud, trato y modismos.|SDK personalidad, Plantilla voz, Molde de rol, Variables de trato, Inmersión.|
+|`ava_201_persona_betty_ES.txt`|Capa 2 (200-299)|Módulo de personalidad oficial: Betty; Doble actitud (confidente vs táctico).|Betty, Personalidad activa, Confidente, Lore histórico, Oficial táctico, Diegético.|
+|`ava_INSTRUCTIONS_ES.txt`|Documentación|Bundle Compilado Maestro. Fusión optimizada sin cabeceras redundantes de `ava_000_core_ES.txt`, `ava_100_log_core_ES.txt` y `ava_201_persona_betty_ES.txt`, listo para copiar en un solo paso al System Prompt.|
+|`README.md`|Documentación|Manual de usuario y guía de despliegue; Ciclo de vuelo, mods, SDK de voz e i18n.|Manual, Instalación, Despliegue, Instrucciones de uso, Traducción.|
+
+================================================================================
+2. ESQUEMA RELACIONAL, CLAVES DE INDEXACIÓN Y UNIDADES
+================================================================================
+
+### 2.1. Mapeo de Identificadores y Claves Primarias
+|Tipo de Clave / Prefijo|Entidad Representada|Archivos de Cruce Principal|Ejemplo Representativo|
+|---|---|---|---|
+|`SS_SH_*`|Naves espaciales|`ava_004_db_ships_ES.txt` ⟷ `ava_008_db_corporations_ES.txt` ⟷ `ava_009_db_plots_ES.txt` ⟷ `ava_006_db_universe_ES.txt` ⟷ `ava_007_db_mechanics_ES.txt`|`SS_SH_A_M3` (Nova)|
+|`SS_LASER_*`|Armamento láser y de haz|`ava_003_db_weapons_ES.txt` ⟷ `ava_004_db_ships_ES.txt` ⟷ `ava_005_db_economy_ES.txt` (Forjas y Dársenas)|`SS_LASER_HEPT` (Lanzador de Plasma)|
+|`SS_MISSILE_*`|Misiles, torpedos y cápsulas|`ava_003_db_weapons_ES.txt` ⟷ `ava_004_db_ships_ES.txt` ⟷ `ava_005_db_economy_ES.txt` ⟷ `ava_006_db_universe_ES.txt` (Cajas)|`SS_MISSILE_A` (Mosquito)|
+|`M_*`|Grupos de compatibilidad de misiles|`ava_004_db_ships_ES.txt` (Columna Misiles) ⟷ `ava_003_db_weapons_ES.txt` (Columna Cod.Grupo)|`M_LIGHT`, `M_MED`, `M_POD`|
+|`SS_SHIELD_*`|Escudos de protección|`ava_003_db_weapons_ES.txt` ⟷ `ava_004_db_ships_ES.txt` ⟷ `ava_005_db_economy_ES.txt` (Fábricas)|`SS_SHIELD_C` (Escudo 25 MJ)|
+|`SS_WARE_*`|Mercancías, software y mejoras|`ava_005_db_economy_ES.txt` ⟷ `ava_007_db_mechanics_ES.txt` ⟷ `ava_008_db_corporations_ES.txt` ⟷ `ava_009_db_plots_ES.txt`|`SS_WARE_WARPING` (Motor de Salto)|
+|`SS_FAC_*`|Fábricas, minas y complejos|`ava_005_db_economy_ES.txt` ⟷ `ava_006_db_universe_ES.txt` (Fábricas NPC)|`SS_FAC_A_POWER_2_ES.txt` (Planta Solar XL)|
+|`SS_DOCK_*`|Dársenas, CGs y bases fijas|`ava_005_db_economy_ES.txt` ⟷ `ava_008_db_corporations_ES.txt` ⟷ `ava_009_db_plots_ES.txt` ⟷ `ava_007_db_mechanics_ES.txt`|`SS_DOCK_P_HQ` (PHQ Jugador)|
+|`(X, Y)`|Coordenadas galácticas de sector|`ava_006_db_universe_ES.txt` ⟷ `ava_009_db_plots_ES.txt` ⟷ `ava_008_db_corporations_ES.txt` ⟷ `ava_005_db_economy_ES.txt`|`(1,3)` = Argon Primero|
+|`X, Y, Z (km)`|Posición local tridimensional HUD|`ava_006_db_universe_ES.txt` (Puertas, Naves gratis, Cajas) ⟷ `ava_009_db_plots_ES.txt`|`X:44.75, Y:9.12, Z:-28.06`|
+|`101..145`|IDs numéricos oficiales de inicio|`ava_008_db_corporations` (`gamestarts.xml` / `start.xml`)|`105` = Humilde Comerciante|
+|`Mineral:Cant(Tot:Y=...)`|Asteroides construibles (admiten minas)|`ava_006_db_universe_ES.txt` ⟷ `ava_005_db_economy` (Fórmula Yield)|`Mena:4(Tot:142 = 90,21,18,13)`|
+|`[Rocas Móvil: ...]`|Escombros minería móvil (triturables)|`ava_006_db_universe_ES.txt` ⟷ `ava_007_db_mechanics_ES.txt` (Globals.txt)|`[Rocas Móvil: Mena:66(Tot:1723)]`|
+
+*Convención de Nombres:* Todos los objetos, mercancías, naves y sectores utilizan el estándar `"Español (Inglés)"` (ej. *Cuna de Leyenda (Legend's Home)*).
+
+### 2.2. Unidades de Medida Estándar del Motor
+|Magnitud|Unidad Oficial en Tablas|Equivalencia / Regla de Conversión|
+|---|---|---|
+|**Energía de Escudos**|Megajulios (`MJ`) / Gigajulios (`GJ`)|`1 GJ = 1.000 MJ = 1.000.000 kJ`|
+|**Daño de Láseres**|Kilojulios (`kJ`) por disparo / `kJ/s` (DPS)|Daño a escudos y casco tabulado por separado.|
+|**Potencia / Consumo**|Megavatios (`MW`) / Kilovatios (`kW`)|`1 MW = 1.000 kW` (Consumo y recarga energética por segundo).|
+|**Velocidad de Vuelo**|Metros por segundo (`m/s`)|Tabulada como `Velocidad Base / Velocidad Máxima`.|
+|**Velocidad de Giro**|Revoluciones por minuto (`RPM`)|Tabulada como `Giro Base / Giro Máximo`.|
+|**Cadencia de Fuego**|Disparos por minuto (`RPM`)|Número de proyectiles emitidos por cañón por minuto.|
+|**Distancia Espacial**|Kilómetros (`km`) / Metros (`m`)|`1 km = 1.000 m` (`1 km = 500` unidades internas de motor).|
+|**Clase de Contenedor**|Jerarquía de bodega estricta|`Tiny < S < M < L < XL < ST` (Una nave solo transporta su clase o inferiores).|
+|**Moneda Oficial**|Créditos (`Cr`)|Unidad económica universal de compra, venta y saldo.|
+|**Notoriedad / Reputación**|Puntos numéricos brutos / Rangos raciales|Escala de `-1.000.000 a +1.000.000` correspondiente a los Rangos `-5 a +10`.|
+|**Rendimiento Mineral (Yield)**|Puntos enteros de riqueza de asteroide|Base `25` (`Mena/Hielo M: 300/h, L: 750/h` \| `Silicio M: 77,4/h, L: 193,5/h`). Prod $\approx \text{Base}_{25} \times (\text{Yield} / 25)$.|
+
+================================================================================
+3. GLOSARIO ENCICLOPÉDICO DE MECÁNICAS DEL MOTOR
+================================================================================
+
+### 3.1. Diferencias de Simulación: IS (In Sector) vs OOS (Out of Sector)
+|Parámetro del Motor|Combate IS (Presencial)|Combate OOS (Remoto / Fuera de Sector)|
+|---|---|---|
+|**Entorno Físico**|Física newtoniana 3D, colisiones y cajas de impacto (*hitboxes*).|Sin física, sin colisiones, sin navegación 3D.|
+|**Resolución Temporal**|Tiempo real continuo fotograma a fotograma.|Turnos matemáticos discretos (cada 5 s en mapa activo; 30 s en mapa cerrado).|
+|**Cálculo de Daño**|Velocidad de proyectil, dispersión, evasión por propulsores (WASD).|100% de puntería fija. Se suma el daño de todos los láseres y se aplica al objetivo.|
+|**Gestión de Energía y Munición**|El acumulador láser (`MW`) y la munición se agotan de forma continua.|Se ignora el agotamiento de energía láser (`MW`), pero **las armas de munición (`MD, EBC, MAML, GC`) SÍ gastan cajas de bodega y quedan a `0 DPS` si se agotan**.|
+|**Área de Efecto (AoE)**|Proyectiles de área (`PBG`, `PSG`, `Flak`) causan múltiples impactos físicos (`12x-20x` DPS en `PBG/PSG`); `FBL` falla al fragmentarse.|Se anula el daño por onda/fragmentación (`PBG/PSG` caen a su bajo DPS nominal; `FBL` aplica el 100% de su DPS); enjambre cuenta como 1 impacto.|
+|**Doctrina Táctica**|Cazas maniobrables, armas de alta velocidad (`PRG`, `PBE`), área (`PBG`) y munición (`EBC`).|Naves pesadas con escudos masivos (`GJ`) y daño alfa máximo (`PSP`, `PPC`, `GC` con bodega abastecida).|
+
+### 3.2. Subclases Tácticas de Naves (Nomenclatura Oficial y Comunitaria)
+*(Nota: Las variantes denominadas Prototipo, Avanzado o Mejorado son reliquias únicas e irremplazables no comprables en astilleros estándar).*
+|Subclase|Definición y Rol Operativo|Características Distintivas frente a la Clase Base|
+|---|---|---|
+|`M5+`|Explorador Avanzado|Alcanza 470-605 m/s, cuenta con bodega clase `M` (admite Escáner Tríplex y Motor de Salto) y monta escudos de 5 MJ o torreta trasera (*Kestrel, Valkyrie*).|
+|`M4+`|Interceptor Pesado|Monta escudos de clase M3 (hasta 3x 25 MJ) y mayor bodega (*Solano, Elite, Asp*).|
+|`M3+`|Caza de Superioridad Aérea|Casco reforzado, escudos de hasta 1x 200 MJ o 4-5x 25 MJ y dos torretas (*Cutlass, Eclipse, LX, Kea*).|
+|`M6M`|Corbeta Pesada (*Heavy M6*)|Mayor generador, 800-1000 MJ de escudo y torretas adicionales (*Hyperion, Skiron, Heavy Centaur*).|
+|`M7C`|Portanaves Ligero (*Light Carrier*)|Fragata con hangar para 9 a 32 cazas y torretas defensivas antipersonal (*Panther, Griffon*).|
+|`M7M`|Fragata de Misiles y Abordaje|Sin cañones frontales; dispara torpedos pesados (*Hammer/Shadow*), enjambres (*Flail/Ghoul*) y Cápsulas de Abordaje (`M_POD`) (*Cobra, Ares*). *(Excepción: Aquilo, Skirnir y Senshi NO lanzan cápsulas M_POD; Sirokos SOLO lanza M_POD sin torpedos)*.|
+|`M8`|Bombardero Táctico|Chasis de caza que dispara torpedos anticapitales pesados (*Tomahawk/Phantom*) a más de 40 km. Nula capacidad antipersonal a corta distancia.|
+|`TM`|Transporte Militar|Carguero protegido (200-600 MJ de escudo) con hangar interno para 3-6 cazas M5/M4/M3.|
+|`TS / TP / TL`|Logística y Transporte|`TS`: Mercancías (hasta 15.000 XL) \| `TP`: Personal y Marines \| `TL`: Carga ST de fábricas.|
+|`M1 / M2`|Fuerza Capital Pesada|`M1`: Portanaves pesados (35-65 cazas) \| `M2`: Destructores pesados (hasta 12-14 GJ de escudo).|
+|`GO`|Nave Singular Goner|Diseños singulares Goner (*Ranger* y *Transporte Militar* tabulados como `GO`; *Truelight Seeker* tabulado bajo clase `M6`, *Ozias* bajo `TL` y *Aran* bajo `M1` en `ava_004_db_ships_ES.txt`).|
+|`OWP`|Plataforma Orbital Armada|Estación de defensa orbital estacionaria (`0 m/s`), generadores masivos y torretas pesadas.|
+
+### 3.3. Progresión del Software de Comercio MK3 (ST / LT / UT)
+* **Adquisición:** `500.832 Cr` (`SS_WARE_SW_NEW13`) en Dársenas Teladi y CG TerraCorp *(Centro de La Luz)*.
+* **Requisitos Operativos:** Nave comercial (`TS/TP/TM`), mínimo 1x Escudo de 25 MJ (o máximo admitido), Software de Combate MK1 y MK2.
+* **Fases de Desarrollo del Piloto Comercial:**
+  - *Niveles 1 a 5 — Sector Trader (ST):* Opera exclusivamente en el sector asignado.  
+    *Sectores óptimos de entrenamiento:* Borde del Imperio `(1,7)`, Espacio de la Reina `(2,0)`, Orilla del Infinito `(5,9)`, Aprovechabien `(5,1)`.
+  - *Niveles 6 a 25 — Local Trader (LT):* Al reiniciar *Sector Trader* en nivel $\ge 6$, permite fijar un radio máximo de saltos alrededor del sector base (`1` salto en niv. 6-7, `2` en niv. 8-9, `3` en niv. 10-11, hasta `10` saltos en niv. 20+). *Doctrina recomendada:* Mantener LTs de nivel 20 con radio de 3 a 5 saltos en regiones seguras evita que entren accidentalmente en sectores Xenon.
+  - *Niveles 8 a 25 — Universe Trader (UT):* Comercio autónomo sin límite geográfico en toda la galaxia. A partir de Nivel 12 adquiere Motor de Salto y gestiona Células de Energía y Drones de Combate defensivos por iniciativa propia.
+
+### 3.4. Catálogo del Official Bonus Pack (Egosoft Certified v4.1.01)
+*Los scripts del Bonus Pack oficial son software firmado: NO activan el indicador de partida modificada (*modified*)*:
+
+* **CAG (Commercial Agent / Agente Comercial):** Automatiza la compra de recursos y venta de productos de una factoría o complejo del jugador mediante un único carguero asignado que sube de rango en su propio sindicato mercantil.
+  - *Coste del comando:* **Gratuito (0 Cr)** (Función integrada en la consola comercial de la nave; no se compra en tiendas).
+  - *Inversión en software base requerido:* `12.369 Cr` (Navegación MK1: 2.945 Cr + Comercio MK1: 5.918 Cr + Comercio MK2: 3.506 Cr). Exige tener asignada una **Base de Origen (*Homebase*)** propia.
+  - *Progresión:* Desbloquea el uso táctico del Motor de Salto al alcanzar el Rango 4 (*Mensajero de Carga / Cargo Messenger*).
+  - *Truco de Reclutamiento en Herron:* Iniciar el comando por primera vez con la nave atracada en la Estación Espacial Libre Argon de *Nebulosa de Herron `(1,2)`* permite contratar directamente pilotos veteranos ya entrenados hasta Rango 4 (con capacidad de salto inmediata).
+
+* **CLS1 (Software Logística de Comercio MK1 — `SS_WARE_SW_NEW6`):** Distribución logística de suministros interna entre estaciones y factorías propiedad del jugador sin transacciones monetarias.
+  - *Coste del software:* **`7.937 Cr`** en Dársenas Argon, CG TerraCorp y Estación Comercial de *Nebulosa de Herron*.
+  - *Inversión en software base requerido:* Software CLS1 + Navegación MK1 (2.945 Cr). Exige tener asignada como **Homebase la estación proveedora**. Usa Motor de Salto desde Rango 4 (*Mensajero de Carga*).
+  - *Truco de Reclutamiento en Herron:* Mismo sindicato que el CAG; iniciar la orden en *Nebulosa de Herron* permite contratar pilotos veteranos hasta Rango 4.
+
+* **CLS2 (Software Logística de Comercio MK2 — `SS_WARE_SW_NEW7`):** Programación de rutas de abastecimiento complejas mediante puntos de parada (*Waypoints*) configurables para suministrar flotas, naves capitales o el HUB.
+  - *Coste del software:* **`10.742 Cr`** en Dársenas Argon, CG TerraCorp y Estación Comercial de *Nebulosa de Herron*.
+  - *Inversión en software base requerido:* Software CLS2 + Navegación MK1 (2.945 Cr). *(A diferencia de CLS1, NO requiere Homebase obligatoria; puede operar de forma autónoma)*.
+  - *Truco de Reclutamiento en Herron:* Comparte sindicato con CAG y CLS1; iniciar la ruta en *Nebulosa de Herron* permite contratar pilotos veteranos hasta Rango 4 listos para saltar.
+
+* **Dockware Manager (Gestor de Almacén de Dársenas):** Comando de estación integrado en Dársenas de Equipo, Estaciones Comerciales y en el PHQ del jugador para fijar límites máximos de inventario por mercancía y evitar saturación de bodega.
+  - *Coste:* **Gratuito (0 Cr)** (Comando integrado en la consola de órdenes de la estación; no requiere mercancías ni software).
+
+* **MDM (Missile Defense Mosquito / Defensa Antimisil Mosquito):** Comando de defensa activa que detecta ojivas enemigas en aproximación y dispara automáticamente misiles Mosquito (`SS_MISSILE_A`) para interceptarlas antes del impacto.
+  - *Coste del comando:* **Gratuito (0 Cr)** (Función integrada en la consola de comandos de la nave).
+  - *Inversión en software base requerido:* `5.918 Cr` (Combate MK1: 2.412 Cr + Combate MK2: 3.506 Cr) + misiles Mosquito en bodega (`M_DMBF`, ~168 Cr/ud).
+  - *Modos de activación (Comandos Adicionales de Nave):*
+    1. *Defensa Antimisil Mosquito:* Protección exclusiva para la propia nave.
+    2. *Defensa Antimisil Mosquito para Convoy:* Protege a la nave insignia y a todos los cazas o naves aliadas que vuelen en su formación o ala de escolta.
+
+* **Turbo Alimentador Mk1 y Mk2 (Turbo Booster MK1 & MK2):** Dispositivo de postcombustión de emergencia vendido exclusivamente en **Dársenas de Equipo Split** que duplica temporalmente la velocidad punta de la nave consumiendo Células de Energía (o energía de los escudos a razón de un 10-20%/s si se agotan las células):
+  - *Coste del dispositivo:* **`1.843.637 Cr`** (Mk1 para cazas/corbetas) / **`17.907.922 Cr`** (Mk2 para naves capitales).
+  - *Activación operativa:* Requiere asignar obligatoriamente una **Tecla de Acceso Rápido (*Hotkey*)** en el menú *Opciones ➔ Controles ➔ Juego / Interfaz*.

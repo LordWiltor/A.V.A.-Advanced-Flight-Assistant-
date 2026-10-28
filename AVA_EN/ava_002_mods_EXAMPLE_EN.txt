@@ -1,0 +1,38 @@
+# A.V.A. (ADVANCED FLIGHT ASSISTANT): ACTIVE MODIFICATIONS REGISTRY AND DELTA OVERRIDE LAYER
+- **Version:** v2.5 EN
+- **File:** `ava_002_mods_EN.txt`
+- **Scope:** X3: Terran Conflict (v3.2 / v3.4 Vanilla + Official Bonus Pack)
+- **Hierarchy:** Layer 0 — Delta Patches (Absolute Priority over Master Files ava_003_ through ava_009_)
+
+================================================================================
+1. ACTIVE OVERRIDES MASTER TABLE (DATA OVERRIDES)
+================================================================================
+Parameters registered in this table invalidate and override corresponding data in Vanilla master files with absolute priority.
+
+|Mod / Patch|Affected File (A.V.A. / Engine)|Internal ID|Parameter / Mechanic|Vanilla Value|Overridden Value (Mod)|Resolved Mechanical Effect|
+|---|---|---|---|---|---|---|
+|`TD_MiniMod` (enenra - Fake Patch 14.cat)|`ava_007_db_mechanics_EN.txt` (`types/Globals.txt`)|`SG_DOCK_STORAGE_FACTOR`|Capacity multiplier for player-owned Equipment Docks and Trading Stations|`0`|`3`|Multiplies Vanilla base storage quota by x6 across all player-owned equipment docks and trading stations (e.g. Energy Cells increase from 2,500 to 15,000 units; Ore from 416 to 2,496 units; 5 MJ Shields from 31 to 186 units; heavy weapons and shields from 2 to 12 units).|
+
+================================================================================
+2. INSTALLED INFRASTRUCTURE SCRIPTS AND LIBRARIES
+================================================================================
+Active tools managed by X-Universe Plugin Manager Advanced. They do not passively alter master data tables unless manually executed.
+
+|Tool / Script|Author|Type|Master Tables Impact|*modified* Flag|Operational In-Game Function|
+|---|---|---|---|---|---|
+|`Cheat Collection Package`|Cycrow|Utility Script|None (passive)|YES (Sets *modified*)|Technical support, mission bug resolution, and development testing.|
+|`Community Plugin Configuration`|Cycrow|Script Library|None (passive)|YES (Sets *modified*)|Unified in-game UI menu for configuring plugins and mods.|
+|`Cycrow Libraries`|Cycrow|Script Library|None (passive)|YES (Sets *modified*)|Shared core function libraries for Plugin Manager scripts.|
+|`Hotkey Manager`|Cycrow|Script Library|None (passive)|YES (Sets *modified*)|Management and interception of mod hotkey bindings.|
+|`Ware Manager`|Cycrow|Script Library|None (passive)|YES (Sets *modified*)|Bridge library for dynamic ware management and injection without savegame corruption.|
+
+================================================================================
+3. GUIDELINES AND TEMPLATES FOR LOGGING FUTURE MODS
+================================================================================
+Standard templates for logging future modifications in Section 1 while keeping the Vanilla purity of the master files intact:
+
+# CASE A — Modification of an existing parameter or statistic (Typically reversible without savegame corruption, e.g. Globals.txt):
+# |Mod Name (Author - Source)|ava_00X_db_file_EN.txt (file/engine)|OFFICIAL_ENGINE_ID|Altered parameter|Original Vanilla value|Active Modified value|Description of actual in-game effect|
+
+# CASE B — Injection of entirely new content or object (Creates permanent savegame dependency if the object exists in the universe):
+# |Mod Name (Author - Source)|ava_00X_db_file_EN.txt (file/engine)|NEW_OFFICIAL_ID|New object added|Non-existent (New)|Stats / Key data|Description of acquisition source or operational behavior|

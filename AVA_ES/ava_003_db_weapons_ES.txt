@@ -1,0 +1,115 @@
+# A.V.A. (ASISTENTE DE VUELO AVANZADO): BASE DE DATOS MAESTRA: ARMAMENTO Y ESCUDOS
+- **Versión:** v2.5 ES
+- **Archivo:** `ava_003_db_weapons_ES.txt`
+- **Universo:** X3: Terran Conflict (v3.2 / v3.4 Vanilla + Official Bonus Pack)
+- **Jerarquía:** CAPA 0 — Catálogo Balístico, Misiles y Escudos (Compilado de TLaser, TBullets, TMissiles, TShields y TWareT)
+
+*(Notas de Índices: Índices según posición interna del motor. Saltos Idx 30/31 en láseres e Idx 19 en misiles corresponden a dummies internos del motor no utilizados.*
+
+================================================================================
+1. TABLA MAESTRA DE LÁSERES (37 ARMAS)
+================================================================================
+
+|Idx|Sigla|ID|Nombre|Categoría|RPM|Vel (m/s)|Alcance (m)|Daño Esc (kJ)|DPS Esc (kJ/s)|Daño Casco|DPS Casco|Ene/s (MW)|Efic (Esc/Casco)|Vol/Cont|Precio (Min/Med/Max) (Notoriedad)|Propiedades Especiales y Consumo|
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+|0|IRE|SS_LASER_IRE|Emisor de Rayos de Impulso (Impulse Ray Emitter)|Ligero (Estándar)|400|1162|1394|220|1467|21|140|26.7|55/5.2|1/S|3926/4674/5422 (10)|Estándar|
+|1|PAC|SS_LASER_PAC|Cañón Acelerador de Partículas (Particle Accelerator Cannon)|Ligero (Estándar)|314.1|703|1926|1155|6047|143|749|120.4|50.2/6.2|3/S|34669/38954/43239 (33)|Estándar|
+|2|MD|SS_LASER_MASS|Impulsor de Masa (Mass Driver)|Ligero (Munición)|740.7|739|998|0|0|15|185|12.3|0/15|1/S|102837/116860/130883 (333)|Ignora escudos; Daño directo a casco. Munición: SS_WARE_AMMUNITION_ALPHA (200 disp/caja, vol:1/S, val:1558). Autonomía: 16,2s fuego continuo por caja. Consumo: 3,70 cajas/min.|
+|3|PRG|SS_LASER_PRG|Arma de Repetición Incrementada (Phased Repeater Gun)|Ligero (Argon)|638.3|1560|2324|680|7234|72|766|138.3|52.3/5.5|4/S|133127/149581/166035 (1000)|Estándar (Alta velocidad de proyectil)|
+|4|EBC|SS_LASER_EBC|Ametralladora de Dardos de Energía (Energy Bolt Chaingun)|Ligero (Teladi/Munición)|394.7|604|2815|1357|8928|217|1428|26.3|339.2/54.2|1/S|129980/151140/172300 (333)|Usa munición: SS_WARE_AMMUNITION_BETA (200 disp/caja, vol:1/S, val:3116). Autonomía: 30,4s fuego continuo por caja. Consumo: 1,97 cajas/min.|
+|5|FBL|SS_LASER_FBL|Lanzagranadas de Fragmentación (Fragmentation Bomb Launcher)|Ligero (Paranid)|189.3|359|1974|2793|8811|471|1486|192.4|45.8/7.7|5/S|180277/202558/224839 (1000)|Fragmentación: 5 sub-proyectiles. [OOS: aplica 100% DPS (8.811 kJ/s); IS: pierde ~85% de daño efectivo por fallo de colisión de submuniciones]|
+|6|HEPT|SS_LASER_HEPT|Lanzador de Plasma de Alta Energía (High Energy Plasma Thrower)|Medio (Estándar)|283|431|2310|1995|9410|332|1566|188.7|49.9/8.3|6/S|124807/140233/155659 (100)|Estándar|
+|7|ID|SS_LASER_IOND|Disruptor Iónico (Ion Disruptor)|Especial (Boron/Iónico)|126.8|2027.3|939|1575|3330|5|11|164.9|20.2/0.1|10/M|241200/280465/319730 (1000)|Arco eléctrico en cadena (inutiliza misiles/sistemas); Drena energía armas (15uds/1s)|
+|8|PBE|SS_LASER_PBE|Emisor de Pulsos Láser (Pulsed Beam Emitter)|Ligero (Alta Cadencia)|1153.8|6980|977|945|18173|35|673|269.2|67.5/2.5|8/M|214400/249302/284204 (1000)|Estándar (Proyectil casi instantáneo: 6.980 m/s; ideal para bailing/capturas)|
+|9|PBG|SS_LASER_PD|Generador de Estallido Plasmático (Plasma Burst Generator)|Ligero (Pirata/Área)|54.8|375|788|468|427|120|110|50.2|8.5/2.2|7/S|109265/128547/147829 (33)|Onda expansiva AoE. [OOS: solo 427 kJ/s; IS: multi-impacto continuo en hitbox x12-20 (~6.000+ kJ/s esc), letal contra M3/M6/Capitales. Solo en Forjas Piratas o botín]|
+|10|EMPC|SS_LASER_EMP|Cañon de Plasma Electro-Magnético (Electro-Magnetic Plasma Cannon)|Ligero (Terran)|157.1|588|2002|2000|5236|800|2094|81.2|64.5/25.8|5/S|306408/322535/338662 (1000)|Estándar|
+|11|CIG|SS_LASER_CIG|Generador de Impulsos de Concusión (Concussion Impulse Generator)|Medio Corbeta (Estándar)|75|420|3465|7845|9806|2615|3269|307.5|31.9/10.6|25/M|408357/448744/489131 (1000)|Efecto concusión (desestabiliza y empuja cazas)|
+|12|IPG|SS_LASER_IPG|Generador de Pulsos Iónicos (Ion Pulse Generator)|Medio Corbeta (Boron)|62.5|347|3886|12563|13086|523|545|475|27.6/1.1|28/M|444381/483023/521665 (3333)|Drena energía armas (20uds/1.2s); Ralentiza velocidad del objetivo|
+|13|ISR|SS_LASER_ESR|Mortero de Cascos Iónicos (Ion Shard Railgun)|Medio Corbeta (Split)|230.8|498|3337|2671|10273|962|3700|476.9|21.5/7.8|22/M|405521/445628/485735 (3333)|Drena energía armas; Reduce velocidad del objetivo (45%)|
+|14|MAML|SS_LASER_MAM|Lanzador de Anti-Materia (Matter/Anti-Matter Launcher)|Medio Corbeta (Terran/Munición)|72|445|3627|8350|10024|3095|3715|54|185.6/68.8|21/M|433787/451861/469935 (3333)|Usa munición: SS_WARE_TR_TECH7 (200 disp/caja, vol:4/S, val:2078). Autonomía: 166,6s fuego continuo por caja (2m 46s). Consumo: 0,36 cajas/min.|
+|15|FAA|SS_LASER_FLAK_ALPHA|Artillería AntiAérea (Flak Artillery Array)|Antiaéreo (Teladi)|55.6|7051|2115|13860|12833|2093|1938|629.6|20.4/3.1|30/L|579628/623256/666884 (3333)|Detonación antiaérea instantánea (Flak AoE)|
+|16|CFA|SS_LASER_FLAK_CLUSTER|Artillería AntiAérea de Fragmentación (Cluster Flak Array)|Antiaéreo (Argon)|61.5|2200|1980|11781|12083|1758|1803|692.3|17.5/2.6|33/L|587730/638837/689944 (10000)|Detonación antiaérea en cascada: fragmentación 4x3 submuniciones AoE|
+|17|PALC|SS_LASER_PAL|Cañon Láser de Fase Gradual (Phased Array Laser Cannon)|Antiaéreo Rayo (Split)|142.9|2561|6377|3969|9450|2970|7071|278.6|33.9/25.4|32/L|608610/654419/700228 (10000)|Rayo instantáneo sostenido (Beam). [No comprable: única fuente 2 uds en caja oculta de Sector Kha'ak 841 en Trama Furia Final]|
+|18|PSG|SS_LASER_PSG|Generador de Onda de Choque (Phased Shockwave Generator)|Antiaéreo Onda (Paranid)|76|254|1443|1996|2530|106|134|569.1|4.4/0.2|28/L|567163/623256/679349 (10000)|Onda expansiva cónica AoE. [OOS: solo 2.530 kJ/s; IS: multi-impacto masivo x10-20 contra naves grandes y enjambres; alto riesgo de fuego amigo]|
+|19|SSC|SS_LASER_TERRANANTIFIGHTER|Cañon de Onda de Choque Starburst (Starburst Shockwave Cannon)|Antiaéreo (Terran)|38|2000|2000|20785|13163|3374|2137|760|17.3/2.8|28/L|604558/623256/641954 (10000)|Detonación antiaérea (Flak pesado)|
+|20|PPC|SS_LASER_PPC|Cañon de Pulsos Fotónicos (Photon Pulse Cannon)|Pesado Capital (Estándar)|43.8|333|6623|63778|46553|11340|8277|420.4|110.7/19.7|100/XL|878791/934884/990977 (3333)|Sobrecargable (disparo cargado: daño x4 / energía x4)|
+|21|IC|SS_LASER_IONC|Cañón Iónico (Ion Cannon)|Pesado Capital (Boron)|33.3|387|5128|119148|66193|6840|3800|503.9|131.4/7.5|150/XL|925146/973838/1022530 (10000)|Drena energía armas (30uds/1.6s); Ralentiza nave; Sobrecargable (daño x3 / energía x2)|
+|22|GC|SS_LASER_GAUSS|Cañon Gauss (Gauss Cannon)|Pesado Capital (Teladi/Munición)|88.8|353|4787|28540|42219|12130|17944|127.2|331.9/141|55/XL|676715/727651/778587 (10000)|Usa munición: SS_WARE_AMMUNITION_GAMMA (200 disp/caja, vol:25/L, val:15581). Autonomía: 135,1s fuego continuo por caja (2m 15s). Consumo: 0,44 cajas/min.|
+|23|IBL|SS_LASER_IBL|Lanzador de Bombas Incendiarias (Incendiary Bomb Launcher)|Pesado Capital (Pirata/Yaki)|54.5|312|5148|50860|46236|9000|8182|478.2|96.7/17.1|110/XL|782498/841396/900294 (1000)|Sobrecargable (disparo cargado: daño x2 / energía x2). [Solo en Forjas Pirata/Yaki (LooManckStrats / Tempestad del Tejedor) o botín capital]|
+|24|PSP|SS_LASER_PSP|Proyector de Punto de Singularidad (Point Singularity Projector)|Pesado Capital (Terran)|6|321|6420|252310|25231|95812|9581|250|100.9/38.3|200/XL|957836/1029931/1102026 (33333)|Sobrecargable (disparo cargado: daño x2 / energía x2)|
+|25|PBC|SS_LASER_PBC|Cañón de Plasma Láser (Plasma Beam Cannon)|Pesado Rayo (Argon)|100|10644|5854|7182|11970|2700|4500|336.7|35.6/13.4|120/XL|886114/942675/999236 (10000)|Rayo instantáneo sostenido (Beam). [Sin fábricas en Vanilla; solo equipada de serie en Torres Láser o naves capturadas]|
+|26|TBC|SS_LASER_TRIBEAM|Cañón de Plasma Láser "Haz Triple" (Tri-Beam Cannon)|Pesado Rayo (Paranid)|88.9|5630|6193|7532|11159|5321|7883|374.8|29.8/21|135/XL|905155/962931/1020707 (10000)|Rayo instantáneo sostenido (Beam). [Prototipo sin fábricas ni venta en Vanilla]|
+|27|FBC|SS_LASER_FUSIONBEAM|Cañon de Fusion Láser (Fusion Beam Cannon)|Pesado Rayo (Terran)|142.9|2660.8|6633|3780|9000|5400|12857|278.6|32.3/46.2|30/L|964100/973838/983576 (3333)|Rayo instantáneo sostenido (Beam). [Prototipo sin fábricas ni venta en Vanilla]|
+|28|MDS|SS_LASER_MINING|Sistema de Perforación Móvil (Mobile Drilling System)|Utilidad Especial|3|84|4830|2362|118|6500|325|20.8|5.7/15.7|100/XL|67000/77907/88814 (-100)|Minería móvil: fragmenta asteroides grandes|
+|29|TB|SS_LASER_TUG|Rayo Tractor (Tractor Beam)|Utilidad Especial|120|4000|2000|0|0|0|0|2000|0/0|50/S|763489/779070/794651 (333)|Rayo tractor de remolque de estaciones y naves (Enganche: 2.000 m; rotura de enlace en remolque: 1.332 m a máx. 80 m/s)|
+|32|AKE|SS_LASER_KH_ALPHA|Emisor de Kyones Alpha (Alpha Kyon Emitter)|Rayo (Kha'ak)|200|5994|1798|700|2333|350|1167|56.7|41.2/20.6|1/S|No comprable (val: 4674)|Rayo instantáneo (Beam Kha'ak)|
+|33|BKE|SS_LASER_KH_BETA|Emisor de Kyones Beta (Beta Kyon Emitter)|Rayo (Kha'ak)|120|9765.8|3418|2500|5000|1500|3000|300|16.7/10|5/M|No comprable (val: 46744)|Rayo instantáneo (Beam Kha'ak)|
+|34|GKE|SS_LASER_KH_GAMMA|Emisor de Kyones Gamma (Gamma Kyon Emitter)|Rayo (Kha'ak)|85.7|12143|4857|7500|10714|4500|6429|714.3|15/9|25/XL|No comprable (val: 116860)|Rayo instantáneo (Beam Kha'ak)|
+|35|RL|SS_LASER_REPAIR|Láser Reparador (Repair Laser)|Utilidad Especial|300|4400|2200|0|0|20|100|100|0/1|1/Tiny|No comprable (val: 65)|Rayo instantáneo (Beam); Repara casco al impactar (Exclusivo traje espacial; alcance efectivo HUD: 200 m)|
+|36|EEMPC|SS_LASER_EMP_1|Experimental Cañon de Plasma Electro-Magnético (Experimental Electro-Magnetic Plasma Cannon)|Prototipo (Aldrin)|140.8|588|2002|2000|4695|800|1878|72.8|64.5/25.8|5/S|320467/323704/326941 (1000)|Estándar (Versión prototipo Aldrin)|
+|37|PMAML|SS_LASER_MAM_1|Prototipo Lanzador de Anti-Materia (Prototype Matter/Anti-Matter Launcher)|Prototipo (Aldrin)|64|445|3627|8350|8911|3095|3303|48|185.6/68.8|21/M|442824/451861/460898 (3333)|Usa munición: SS_WARE_TR_TECH7 (200 disp/caja, vol:4/S, val:2078). Autonomía: 187,5s fuego continuo por caja (3m 07s). Consumo: 0,32 cajas/min.|
+|38|PSSC|SS_LASER_TERRANANTIFIGHTER_1|Prototipo Cañon de Onda de Choque Starburst (Prototype Starburst Shockwave Cannon)|Prototipo (Aldrin)|34|2000|2000|20785|11776|3374|1912|679.9|17.3/2.8|28/XL|567163/623256/679349 (10000)|Detonación antiaérea (Flak prototipo Aldrin). [Requiere bodega XL: solo equipable en Springblossom; no cabe en cazas de Aldrin]|
+
+================================================================================
+2. TABLA MAESTRA DE MISILES (35 MISILES)
+================================================================================
+
+|Idx|Cod.Grupo|ID|Nombre|Categoría|Daño Total|Vel (m/s)|Acel (m/s²)|Alcance (km)|Radio Expl (m)|Giro (rpm)|Recarga (s)|Vol/Cont|Precio (Min/Med/Max) (Notoriedad)|Propiedades y Guiado|
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+|0|M_DMBF|SS_MISSILE_A|Misil Mosquito (Mosquito Missile)|Ligero / Interceptor|200|590|240|14.7|0|158.3|0.25|1/S|126/168/210 (0)|Guiado (Ideal defensa antimisil con MDM)|
+|1|M_LIGHT|SS_MISSILE_B|Misil Wasp (Wasp Missile)|Ligero Guiado|8000|560|130|18.1|2.4|48|0.75|1/S|1077/1346/1615 (33)|Enjambre (8x 1000 daño); Guiado|
+|2|M_DMBF|SS_MISSILE_C|Misil Dragonfly (Dragonfly Missile)|Ligero / Interceptor|5000|250|220|18.8|20|54|0.5|1/S|778/1010/1242 (33)|Fuego libre (Dumbfire)|
+|3|M_LIGHT|SS_MISSILE_D|Misil Silkworm (Silkworm Missile)|Ligero Guiado|19000|190|70|28.4|20|30|1|2/S|4291/5048/5805 (33)|Guiado|
+|4|M_HEAVY|SS_MISSILE_E|Misil Hornet (Hornet Missile)|Pesado / Torpedo|200000|186|50|31.2|100|6|1.5|3/M|8885/10097/11309 (3333)|Guiado pesado|
+|5|M_LIGHT|SS_MISSILE_F|Misil Disruptor (Disruptor Missile)|Ligero Guiado|6000|514.8|260|40|0.6|107.8|0.75|1/S|2760/3366/3972 (333)|Guiado rápido. [No comprable ni fabricable; exclusivo botín Pirata/Yaki/Xenon; demandado en contratos M02 de Corporación]|
+|6|M_KHAAK|SS_MISSILE_1|Sting|Guiado Kha'ak|4000|257.2|400|40|200|110.2|0.25|1/S|No comprable (val: 3366)|Guiado; Espoleta proximidad|
+|7|M_KHAAK|SS_MISSILE_2|Needle|Guiado Kha'ak|7450|174.3|360|26.7|200|55.9|0.5|2/S|No comprable (val: 6731)|Guiado; Espoleta proximidad|
+|8|M_KHAAK|SS_MISSILE_3|Thorn|Guiado Kha'ak|15000|158.6|320|17.8|400|7.1|1|3/M|No comprable (val: 13462)|Guiado; Espoleta proximidad|
+|9|M_DMBF|SS_MISSILE_DMBF|Misil Firefly (Firefly Missile)|Ligero / Interceptor|1500|576|240|25|4|0|0.25|1/S|170/224/278 (0)|Fuego libre (Dumbfire)|
+|10|M_MED|SS_MISSILE_HTSK|Misil Thunderbolt (Thunderbolt Missile)|Medio Táctico|75000|195|100|78|20|55.9|1.5|6/M|7236/8414/9592 (333)|Guiado; Rastreo térmico|
+|11|M_MED|SS_MISSILE_FF|Misil Tempest (Tempest Missile)|Medio Táctico|60000|195|80|62.4|20|55.9|2|5/M|11847/13462/15077 (3333)|Guiado; Re-adquisición automática de blanco|
+|12|M_LIGHT|SS_MISSILE_PROX|Misil Hurricane (Hurricane Missile)|Ligero Guiado|6000|471.2|240|30|200|131.7|1|3/S|3352/4039/4726 (333)|Guiado; Espoleta proximidad|
+|13|M_MED|SS_MISSILE_PROXTRAK|Misil Cyclone (Cyclone Missile)|Medio Táctico|23000|148.9|24|60|20|12.6|1.5|3/M|18175/20194/22213 (3333)|Guiado; Espoleta proximidad|
+|14|M_MED|SS_MISSILE_SWRMDMBF|Misil Tornado (Tornado Missile)|Medio Táctico|400000|312.5|240|25|40|0|2|8/M|14977/16828/18679 (3333)|Enjambre (8x 50000 daño); Fuego libre (Dumbfire)|
+|15|M_HEAVY|SS_MISSILE_SWRM|Misil Typhoon (Typhoon Missile)|Pesado / Torpedo|240000|195|50|74.9|20|12|2|3/M|30290/33656/37022 (3333)|Enjambre (8x 30000 daño); Guiado|
+|16|M_HEAVY|SS_MISSILE_TORP|Torpedo Firestorm (Firestorm Torpedo)|Pesado / Torpedo|1000000|165|10|99|1000|1.1|5|7/M|75121/80775/86429 (3333)|Guiado; Torpedo pesado anticapital (~1km radio)|
+|17|M_DMBF|SS_MISSILE_SYN|Misil Aurora (Aurora Missile)|Ligero / Interceptor|8000|589|240|18.7|200|108.7|3|3/S|1615/2019/2423 (333)|Fuego libre (Dumbfire); Detonación manual|
+|18|M_LIGHT|SS_MISSILE_RGW|Cabeza Armada Guiada por Control Remoto (Remote Guided Warhead)|Ligero Guiado|100000|142.7|40|80|100|5.9|4|3/S|No comprable (val: 26925)|Guiado remoto manual|
+|20|M_MED|SS_MISSILE_TR2|Misil Hammerhead (Hammerhead Missile)|Medio Táctico|1250000|172|16|86|1200|1.1|3|1/M|No comprable (val: 80775)|Guiado; Torpedo pesado anticapital (~1.2km radio)|
+|21|M_DMBF|SS_MISSILE_NEW1|Misil Rapier (Rapier Missile)|Ligero / Interceptor|1000|657.5|220|100|8|94.5|0.25|1/S|No comprable (val: 1346)|Guiado muy rápido|
+|22|M_DMBF|SS_MISSILE_NEW2|Misil Firelance (Firelance Missile)|Ligero / Interceptor|4500|500.1|240|50|150|121.8|0.5|1/S|No comprable (val: 2692)|Fuego libre (Dumbfire)|
+|23|M_LIGHT|SS_MISSILE_NEW3|Misil Wildfire (Wildfire Missile)|Ligero Guiado|15000|246.6|160|33.3|20|110.2|0.75|1/S|No comprable (val: 3366)|Guiado; Re-adquisición automática de blanco|
+|24|M_MED|SS_MISSILE_NEW4|Misil Windstalker (Windstalker Missile)|Medio Táctico|30000|179.1|90|22.2|40|55.9|1|1/S|No comprable (val: 6731)|Fuego libre (Dumbfire); Detonación manual|
+|25|M_MED|SS_MISSILE_NEW5|Misil Banshee (Banshee Missile)|Medio Táctico|74000|153.1|160|14.8|100|7.1|1|1/S|No comprable (val: 13462)|Guiado táctico|
+|26|M_TR_H|SS_MISSILE_WRAITH|Misil Wraith (Wraith Missile)|Pesado Enjambre (Terran)|1000000|170|5|51|750|0.6|6|1/L|30290/33656/37022 (3333)|Enjambre (8x 125000 daño); Guiado; Rastreo térmico; Espoleta proximidad; Torpedo pesado|
+|27|M_TR_L|SS_MISSILE_POLTERGEIST|Misil Poltergeist (Poltergeist Missile)|Ligero Enjambre (Terran)|12000|250|120|12.5|5|122.7|1.5|2/S|3029/3366/3703 (33)|Enjambre (8x 1500 daño); Guiado; Re-adquisición automática de blanco|
+|28|M_TR_M|SS_MISSILE_SPECTRE|Misil Spectro (Spectre Missile)|Medio Pesado (Terran)|260000|190|10|24.7|20|10.8|2|5/M|6675/7853/9031 (333)|Guiado; Rastreo térmico; Espoleta proximidad|
+|29|M_M8|SS_MISSILE_BOMBER|Misil Pesado Tomahawk (Tomahawk Heavy Missile)|Torpedo Bombardero M8|625000|196|100|43.1|75|4.8|4|2/M|20866/22437/24008 (3333)|Guiado; Re-adquisición automática de blanco; Exclusivo M8|
+|30|M_M7M_TORP|SS_MISSILE_TORP_CAPITAL|Torpedo Pesado "Martillo" (Hammer Heavy Torpedo)|Torpedo Fragata M7M|300000|253|132|75.9|150|6|1.25|20/L|46950/50484/54018 (3333)|Guiado; Re-adquisición automática; Espoleta proximidad; Exclusivo M7M|
+|31|M_M7M_AF|SS_MISSILE_AF_CAPITAL|Misil Flail Barrage (Flail Barrage Missile)|Antiaéreo Fragata M7M|40000|486|260|58.3|10|106.2|2|5/M|26925/33656/40387 (33)|Enjambre (8x 5000 daño); Guiado; Re-adquisición automática; Exclusivo M7M|
+|32|M_TR_M8|SS_MISSILE_USC_BOMBER|Misil Phantom (Phantom Missile)|Torpedo Bombardero M8 (Terran)|650000|212|111|53|100|3|3.2|1/M|20866/22437/24008 (3333)|Guiado; Re-adquisición automática; Espoleta proximidad; Exclusivo M8 Terran|
+|33|M_TR_M7M_TORP|SS_MISSILE_USC_TORP_CAPITAL|Misil Shadow (Shadow Missile)|Torpedo Fragata M7M (Terran)|6040000|245|137|80.8|162|3|4|18/L|49559/53289/57019 (3333)|Enjambre (8x 755000 daño); Guiado; Re-adquisición; Espoleta proximidad; Exclusivo Skirnir M7M|
+|34|M_TR_M7M_AF|SS_MISSILE_USC_AF_CAPITAL|Misil Ghoul (Ghoul Missile)|Antiaéreo Fragata M7M (Terran)|52000|450|275|56.2|15|105|2.4|3/M|26925/33656/40387 (33)|Enjambre (8x 6500 daño); Guiado; Re-adquisición; Espoleta proximidad; Exclusivo Skirnir M7M|
+|35|M_POD|SS_MISSILE_BOARDINGPOD|Cápsulas de Abordaje (Boarding Pod)|Cápsula Abordaje (M7M)|5|480|40|76.8|0|48|4|3/S|75121/80775/86429 (3333)|Transporta hasta 5 marines para abordar naves capitales (Excepción: Aquilo, Skirnir y Senshi no las disparan)|
+
+### 2.1. Índice de Selección Rápida de Misiles por Rol Táctico
+|Rol Táctico Operativo|Características de Combate|Misiles Compatibles|
+|---|---|---|
+|**Enjambre (Swarm - 8 Cabezas)**|Satura defensas de torretas; divide el daño entre 8 submuniciones independientes.|*Wasp, Tornado, Typhoon, Wraith, Misil Poltergeist, Flail Barrage, Shadow, Ghoul.*|
+|**Re-adquisición Automática (Retargeting)**|Si el objetivo original es destruido antes del impacto, busca automáticamente un nuevo blanco enemigo cercano.|*Tempest, Wildfire, Misil Poltergeist, Tomahawk, Torpedo "Martillo" (Hammer), Flail Barrage, Phantom, Shadow, Ghoul.*|
+|**Espoleta de Proximidad (Flak)**|Detona automáticamente al pasar cerca del objetivo sin requerir colisión física directa.|*Sting, Needle, Thorn, Hurricane, Cyclone, Wraith, Spectro (Spectre), Torpedo "Martillo" (Hammer), Phantom, Shadow, Ghoul.*|
+|**Torpedo Pesado Anticapital (>=200.000 Daño)**|Diseñado para destruir corbetas, fragatas, destructores y estaciones espaciales; velocidad moderada y alto poder destructivo.|*Hornet (200k), Typhoon (240k), Spectro (260k), Torpedo "Martillo" (300k), Tornado (400k), Tomahawk (625k), Phantom (650k), Firestorm (1M), Wraith (1M), Hammerhead (1.25M), Shadow (6.04M).*|
+|**Interceptores Ligeros / Antimisil (MDM)**|Alta velocidad (>500 m/s) para destruir cazas ligeros M5 o interceptar misiles entrantes con el software MDM.|*Mosquito (590 m/s), Firefly (576 m/s), Aurora (589 m/s), Rapier (657.5 m/s), Firelance (500.1 m/s).*|
+
+================================================================================
+3. TABLA MAESTRA DE ESCUDOS (6 ESCUDOS)
+================================================================================
+
+|Idx|ID|Nombre|Capacidad (MJ)|Consumo Gen (kW)|Recarga Máx (kJ/s)|Tiempo Recarga 0-100% (s)|Vol/Cont|Precio (Min/Med/Max) (Notoriedad)|Chasis de Nave Habituales|
+|---|---|---|---|---|---|---|---|---|---|
+|0|SS_SHIELD_A|Escudo 1 MJ (1 MJ Shield)|1|33|32.67 (Efic: 99%)|30.6|1/S|4155/5194/6233 (-100)|`M5`, Traje espacial de astronauta.|
+|1|SS_SHIELD_B|Escudo 5 MJ (5 MJ Shield)|5|83|78.85 (Efic: 95%)|63.4|3/S|17243/20775/24307 (-100)|`M5+`, `M4` estándar.|
+|2|SS_SHIELD_C|Escudo 25 MJ (25 MJ Shield)|25|250|225 (Efic: 90%)|111.1|10/M|74557/85698/96839 (333)|`M4+`, `M3`, `M3+`, `TS`, `TP`.|
+|3|SS_SHIELD_D|Escudo 200 MJ (200 MJ Shield)|200|1500|1350 (Efic: 90%)|148.1|25/L|140233/155814/171395 (333)|`M3+` pesados, `M6`, `M6M`, `M8`, `TM`, `TL`, `OWP Pequeña`.|
+|4|SS_SHIELD_E|Escudo 1 GJ (1 GJ Shield)|1000|2000|1800 (Efic: 90%)|555.6|77/XL|275230/299163/323096 (3333)|`M7` fragatas, `M7C`, `M7M` estándar, `OWP Mediana`.|
+|5|SS_SHIELD_F|Escudo 2 GJ (2 GJ Shield)|2000|2000|1700 (Efic: 85%)|1176.5|222/XL|703033/747907/792781 (3333)|`M1` portanaves, `M2` destructores, `M7M` pesadas (*Ares, Gannet, Skirnir, Aquilo*), `OWP Grande`, `Aran`.|
